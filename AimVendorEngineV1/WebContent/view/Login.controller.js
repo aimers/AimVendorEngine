@@ -63,8 +63,8 @@ sap.ui.controller("sap.ui.medApp.view.Login",
 					
 					 param =   {
 							 
-								//"USRID" : this.oModel.getProperty("/LoggedUser/USRID")
-							 "USRID" : 8
+								"USRID" : this.oModel.getProperty("/LoggedUser/USRID")
+							 //"USRID" : 8
 						 
 						} ;
 					
@@ -121,13 +121,7 @@ sap.ui.controller("sap.ui.medApp.view.Login",
 					sessionStorage.setItem("medAppUID", oData.results.USRID);
 					sessionStorage.setItem("medAppPWD", oData.results.UERPW);
 					this.oModel.setProperty("/LoggedUser", oData.results);
-					if (this.parameter.flagID == 2) {
-						this._oRouter.navTo("ConfirmBooking", {
-							"UID" : sessionStorage.medAppUID
-						});
-					} else {
-						this._oRouter.navTo('home');
-					}
+					this._oRouter.navTo('home');
 				}
 			},
 			handleForgetPassword : function() {

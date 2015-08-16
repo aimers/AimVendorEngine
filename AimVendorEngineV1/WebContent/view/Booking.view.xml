@@ -18,21 +18,22 @@
 					</Column>
 
 				</columns>
-				
-				    <headerToolbar>
-      <Toolbar>
-        <Title id="dateTitle" level="H2"/>
-        <ToolbarSpacer></ToolbarSpacer>
 
-        <Select change="handleEntityChange"
-          items="{
-            path: '/vendorList/Rules',
+				<headerToolbar>
+					<Toolbar>
+						<Title text="Appointment Date:"/>
+						<Title id="dateTitle" level="H2" />
+						<ToolbarSpacer></ToolbarSpacer>
+						<Select change="handleEntityChange" id="entitySelect"
+							items="{
+            path: '/vendorsList/0/Rules',
             sorter: { path: 'ENTID' }
           }">
-          <core:Item key="{ENTID}" text="{ENTID}" />
-        </Select>
-      </Toolbar>
-    </headerToolbar>
+							<c:Item key="{ENTID}" text="{ENTID}" />
+						</Select>
+
+					</Toolbar>
+				</headerToolbar>
 				<items>
 					<ColumnListItem>
 						<cells>

@@ -1,8 +1,7 @@
 sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking", {
 
 	onInit : function() {
-        this.oModel = sap.ui.medApp.global.util.getMainModel();
-        this.getView().setModel(this.oModel);
+		this.oModel = sap.ui.medApp.global.util.getMainModel();
 		this.oData = {
 			"Bookings" : [ {
 				"time" : "8:00 AM",
@@ -103,8 +102,8 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking", {
 			]
 		};
 
-		//this.oModel = new sap.ui.model.json.JSONModel();
-		//this.oModel.setData(this.oData);
+		// this.oModel = new sap.ui.model.json.JSONModel();
+		// this.oModel.setData(this.oData);
 
 		// set a handler to handle the routing event
 		sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
@@ -112,18 +111,27 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking", {
 	},
 	onRouteMatched : function(oEvent) {
 		var oView = this.getView();
-		var oLoginDetails = this.oModel.getProperty("/LoggedUser");
-		
-		//sap.ui.medApp.global.util.loadVendorRules();
-		
 		if (oEvent.getParameter("name") === "bookings") {
-			var oTable = oView.byId("idBookings");
-			oTable.setHeaderText("Appointment Date: "+ oEvent.getParameter("arguments").date);
+			var oDate = oEvent.getParameter("arguments").date;
+			var oSeletedItem = oView.byId("entitySelect").getSelectedItem();
+			var sPath = oSeletedItem.getBindingContext().sPath;
+			var oLoginDetails = this.oModel.getProperty("/LoggedUser");
+			param = {
+				"USRID" : this.oModel.getProperty("/LoggedUser/USRID"),
+				"RULID" : this.oModel.getProperty(sPath + "/RULID"),
+				"ETYID" : this.oModel.getProperty(sPath + "/ETYID"),
+				"ETCID" : this.oModel.getProperty(sPath + "/ETCID"),
+				"ENTID" : oView.byId("entitySelect").getSelectedKey(),
+				"STDATE" : oDate,
+				"ENDATE" : oDate
+			};
+			sap.ui.medApp.global.util.loadVendorRules(param);
+			oView.byId("dateTitle").setText();
 		}
-		this.getView().setModel(this.oModel);
+		oView.setModel(this.oModel);
 	},
-	handleEntityChange:function(){
-		
+	handleEntityChange : function() {
+
 	}
 
 });

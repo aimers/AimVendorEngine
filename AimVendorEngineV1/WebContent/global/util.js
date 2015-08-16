@@ -250,26 +250,26 @@ sap.ui.medApp.global.util = {
 				this._mainModel);
 		var param = [ {
 			"key" : "USRID",
-			"value" : "2"
+			"value" : paramValue.USRID
 		}, {
 			"key" : "RULID",
-			"value" : "1"
+			"value" : paramValue.RULID
 		}, {
 			"key" : "ETYID",
-			"value" : "1"
+			"value" : paramValue.ETYID
 		}, {
 			"key" : "ETCID",
-			"value" : "1"
+			"value" : paramValue.ETCID
 		}, {
 			"key" : "ENTID",
-			"value" : "1"
+			"value" : paramValue.ENTID
 		},
 		 {
 			"key" : "STDATE",
-			"value" : "15-08-2015"
+			"value" : paramValue.STDATE
 		}, {
 			"key" : "ENDATE",
-			"value" : "16-08-2015"
+			"value" : paramValue.ENDATE
 		}]
 		this._vendorListServiceFacade.getRecords(null, null, "/vendorRules",
 				"getVendorRuleDetail", param);
