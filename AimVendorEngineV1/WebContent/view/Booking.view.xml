@@ -3,17 +3,17 @@
 	xmlns:c="sap.ui.core" xmlns="sap.m">
 	<Page id="booking" title="{i18n>BOOKING_TITLE}">
 		<content>
-			<Table id="idBookings" inset="true"
+			<Table id="idBookings" inset="true" class="rightBlackBorder"
 				items="{
-			path: '/Bookings'
+			path: '/vendorRules/0/TimeSlots/'
 			 
 		}">
 
 				<columns>
-					<Column width="12em">
+					<Column width="12em" >
 						<Text text="{i18n>Time}" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true">
+					<Column minScreenWidth="Tablet" demandPopin="true" >
 						<Text text="{i18n>APPOINTMENTS}" />
 					</Column>
 
@@ -21,7 +21,7 @@
 
 				<headerToolbar>
 					<Toolbar>
-						<Title text="Appointment Date:"/>
+						<Title text="Appointment Date:" level="H2"/>
 						<Title id="dateTitle" level="H2" />
 						<ToolbarSpacer></ToolbarSpacer>
 						<Select change="handleEntityChange" id="entitySelect"
@@ -29,16 +29,16 @@
             path: '/vendorsList/0/Rules',
             sorter: { path: 'ENTID' }
           }">
-							<c:Item key="{ENTID}" text="{ENTID}" />
+							<c:Item key="{ENTID}" text="{DESCR}" />
 						</Select>
 
 					</Toolbar>
 				</headerToolbar>
 				<items>
 					<ColumnListItem>
-						<cells>
+						<cells >
 
-							<Text text="{time}" />
+							<Text text="{START}"/>
 							<FlexBox alignItems="Start"
 								items="{
 									path: 'appointment'

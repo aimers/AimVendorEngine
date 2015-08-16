@@ -139,7 +139,10 @@ public class Convertor {
 	    List<Date> dates = new ArrayList<Date>();
 	    Calendar calendar = new GregorianCalendar();
 	    calendar.setTime(startdate);
-
+	    if(startdate.toString().equals(enddate.toString())){
+	    	Date result = calendar.getTime();
+	        dates.add(result);
+	    }
 	    while (calendar.getTime().before(enddate))
 	    {
 	        Date result = calendar.getTime();

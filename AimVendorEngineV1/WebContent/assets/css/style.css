@@ -255,3 +255,8 @@ background: #4ECDC4 !important;
 .hide{
 	display:none !important;
 }
+
+.rightBlackBorder td{
+border-right: 1px solid black !important;
+}
+

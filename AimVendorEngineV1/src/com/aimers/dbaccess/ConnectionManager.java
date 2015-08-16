@@ -55,7 +55,7 @@ public class ConnectionManager {
 				conn = DriverManager.getConnection(url+db+"?autoReconnect=true", user, password);
 			}
 			stm = conn.createStatement();
-			conn.createStatement().executeQuery("select count(*) from usmt");
+			conn.createStatement().executeQuery("select count(*) from usrmt");
 		} catch (SQLException e) {
 			retries = retries + 1;
 			System.out.println("Mysql Connection Error: "+e); 
@@ -75,7 +75,7 @@ public class ConnectionManager {
 	public static void main(String args[]){
 		Connection conn = ConnectionManager.Connect("MYSQL");
 		try {
-			System.out.println(conn.createStatement().executeQuery("select count(*) from vempt").getFetchSize()+"");
+			System.out.println(conn.createStatement().executeQuery("select count(*) from usrmt").getFetchSize()+"");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

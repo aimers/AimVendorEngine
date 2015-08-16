@@ -57,6 +57,7 @@ public class VendorCommand extends aimCommand {
 			" `addmt`.`LNDMK`, "+
 			" `addmt`.`LOCLT`, "+
 			" `addmt`.`CTYID`, "+
+			" `ctymt`.`CTYNM`, "+
 			" `addmt`.`PINCD`, "+
 			" `addmt`.`LONGT`, "+
 			" `addmt`.`LATIT` "+
@@ -72,7 +73,10 @@ public class VendorCommand extends aimCommand {
 			" left outer join "+
 			" `addmt` "+
 			" on "+
-			" `addmt`.`ADRID` = `uadmp`.`ADRID` "+
+			" `addmt`.`ADRID` = `uadmp`.`ADRID` "
+			+ "left outer join  `ctymt`  "
+			+ " on  "
+			+ " `addmt`.`CTYID` = `ctymt`.`CTYID`"+
 			//" left outer join `BOOKINGDB`.`VEMPT`  "+
 			//" on  `usrmt`.`USRID` = `VEMPT`.`USRID`   "+
 			" where `uetmp`.ACTIV = 1 and `uetmp`.UTYID = 2 ";
@@ -196,8 +200,15 @@ public class VendorCommand extends aimCommand {
 				+ "   `vtrmt`.`RTYPE`, "
 				+ "   `vtrmt`.`STATS`, "
 				+ "   `vtrmt`.`ACTIV` "
-				+ "FROM `vtrmt` where BDTIM >= STR_TO_DATE('"+stDate+"', '%d-%m-%Y') "
-				+ "and BDTIM <= STR_TO_DATE('"+enDate+"', '%d-%m-%Y') ";
+				+ "FROM `vtrmt` ";
+		if(stDate.equals(enDate)){
+			query = query + "where BDTIM = STR_TO_DATE('"+stDate+"', '%d-%m-%Y') ";
+					
+		}else{
+			query = query + "where BDTIM >= STR_TO_DATE('"+stDate+"', '%d-%m-%Y') "
+					+ "and BDTIM <= STR_TO_DATE('"+enDate+"', '%d-%m-%Y') ";
+		}
+		
 
 
 		try{
@@ -297,9 +308,7 @@ public class VendorCommand extends aimCommand {
 						JSONObject bSlot = ((JSONObject) bookedSlots.get(bIndex));
 						//Mon Jul 27 00:00:00 IST 2015
 						//2015-07-29 00:00:00.0
-						
 						System.out.println(sdf.parse(bSlot.get("BDTIM")+"").equals(ndf.parse(record.get("Date")+"")));
-						
 						if(sdf.parse(bSlot.get("BDTIM")+"").equals(ndf.parse(record.get("Date")+""))){
 							if(tSlot.get("START").equals(bSlot.get("BOSTM")+"")
 									&& 	
@@ -354,10 +363,13 @@ public class VendorCommand extends aimCommand {
 					" `rulmt`.`DESCR`, "+
 					" `vrumt`.`ETYID`, "+
 					" `vrumt`.`ETCID`, "+
-					" `vrumt`.`ENTID` "+
+					" `vrumt`.`ENTID`, "+
+					" `entmt`.`DESCR` "+
 					" FROM `vrumt` "+
 					" left outer join `rulmt` on  "+
-					" `vrumt`.`RULID` = `rulmt`.`RULID`  "+
+					" `vrumt`.`RULID` = `rulmt`.`RULID`  "
+					+ " left outer join `entmt` on   "
+					+ " `vrumt`.`ENTID` = `entmt`.`ENTID` "+
 					" where `rulmt`.`ACTIV` = 1 and `vrumt`.`ACTIV` = 1  and "
 					+ " `vrumt`.`ETYID` in (\""
 					+etyid+"\") ";
@@ -401,6 +413,7 @@ public class VendorCommand extends aimCommand {
 			" `addmt`.`LNDMK`, "+
 			" `addmt`.`LOCLT`, "+
 			" `addmt`.`CTYID`, "+
+			" `ctymt`.`CTYNM`, "+
 			" `addmt`.`PINCD`, "+
 			" `addmt`.`LONGT`, "+
 			" `addmt`.`LATIT` "+
@@ -416,7 +429,10 @@ public class VendorCommand extends aimCommand {
 			" left outer join "+
 			" `addmt` "+
 			" on "+
-			" `addmt`.`ADRID` = `uadmp`.`ADRID` "+
+			" `addmt`.`ADRID` = `uadmp`.`ADRID` "
+			+ "left outer join  `ctymt`  "
+			+ " on  "
+			+ " `addmt`.`CTYID` = `ctymt`.`CTYID`"+
 			//" left outer join `BOOKINGDB`.`VEMPT`  "+
 			//" on  `usrmt`.`USRID` = `VEMPT`.`USRID`   "+
 			" where `uetmp`.ACTIV = 1 and `uetmp`.UTYID = 2 ";

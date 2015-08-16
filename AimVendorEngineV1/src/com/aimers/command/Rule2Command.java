@@ -34,12 +34,147 @@ public class Rule2Command extends aimCommand {
 			return getVendorRuleDef(myInfo, dbcon);
 		}else if(aimAction.equals("updateRule")){
 			return updateRule(myInfo, dbcon);
+		}else if(aimAction.equals("cancelBooking")){
+			return cancelBooking(myInfo, dbcon);
+		}else if(aimAction.equals("acceptBooking")){
+			return acceptBooking(myInfo, dbcon);
 		}
 		
 		return new JSONObject();
 
 	}
+
+	private Object cancelBooking(HashMap myInfo, ConnectionManager dbcon) {
+		try{
+			myInfo.put("details",  checkUserAuth(myInfo, dbcon));
+			String details 	=  myInfo.get("details")+"";
+			JSONObject detailsJSON 	= new JSONObject(details);
+			if(detailsJSON.has("VTRMI")){
+				myInfo.put("details",  deactivateBooking(myInfo, dbcon));
+			}else{
+				return null;
+			}
+		}catch(Exception ex){
+			return new JSONObject();
+		}
+		
+		return myInfo.get("details");
+		
+	}
+
+	private Object deactivateBooking(HashMap myInfo, ConnectionManager dbcon) {
+		
+		//TODO: Send email
+		
+		
+		ResultSet rs=null;
+		try{
+			String details 	=  myInfo.get("details")+"";
+			JSONObject detailsJSON 	= new JSONObject(details);
+			
+			if(dbcon == null){
+				try{
+					dbcon.Connect("MYSQL");
+				}
+				catch(Exception ex){
+					System.out.println(""+ex);
+				}
+			}
+			detailsJSON.put("ACTIV", 0+"");
+			
+			
+			detailsJSON.put("CHNBY", detailsJSON.get("USRID"));
+			
+			String query = "UPDATE `vtrmt`"
+					+ "set `ACTIV` = '0' , STATS = '0' , `CHNBY` = "
+					+ "'"+detailsJSON.get("CHNBY")+ "' "
+					+ " where `VTRMI` = "
+					+ "'"+detailsJSON.get("VTRMI")+ "' ";
+					
+			System.out.println(query);
+			int rowCount=dbcon.stm.executeUpdate(query);
+			if(rowCount > 0){
+				return detailsJSON;
+			}else{
+				//TODO: Consider Raising Error
+				return new JSONObject(details);
+			}
+			
+			
+
+		}
+		catch(Exception ex){
+			System.out.println("Error from Deactivate Rule 1 Command "+ex +"==dbcon=="+dbcon);
+			return null;
+		}
+	}
+
 	
+	private Object acceptBooking(HashMap myInfo, ConnectionManager dbcon) {
+		try{
+			myInfo.put("details",  checkUserAuth(myInfo, dbcon));
+			String details 	=  myInfo.get("details")+"";
+			JSONObject detailsJSON 	= new JSONObject(details);
+			if(detailsJSON.has("VTRMI")){
+				myInfo.put("details",  activateBooking(myInfo, dbcon));
+			}else{
+				return null;
+			}
+		}catch(Exception ex){
+			return new JSONObject();
+		}
+		
+		return myInfo.get("details");
+		
+	}
+
+	private Object activateBooking(HashMap myInfo, ConnectionManager dbcon) {
+		
+		//TODO: Send email
+		
+		
+		ResultSet rs=null;
+		try{
+			String details 	=  myInfo.get("details")+"";
+			JSONObject detailsJSON 	= new JSONObject(details);
+			
+			if(dbcon == null){
+				try{
+					dbcon.Connect("MYSQL");
+				}
+				catch(Exception ex){
+					System.out.println(""+ex);
+				}
+			}
+			detailsJSON.put("ACTIV", 1+"");
+			detailsJSON.put("STATS", 1+"");
+			
+			detailsJSON.put("CHNBY", detailsJSON.get("USRID"));
+			
+			String query = "UPDATE `vtrmt`"
+					+ "set `ACTIV` = '1' , `STATS` = '1' , `CHNBY` = "
+					+ "'"+detailsJSON.get("CHNBY")+ "' "
+					+ " where `VTRMI` = "
+					+ "'"+detailsJSON.get("VTRMI")+ "' ";
+					
+			System.out.println(query);
+			int rowCount=dbcon.stm.executeUpdate(query);
+			if(rowCount > 0){
+				return detailsJSON;
+			}else{
+				//TODO: Consider Raising Error
+				return new JSONObject(details);
+			}
+			
+			
+
+		}
+		catch(Exception ex){
+			System.out.println("Error from Deactivate Rule 1 Command "+ex +"==dbcon=="+dbcon);
+			return null;
+		}
+	}
+
 	private Object updateRule(HashMap myInfo, ConnectionManager dbcon) {
 		
 		
@@ -339,7 +474,7 @@ public class Rule2Command extends aimCommand {
 			String vtrmi = getNewBookingID(dbcon);
 			detailsJSON.put("VTRMI", vtrmi);
 			detailsJSON.put("ACTIV", 1+"");
-			detailsJSON.put("STATS", "2");//Manual APPROVAL :: Change to Enum
+			detailsJSON.put("STATS", "2");//AUTO APPROVAL :: Change to Enum
 			detailsJSON.put("CRTDT", dateFormat.format(date)+"");
 			detailsJSON.put("CRTBY", detailsJSON.get("CUSID"));
 			detailsJSON.put("CHNDT", dateFormat.format(date)+"");

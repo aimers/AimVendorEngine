@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -34,14 +35,26 @@ public class FileUploadServlet extends HttpServlet {
         String applicationPath = request.getServletContext().getRealPath("");
         // constructs path of the directory to save uploaded file
         ////home/saath/public_html/bookingdemodocs
-        String uploadFilePath = "/home/saath/public_html/bookingdemodocs";//"/Users/i039198/Documents/Projects/BOOKING/UPLOAD";
+        String uploadFilePath = "/Users";//"/home/saath/jvm/apache-tomcat-7.0.57/domains/bookingdemo.aimersinfosoft.com/bookingdemodocs";//"/home/saath/public_html/bookingdemodocs";
+        //"/Users/i039198/Documents/Projects/BOOKING/UPLOAD";
         //File.createTempFile("upload-", ".bin");;//applicationPath + File.separator + UPLOAD_DIR;
-          
         // creates the save directory if it does not exists
+        Enumeration pnames = request.getParameterNames();
+        while(pnames.hasMoreElements()){
+    		String paraName = pnames.nextElement().toString();
+    		System.out.println(" Para Name : "+paraName);
+    		System.out.println(" Para Value : "+request.getParameter(paraName));
+    		if(paraName.equals("USRID")){
+    			//rootLicKey = request.getParameter(paraName);
+    			uploadFilePath =uploadFilePath+"/"+request.getParameter(paraName);
+    		}
+    	}
+        
         File fileSaveDir = new File(uploadFilePath);
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdirs();
         }
+        
         System.out.println("Upload File Directory="+fileSaveDir.getAbsolutePath());
          
         String fileName = null;
@@ -52,7 +65,7 @@ public class FileUploadServlet extends HttpServlet {
         }
         
        // request.setAttribute("message", fileName + " File uploaded successfully!");
-        dataResponse.print("message"+ fileName + " File uploaded successfully!");
+        dataResponse.print("{ \"fileName\"=\""+ fileName + "\", \"relativePath\"= \""+fileSaveDir.getAbsolutePath()+"\" }");
 //        getServletContext().getRequestDispatcher("/response.jsp").forward(
 //                request, response);
     }
