@@ -5,15 +5,15 @@
 		<content>
 			<Table id="idBookings" inset="true" class="rightBlackBorder"
 				items="{
-			path: '/vendorRules/0/TimeSlots/'
+			path: '/vendorRules'
 			 
 		}">
 
 				<columns>
-					<Column width="12em" >
+					<Column width="12em">
 						<Text text="{i18n>Time}" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true" >
+					<Column minScreenWidth="Tablet" demandPopin="true">
 						<Text text="{i18n>APPOINTMENTS}" />
 					</Column>
 
@@ -21,7 +21,7 @@
 
 				<headerToolbar>
 					<Toolbar>
-						<Title text="Appointment Date:" level="H2"/>
+						<Title text="Appointment Date:" level="H2" />
 						<Title id="dateTitle" level="H2" />
 						<ToolbarSpacer></ToolbarSpacer>
 						<Select change="handleEntityChange" id="entitySelect"
@@ -36,17 +36,13 @@
 				</headerToolbar>
 				<items>
 					<ColumnListItem>
-						<cells >
+						<cells>
 
-							<Text text="{START}"/>
-							<FlexBox alignItems="Start"
-								items="{
-									path: 'appointment'
-			 
-							    }">
+							<Text text="{START}" />
+							<FlexBox alignItems="Start" items="{
+									path: 'BOOKINGS'}">
 								<items>
-									<Button text="{name}"
-										class="{path:'status', formatter:'sap.ui.demo.tdg.util.Formatter.getClass'}" />
+									<Button text="{TITLE}   {FRNAM}  {LTNAM}" />
 								</items>
 							</FlexBox>
 

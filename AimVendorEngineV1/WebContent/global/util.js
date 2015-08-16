@@ -222,27 +222,11 @@ sap.ui.medApp.global.util = {
 				"updateUser");
 		return bool;
 	},
-	loadVendorBookingHistory : function(paramValue) {
+	loadVendorBookingHistory : function(param) {
 		this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
 				this._mainModel);
-		var param = [ {
-			"key" : "INTENT",
-			"value" : "1"
-		}, {
-			"key" : "UID",
-			"value" : paramValue.UID
-		}, {
-			"key" : "ETCID",
-			"value" : paramValue.ETCID
-		}, {
-			"key" : "ETYID",
-			"value" : paramValue.ETYID
-		}, {
-			"key" : "ENTID",
-			"value" : paramValue.ENTID
-		} ]
-		this._vendorListServiceFacade.getRecords(null, null, "/vendorrules",
-				"getVendorRuleDetail", param);
+		this._vendorListServiceFacade.getRecords(null, null, "/bookingHistory",
+				"getBookingHistory", param);
 
 	},
 	loadVendorRules : function(paramValue) {
@@ -263,14 +247,13 @@ sap.ui.medApp.global.util = {
 		}, {
 			"key" : "ENTID",
 			"value" : paramValue.ENTID
-		},
-		 {
+		}, {
 			"key" : "STDATE",
 			"value" : paramValue.STDATE
 		}, {
 			"key" : "ENDATE",
 			"value" : paramValue.ENDATE
-		}]
+		} ]
 		this._vendorListServiceFacade.getRecords(null, null, "/vendorRules",
 				"getVendorRuleDetail", param);
 
