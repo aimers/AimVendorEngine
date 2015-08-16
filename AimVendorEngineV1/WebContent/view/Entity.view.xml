@@ -1,0 +1,43 @@
+<mvc:View controllerName="sap.ui.medApp.view.Entity"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns:c="sap.ui.core" xmlns="sap.m">
+	<Page id="entity" title="{i18n>entityTitle}">
+		<content>
+			<Table id="idBookings" inset="true"
+				items="{
+			path: '/Bookings'
+			 
+		}">
+
+				<columns>
+					<Column width="12em">
+						<Text text="Time" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Appointment" />
+					</Column>
+
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+
+							<Text text="{time}" />
+							<FlexBox alignItems="Start"
+								items="{
+									path: 'appointment'
+			 
+							    }">
+								<items>
+									<Button text="{name}" class="{path:'status', formatter:'sap.ui.demo.tdg.util.Formatter.getClass'}" />
+								</items>
+							</FlexBox>
+
+
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Page>
+</mvc:View>

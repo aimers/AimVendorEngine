@@ -1,0 +1,364 @@
+{
+    "results": [
+        {
+            "descr": "Audiologist",
+            "crtby": 1,
+            "entid": 1,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-15 00:00:00.0"
+        },
+        {
+            "descr": "Allergist",
+            "crtby": 1,
+            "entid": 2,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-15 00:00:00.0"
+        },
+        {
+            "descr": "Ayurveda",
+            "crtby": 1,
+            "entid": 3,
+            "Characteristics": [
+                {
+                    "descr": "Icon",
+                    "mdtext": "Icon",
+                    "entid": 3,
+                    "regxt": "icon",
+                    "lntxt": "Icon",
+                    "srtxt": "Icon",
+                    "chrid": 10,
+                    "value": "aurveda.png"
+                },
+                {
+                    "descr": "Important",
+                    "mdtext": "Important",
+                    "entid": 3,
+                    "regxt": "flag",
+                    "lntxt": "Important",
+                    "srtxt": "Important",
+                    "chrid": 9,
+                    "value": "1"
+                }
+            ],
+            "activ": true,
+            "crtdt": "2015-07-15 00:00:00.0"
+        },
+        {
+            "descr": "Cardiologist",
+            "crtby": 1,
+            "entid": 4,
+            "Characteristics": [
+                {
+                    "descr": "Important",
+                    "mdtext": "Important",
+                    "entid": 4,
+                    "regxt": "flag",
+                    "lntxt": "Important",
+                    "srtxt": "Important",
+                    "chrid": 9,
+                    "value": "1"
+                },
+                {
+                    "descr": "Icon",
+                    "mdtext": "Icon",
+                    "entid": 4,
+                    "regxt": "icon",
+                    "lntxt": "Icon",
+                    "srtxt": "Icon",
+                    "chrid": 10,
+                    "value": "cardiologist.png"
+                }
+            ],
+            "activ": true,
+            "crtdt": "2015-07-15 00:00:00.0"
+        },
+        {
+            "descr": "Dentist",
+            "crtby": 1,
+            "entid": 5,
+            "Characteristics": [
+                {
+                    "descr": "Important",
+                    "mdtext": "Important",
+                    "entid": 5,
+                    "regxt": "flag",
+                    "lntxt": "Important",
+                    "srtxt": "Important",
+                    "chrid": 9,
+                    "value": "1"
+                },
+                {
+                    "descr": "Icon",
+                    "mdtext": "Icon",
+                    "entid": 5,
+                    "regxt": "icon",
+                    "lntxt": "Icon",
+                    "srtxt": "Icon",
+                    "chrid": 10,
+                    "value": "dentist.png"
+                }
+            ],
+            "activ": true,
+            "crtdt": "2015-07-15 00:00:00.0"
+        },
+        {
+            "descr": "Dermatologist",
+            "crtby": 1,
+            "entid": 6,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-15 00:00:00.0"
+        },
+        {
+            "descr": "Endocrinologist",
+            "crtby": 1,
+            "entid": 7,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-15 00:00:00.0"
+        },
+        {
+            "descr": "Epidemiologist",
+            "crtby": 1,
+            "entid": 8,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Gynecologist",
+            "crtby": 1,
+            "entid": 9,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Immunologist",
+            "crtby": 1,
+            "entid": 10,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Microbiologist",
+            "crtby": 1,
+            "entid": 11,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Homeopath",
+            "crtby": 1,
+            "entid": 12,
+            "Characteristics": [
+                {
+                    "descr": "Important",
+                    "mdtext": "Important",
+                    "entid": 12,
+                    "regxt": "flag",
+                    "lntxt": "Important",
+                    "srtxt": "Important",
+                    "chrid": 9,
+                    "value": "1"
+                },
+                {
+                    "descr": "Icon",
+                    "mdtext": "Icon",
+                    "entid": 12,
+                    "regxt": "icon",
+                    "lntxt": "Icon",
+                    "srtxt": "Icon",
+                    "chrid": 10,
+                    "value": "homeopath.png"
+                }
+            ],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Neonatologist",
+            "crtby": 1,
+            "entid": 13,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Neurosurgeon",
+            "crtby": 1,
+            "entid": 14,
+            "Characteristics": [
+                {
+                    "descr": "Important",
+                    "mdtext": "Important",
+                    "entid": 14,
+                    "regxt": "flag",
+                    "lntxt": "Important",
+                    "srtxt": "Important",
+                    "chrid": 9,
+                    "value": "1"
+                },
+                {
+                    "descr": "Icon",
+                    "mdtext": "Icon",
+                    "entid": 14,
+                    "regxt": "icon",
+                    "lntxt": "Icon",
+                    "srtxt": "Icon",
+                    "chrid": 10,
+                    "value": "neurologist.png"
+                }
+            ],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Obstetrician",
+            "crtby": 1,
+            "entid": 15,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Ophthalmologist",
+            "crtby": 1,
+            "entid": 16,
+            "Characteristics": [
+                {
+                    "descr": "Important",
+                    "mdtext": "Important",
+                    "entid": 16,
+                    "regxt": "flag",
+                    "lntxt": "Important",
+                    "srtxt": "Important",
+                    "chrid": 9,
+                    "value": "1"
+                },
+                {
+                    "descr": "Icon",
+                    "mdtext": "Icon",
+                    "entid": 16,
+                    "regxt": "icon",
+                    "lntxt": "Icon",
+                    "srtxt": "Icon",
+                    "chrid": 10,
+                    "value": "eyespecialist.png"
+                }
+            ],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Pediatrician",
+            "crtby": 1,
+            "entid": 17,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Physiologist",
+            "crtby": 1,
+            "entid": 18,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Sexologist",
+            "crtby": 1,
+            "entid": 19,
+            "Characteristics": [
+                {
+                    "descr": "Important",
+                    "mdtext": "Important",
+                    "entid": 19,
+                    "regxt": "flag",
+                    "lntxt": "Important",
+                    "srtxt": "Important",
+                    "chrid": 9,
+                    "value": "1"
+                },
+                {
+                    "descr": "Icon",
+                    "mdtext": "Icon",
+                    "entid": 19,
+                    "regxt": "icon",
+                    "lntxt": "Icon",
+                    "srtxt": "Icon",
+                    "chrid": 10,
+                    "value": "sexologist.png"
+                }
+            ],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Psychiatrist",
+            "crtby": 1,
+            "entid": 20,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": " Radiologist",
+            "crtby": 1,
+            "entid": 21,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Rheumatologist",
+            "crtby": 1,
+            "entid": 22,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Surgeon",
+            "crtby": 1,
+            "entid": 23,
+            "Characteristics": [
+                {
+                    "descr": "Icon",
+                    "mdtext": "Icon",
+                    "entid": 23,
+                    "regxt": "icon",
+                    "lntxt": "Icon",
+                    "srtxt": "Icon",
+                    "chrid": 10,
+                    "value": "surgeon.png"
+                },
+                {
+                    "descr": "Important",
+                    "mdtext": "Important",
+                    "entid": 23,
+                    "regxt": "flag",
+                    "lntxt": "Important",
+                    "srtxt": "Important",
+                    "chrid": 9,
+                    "value": "1"
+                }
+            ],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        },
+        {
+            "descr": "Urologist",
+            "crtby": 1,
+            "entid": 24,
+            "Characteristics": [],
+            "activ": true,
+            "crtdt": "2015-07-17 00:00:00.0"
+        }
+    ]
+}

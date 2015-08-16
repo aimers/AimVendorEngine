@@ -1,0 +1,50 @@
+{
+    "results": [
+        {
+            "ENTID": 1,
+            "DESCR" : "Dentist",
+            "SICON" : "dentist.png"
+        },
+                {
+            "ENTID": 2,
+            "DESCR" : "Homeopath",
+            "SICON" : "Homeopath.png"
+        },
+                {
+            "ENTID": 3,
+            "DESCR" : "Neurologist",
+            "SICON" : "Neurologist.png"
+        },
+                {
+            "ENTID": 4,
+            "DESCR" : "Surgeon",
+            "SICON" : "Surgeon.png"
+        },
+                {
+            "ENTID": 5,
+            "DESCR" : "Sexologist",
+            "SICON" : "Sexologist.png"
+        },
+                {
+            "ENTID": 6,
+            "DESCR" : "Eye Specialist",
+            "SICON" : "Eyespecialist.png"
+        },
+                {
+            "ENTID": 7,
+            "DESCR" : "Cardiologist",
+            "SICON" : "cardiologist.png"
+        },
+                {
+            "ENTID": 8,
+            "DESCR" : "Ayurveda",
+            "SICON" : "aurveda.png"
+        },
+                {
+            "ENTID": 9,
+            "DESCR" : "Ayurveda",
+            "SICON" : "aurveda.png"
+        }       
+        
+      ]
+}

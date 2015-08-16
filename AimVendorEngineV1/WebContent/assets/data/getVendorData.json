@@ -1,0 +1,1340 @@
+{
+    "results": [
+        {
+            "Address": [],
+            "gendr": true,
+            "uqnm" : "MBBS",
+            "clnm" : "Ramaya Medical College",
+            "loclt" : "Jayanagar",
+            "ctynm" : "Bangalore",
+            "picdetails" : [
+                     {
+                       "usimgurl" : "Picture1.jpg"
+                     },
+                     {
+                       "usimgurl" : "Picture2.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture3.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture4.jpg"
+                     }
+            ],
+            "Characteristics": [
+                {
+                    "descr": "Facebook",
+                    "mdtext": "Facebook",
+                    "regxt": "url",
+                    "usrid": 4,
+                    "lntxt": "Facebook",
+                    "srtxt": "FB",
+                    "chrid": 1,
+                    "value": "http://www.facebook.com"
+                },
+                {
+                    "descr": "Twitter",
+                    "mdtext": "Twitter",
+                    "regxt": "url",
+                    "usrid": 4,
+                    "lntxt": "Twitter",
+                    "srtxt": "TW",
+                    "chrid": 2,
+                    "value": "http://www.twitter.com"
+                },
+                {
+                    "descr": "Google+",
+                    "mdtext": "Google+",
+                    "regxt": "url",
+                    "usrid": 4,
+                    "lntxt": "Google+",
+                    "srtxt": "TW",
+                    "chrid": 3,
+                    "value": "http://www.plus.google.com"
+                },
+                {
+                    "descr": "Personal Email",
+                    "mdtext": "Personal Email",
+                    "regxt": "email",
+                    "usrid": 4,
+                    "lntxt": "Personal Email",
+                    "srtxt": "Email",
+                    "chrid": 4,
+                    "value": "email@company.com"
+                },
+                {
+                    "descr": "Business Email",
+                    "mdtext": "Business Email",
+                    "regxt": "email",
+                    "usrid": 4,
+                    "lntxt": "Business Email",
+                    "srtxt": "B-Email",
+                    "chrid": 5,
+                    "value": "email@company.com"
+                },
+                {
+                    "descr": "Landline",
+                    "mdtext": "Landline",
+                    "regxt": "phone",
+                    "usrid": 4,
+                    "lntxt": "Landline",
+                    "srtxt": "Phone",
+                    "chrid": 6,
+                    "value": "08012121212"
+                },
+                {
+                    "descr": "Mobile",
+                    "mdtext": "Mobile",
+                    "regxt": "mobile",
+                    "usrid": 4,
+                    "lntxt": "Mobile",
+                    "srtxt": "Mobile",
+                    "chrid": 7,
+                    "value": "9999999999"
+                }
+            ],
+            "dspnm": "Jane  Pearson",
+            "usrid": 4,
+            "ltnam": "Pearson",
+            "prfix": "Dr.",
+            "title": "Ms.",
+            "frnam": "Jane",
+            "urdob": "2015-07-17",
+            "urcod": "A150000004"
+        },
+        {
+            "Address": [],
+            "gendr": true,
+            "uqnm" : "BDS",
+            "clnm" : "RGMC",
+            "loclt" : "Shastrinagar",
+            "ctynm" : "Hyderabad",
+            "picdetails" : [
+                     {
+                       "usimgurl" : "Picture1.jpg"
+                     },
+                     {
+                       "usimgurl" : "Picture2.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture3.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture4.jpg"
+                     }
+            ],
+            "vudv" : "1.8",
+            "ratin" : "8",
+            "Characteristics": [
+                {
+                    "descr": "Facebook",
+                    "mdtext": "Facebook",
+                    "regxt": "url",
+                    "usrid": 3,
+                    "lntxt": "Facebook",
+                    "srtxt": "FB",
+                    "chrid": 1,
+                    "value": "http://www.facebook.com"
+                },
+                {
+                    "descr": "Twitter",
+                    "mdtext": "Twitter",
+                    "regxt": "url",
+                    "usrid": 3,
+                    "lntxt": "Twitter",
+                    "srtxt": "TW",
+                    "chrid": 2,
+                    "value": "http://www.twitter.com"
+                },
+                {
+                    "descr": "Google+",
+                    "mdtext": "Google+",
+                    "regxt": "url",
+                    "usrid": 3,
+                    "lntxt": "Google+",
+                    "srtxt": "TW",
+                    "chrid": 3,
+                    "value": "http://www.plus.google.com"
+                },
+                {
+                    "descr": "Personal Email",
+                    "mdtext": "Personal Email",
+                    "regxt": "email",
+                    "usrid": 3,
+                    "lntxt": "Personal Email",
+                    "srtxt": "Email",
+                    "chrid": 4,
+                    "value": "email@company.com"
+                },
+                {
+                    "descr": "Business Email",
+                    "mdtext": "Business Email",
+                    "regxt": "email",
+                    "usrid": 3,
+                    "lntxt": "Business Email",
+                    "srtxt": "B-Email",
+                    "chrid": 5,
+                    "value": "email@company.com"
+                },
+                {
+                    "descr": "Landline",
+                    "mdtext": "Landline",
+                    "regxt": "phone",
+                    "usrid": 3,
+                    "lntxt": "Landline",
+                    "srtxt": "Phone",
+                    "chrid": 6,
+                    "value": "08012121212"
+                },
+                {
+                    "descr": "Mobile",
+                    "mdtext": "Mobile",
+                    "regxt": "mobile",
+                    "usrid": 3,
+                    "lntxt": "Mobile",
+                    "srtxt": "Mobile",
+                    "chrid": 7,
+                    "value": "9999999999"
+                }
+            ],
+            "dspnm": "Thomas Stewart",
+            "usrid": 3,
+            "ltnam": "Stewart",
+            "prfix": "Dr.",
+            "title": "Mr.",
+            "frnam": "Thomas",
+            "urdob": "2015-07-17",
+            "urcod": "A150000003"
+        },
+        {
+            "Address": [],
+            "gendr": true,
+            "uqnm" : "BDS",
+            "clnm" : "BMS",
+            "loclt" : "Shastrinagar",
+            "citynm" : "Hyderabad",
+            "picdetails" : [
+                     {
+                       "usimgurl" : "Picture1.jpg"
+                     },
+                     {
+                       "usimgurl" : "Picture2.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture3.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture4.jpg"
+                     }
+            ],
+            "vudv" : "2.5",
+            "ratin" : "7",
+            "Characteristics": [
+                {
+                    "descr": "Image",
+                    "mdtext": "Image",
+                    "regxt": "img",
+                    "usrid": 8,
+                    "lntxt": "Image",
+                    "srtxt": "Image",
+                    "chrid": 8,
+                    "value": "M-2.jpg"
+                },
+                {
+                    "descr": "Facebook",
+                    "mdtext": "Facebook",
+                    "regxt": "url",
+                    "usrid": 8,
+                    "lntxt": "Facebook",
+                    "srtxt": "FB",
+                    "chrid": 1,
+                    "value": "http://www.facebook.com"
+                },
+                {
+                    "descr": "Twitter",
+                    "mdtext": "Twitter",
+                    "regxt": "url",
+                    "usrid": 8,
+                    "lntxt": "Twitter",
+                    "srtxt": "TW",
+                    "chrid": 2,
+                    "value": "http://www.twitter.com"
+                },
+                {
+                    "descr": "Google+",
+                    "mdtext": "Google+",
+                    "regxt": "url",
+                    "usrid": 8,
+                    "lntxt": "Google+",
+                    "srtxt": "TW",
+                    "chrid": 3,
+                    "value": "http://www.plus.google.com"
+                },
+                {
+                    "descr": "Personal Email",
+                    "mdtext": "Personal Email",
+                    "regxt": "email",
+                    "usrid": 8,
+                    "lntxt": "Personal Email",
+                    "srtxt": "Email",
+                    "chrid": 4,
+                    "value": "dayanand.sharma@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Business Email",
+                    "mdtext": "Business Email",
+                    "regxt": "email",
+                    "usrid": 8,
+                    "lntxt": "Business Email",
+                    "srtxt": "B-Email",
+                    "chrid": 5,
+                    "value": "dayanand.sharma@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Landline",
+                    "mdtext": "Landline",
+                    "regxt": "phone",
+                    "usrid": 8,
+                    "lntxt": "Landline",
+                    "srtxt": "Phone",
+                    "chrid": 6,
+                    "value": "08012121212"
+                },
+                {
+                    "descr": "Mobile",
+                    "mdtext": "Mobile",
+                    "regxt": "mobile",
+                    "usrid": 8,
+                    "lntxt": "Mobile",
+                    "srtxt": "Mobile",
+                    "chrid": 7,
+                    "value": "9999999999"
+                }
+            ],
+            "dspnm": "Dr. Dayanand Sharma",
+            "usrid": 8,
+            "ltnam": "Sharma",
+            "prfix": "Dr.",
+            "title": "Mr.",
+            "frnam": "Dayanand",
+            "urdob": "1984-11-26",
+            "urcod": "A150000008"
+        },
+        {
+            "Address": [],
+            "gendr": true,
+            "uqnm" : "BDS",
+            "clnm" : "BMS",
+            "loclt" : "Shastrinagar",
+            "ctynm" : "Hyderabad",
+            "picdetails" : [
+                     {
+                       "usimgurl" : "Picture1.jpg"
+                     },
+                     {
+                       "usimgurl" : "Picture2.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture3.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture4.jpg"
+                     }
+            ],
+            "vudv" : "3.8",
+            "ratin" : "1",
+            "Characteristics": [
+                {
+                    "descr": "Image",
+                    "mdtext": "Image",
+                    "regxt": "img",
+                    "usrid": 26,
+                    "lntxt": "Image",
+                    "srtxt": "Image",
+                    "chrid": 8,
+                    "value": "F-6.jpg"
+                },
+                {
+                    "descr": "Facebook",
+                    "mdtext": "Facebook",
+                    "regxt": "url",
+                    "usrid": 26,
+                    "lntxt": "Facebook",
+                    "srtxt": "FB",
+                    "chrid": 1,
+                    "value": "http://www.facebook.com"
+                },
+                {
+                    "descr": "Twitter",
+                    "mdtext": "Twitter",
+                    "regxt": "url",
+                    "usrid": 26,
+                    "lntxt": "Twitter",
+                    "srtxt": "TW",
+                    "chrid": 2,
+                    "value": "http://www.twitter.com"
+                },
+                {
+                    "descr": "Google+",
+                    "mdtext": "Google+",
+                    "regxt": "url",
+                    "usrid": 26,
+                    "lntxt": "Google+",
+                    "srtxt": "TW",
+                    "chrid": 3,
+                    "value": "http://www.plus.google.com"
+                },
+                {
+                    "descr": "Personal Email",
+                    "mdtext": "Personal Email",
+                    "regxt": "email",
+                    "usrid": 26,
+                    "lntxt": "Personal Email",
+                    "srtxt": "Email",
+                    "chrid": 4,
+                    "value": "alma.berry@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Business Email",
+                    "mdtext": "Business Email",
+                    "regxt": "email",
+                    "usrid": 26,
+                    "lntxt": "Business Email",
+                    "srtxt": "B-Email",
+                    "chrid": 5,
+                    "value": "alma.berry@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Landline",
+                    "mdtext": "Landline",
+                    "regxt": "phone",
+                    "usrid": 26,
+                    "lntxt": "Landline",
+                    "srtxt": "Phone",
+                    "chrid": 6,
+                    "value": "08012121212"
+                },
+                {
+                    "descr": "Mobile",
+                    "mdtext": "Mobile",
+                    "regxt": "mobile",
+                    "usrid": 26,
+                    "lntxt": "Mobile",
+                    "srtxt": "Mobile",
+                    "chrid": 7,
+                    "value": "9999999999"
+                }
+            ],
+            "dspnm": "Dr. Alma Berry",
+            "usrid": 26,
+            "ltnam": "Berry",
+            "prfix": "Dr.",
+            "title": "Ms.",
+            "frnam": "Alma",
+            "urdob": "2000-05-03",
+            "urcod": "A150000012"
+        },
+        {
+            "Address": [],
+            "gendr": true,
+            "uqnm" : "BDS, BDS",
+            "clnm" : "JNVU",
+            "loclt" : "Shastrinagar",
+            "ctynm" : "Hyderabad",
+            "picdetails" : [
+                     {
+                       "usimgurl" : "Picture1.jpg"
+                     },
+                     {
+                       "usimgurl" : "Picture2.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture3.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture4.jpg"
+                     }
+            ],
+            "vudv" : "1.1",
+            "ratin" : "9",
+            "Characteristics": [
+                {
+                    "descr": "Facebook",
+                    "mdtext": "Facebook",
+                    "regxt": "url",
+                    "usrid": 4,
+                    "lntxt": "Facebook",
+                    "srtxt": "FB",
+                    "chrid": 1,
+                    "value": "http://www.facebook.com"
+                },
+                {
+                    "descr": "Twitter",
+                    "mdtext": "Twitter",
+                    "regxt": "url",
+                    "usrid": 4,
+                    "lntxt": "Twitter",
+                    "srtxt": "TW",
+                    "chrid": 2,
+                    "value": "http://www.twitter.com"
+                },
+                {
+                    "descr": "Google+",
+                    "mdtext": "Google+",
+                    "regxt": "url",
+                    "usrid": 4,
+                    "lntxt": "Google+",
+                    "srtxt": "TW",
+                    "chrid": 3,
+                    "value": "http://www.plus.google.com"
+                },
+                {
+                    "descr": "Personal Email",
+                    "mdtext": "Personal Email",
+                    "regxt": "email",
+                    "usrid": 4,
+                    "lntxt": "Personal Email",
+                    "srtxt": "Email",
+                    "chrid": 4,
+                    "value": "email@company.com"
+                },
+                {
+                    "descr": "Business Email",
+                    "mdtext": "Business Email",
+                    "regxt": "email",
+                    "usrid": 4,
+                    "lntxt": "Business Email",
+                    "srtxt": "B-Email",
+                    "chrid": 5,
+                    "value": "email@company.com"
+                },
+                {
+                    "descr": "Landline",
+                    "mdtext": "Landline",
+                    "regxt": "phone",
+                    "usrid": 4,
+                    "lntxt": "Landline",
+                    "srtxt": "Phone",
+                    "chrid": 6,
+                    "value": "08012121212"
+                },
+                {
+                    "descr": "Mobile",
+                    "mdtext": "Mobile",
+                    "regxt": "mobile",
+                    "usrid": 4,
+                    "lntxt": "Mobile",
+                    "srtxt": "Mobile",
+                    "chrid": 7,
+                    "value": "9999999999"
+                }
+            ],
+            "dspnm": "Jane  Pearson",
+            "usrid": 4,
+            "ltnam": "Pearson",
+            "prfix": "Dr.",
+            "title": "Ms.",
+            "frnam": "Jane",
+            "urdob": "2015-07-17",
+            "urcod": "A150000004"
+        },
+        {
+            "Address": [],
+            "gendr": true,
+            "uqnm" : "BDS",
+            "clnm" : "BMS",
+            "loclt" : "Shastrinagar",
+            "ctynm" : "Hyderabad",
+            "picdetails" : [
+                     {
+                       "usimgurl" : "Picture1.jpg"
+                     },
+                     {
+                       "usimgurl" : "Picture2.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture3.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture4.jpg"
+                     }
+            ],
+            "vudv" : "3.8",
+            "ratin" : "1",
+            "Characteristics": [
+                {
+                    "descr": "Image",
+                    "mdtext": "Image",
+                    "regxt": "img",
+                    "usrid": 24,
+                    "lntxt": "Image",
+                    "srtxt": "Image",
+                    "chrid": 8,
+                    "value": "M-4.jpg"
+                },
+                {
+                    "descr": "Facebook",
+                    "mdtext": "Facebook",
+                    "regxt": "url",
+                    "usrid": 24,
+                    "lntxt": "Facebook",
+                    "srtxt": "FB",
+                    "chrid": 1,
+                    "value": "http://www.facebook.com"
+                },
+                {
+                    "descr": "Twitter",
+                    "mdtext": "Twitter",
+                    "regxt": "url",
+                    "usrid": 24,
+                    "lntxt": "Twitter",
+                    "srtxt": "TW",
+                    "chrid": 2,
+                    "value": "http://www.twitter.com"
+                },
+                {
+                    "descr": "Google+",
+                    "mdtext": "Google+",
+                    "regxt": "url",
+                    "usrid": 24,
+                    "lntxt": "Google+",
+                    "srtxt": "TW",
+                    "chrid": 3,
+                    "value": "http://www.plus.google.com"
+                },
+                {
+                    "descr": "Personal Email",
+                    "mdtext": "Personal Email",
+                    "regxt": "email",
+                    "usrid": 24,
+                    "lntxt": "Personal Email",
+                    "srtxt": "Email",
+                    "chrid": 4,
+                    "value": "prabhu.acharya@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Business Email",
+                    "mdtext": "Business Email",
+                    "regxt": "email",
+                    "usrid": 24,
+                    "lntxt": "Business Email",
+                    "srtxt": "B-Email",
+                    "chrid": 5,
+                    "value": "prabhu.acharya@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Landline",
+                    "mdtext": "Landline",
+                    "regxt": "phone",
+                    "usrid": 24,
+                    "lntxt": "Landline",
+                    "srtxt": "Phone",
+                    "chrid": 6,
+                    "value": "08012121212"
+                },
+                {
+                    "descr": "Mobile",
+                    "mdtext": "Mobile",
+                    "regxt": "mobile",
+                    "usrid": 24,
+                    "lntxt": "Mobile",
+                    "srtxt": "Mobile",
+                    "chrid": 7,
+                    "value": "9999999999"
+                }
+            ],
+            "dspnm": "Prabhu Acharya",
+            "usrid": 24,
+            "ltnam": "Acharya",
+            "prfix": "Dr.",
+            "title": "Mr.",
+            "frnam": "Prabhu",
+            "urdob": "1985-08-16",
+            "urcod": "A150000010"
+        },
+        {
+            "Address": [],
+            "gendr": true,
+            "uqnm" : "BDS",
+            "clnm" : "BMS",
+            "loclt" : "Shastrinagar",
+            "ctynm" : "Hyderabad",
+            "picdetails" : [
+                     {
+                       "usimgurl" : "Picture1.jpg"
+                     },
+                     {
+                       "usimgurl" : "Picture2.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture3.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture4.jpg"
+                     }
+            ],
+            "vudv" : "4.8",
+            "ratin" : "3",
+            "Characteristics": [
+                {
+                    "descr": "Image",
+                    "mdtext": "Image",
+                    "regxt": "img",
+                    "usrid": 27,
+                    "lntxt": "Image",
+                    "srtxt": "Image",
+                    "chrid": 8,
+                    "value": "F-7.jpg"
+                },
+                {
+                    "descr": "Facebook",
+                    "mdtext": "Facebook",
+                    "regxt": "url",
+                    "usrid": 27,
+                    "lntxt": "Facebook",
+                    "srtxt": "FB",
+                    "chrid": 1,
+                    "value": "http://www.facebook.com"
+                },
+                {
+                    "descr": "Twitter",
+                    "mdtext": "Twitter",
+                    "regxt": "url",
+                    "usrid": 27,
+                    "lntxt": "Twitter",
+                    "srtxt": "TW",
+                    "chrid": 2,
+                    "value": "http://www.twitter.com"
+                },
+                {
+                    "descr": "Google+",
+                    "mdtext": "Google+",
+                    "regxt": "url",
+                    "usrid": 27,
+                    "lntxt": "Google+",
+                    "srtxt": "TW",
+                    "chrid": 3,
+                    "value": "http://www.plus.google.com"
+                },
+                {
+                    "descr": "Personal Email",
+                    "mdtext": "Personal Email",
+                    "regxt": "email",
+                    "usrid": 27,
+                    "lntxt": "Personal Email",
+                    "srtxt": "Email",
+                    "chrid": 4,
+                    "value": "celia.blake@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Business Email",
+                    "mdtext": "Business Email",
+                    "regxt": "email",
+                    "usrid": 27,
+                    "lntxt": "Business Email",
+                    "srtxt": "B-Email",
+                    "chrid": 5,
+                    "value": "celia.blake@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Landline",
+                    "mdtext": "Landline",
+                    "regxt": "phone",
+                    "usrid": 27,
+                    "lntxt": "Landline",
+                    "srtxt": "Phone",
+                    "chrid": 6,
+                    "value": "08012121212"
+                },
+                {
+                    "descr": "Mobile",
+                    "mdtext": "Mobile",
+                    "regxt": "mobile",
+                    "usrid": 27,
+                    "lntxt": "Mobile",
+                    "srtxt": "Mobile",
+                    "chrid": 7,
+                    "value": "9999999999"
+                }
+            ],
+            "dspnm": "Dr. Celia Blake",
+            "usrid": 27,
+            "ltnam": "Blake",
+            "prfix": "Dr.",
+            "title": "Ms.",
+            "frnam": "Celia",
+            "urdob": "1988-05-05",
+            "urcod": "A150000013"
+        },
+        {
+            "Address": [],
+            "gendr": true,
+            "uqnm" : "BDS",
+            "clnm" : "BMS",
+            "loclt" : "Shastrinagar",
+            "ctynm" : "Hyderabad",
+            "picdetails" : [
+                     {
+                       "usimgurl" : "Picture1.jpg"
+                     },
+                     {
+                       "usimgurl" : "Picture2.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture3.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture4.jpg"
+                     }
+            ],
+            "vudv" : "4.8",
+            "ratin" : "3",
+            "Characteristics": [
+                {
+                    "descr": "Image",
+                    "mdtext": "Image",
+                    "regxt": "img",
+                    "usrid": 27,
+                    "lntxt": "Image",
+                    "srtxt": "Image",
+                    "chrid": 8,
+                    "value": "F-7.jpg"
+                },
+                {
+                    "descr": "Facebook",
+                    "mdtext": "Facebook",
+                    "regxt": "url",
+                    "usrid": 27,
+                    "lntxt": "Facebook",
+                    "srtxt": "FB",
+                    "chrid": 1,
+                    "value": "http://www.facebook.com"
+                },
+                {
+                    "descr": "Twitter",
+                    "mdtext": "Twitter",
+                    "regxt": "url",
+                    "usrid": 27,
+                    "lntxt": "Twitter",
+                    "srtxt": "TW",
+                    "chrid": 2,
+                    "value": "http://www.twitter.com"
+                },
+                {
+                    "descr": "Google+",
+                    "mdtext": "Google+",
+                    "regxt": "url",
+                    "usrid": 27,
+                    "lntxt": "Google+",
+                    "srtxt": "TW",
+                    "chrid": 3,
+                    "value": "http://www.plus.google.com"
+                },
+                {
+                    "descr": "Personal Email",
+                    "mdtext": "Personal Email",
+                    "regxt": "email",
+                    "usrid": 27,
+                    "lntxt": "Personal Email",
+                    "srtxt": "Email",
+                    "chrid": 4,
+                    "value": "celia.blake@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Business Email",
+                    "mdtext": "Business Email",
+                    "regxt": "email",
+                    "usrid": 27,
+                    "lntxt": "Business Email",
+                    "srtxt": "B-Email",
+                    "chrid": 5,
+                    "value": "celia.blake@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Landline",
+                    "mdtext": "Landline",
+                    "regxt": "phone",
+                    "usrid": 27,
+                    "lntxt": "Landline",
+                    "srtxt": "Phone",
+                    "chrid": 6,
+                    "value": "08012121212"
+                },
+                {
+                    "descr": "Mobile",
+                    "mdtext": "Mobile",
+                    "regxt": "mobile",
+                    "usrid": 27,
+                    "lntxt": "Mobile",
+                    "srtxt": "Mobile",
+                    "chrid": 7,
+                    "value": "9999999999"
+                }
+            ],
+            "dspnm": "Celia Blake",
+            "usrid": 27,
+            "ltnam": "Blake",
+            "prfix": "Dr.",
+            "title": "Ms.",
+            "frnam": "Celia",
+            "urdob": "1988-05-05",
+            "urcod": "A150000013"
+        },
+        {
+            "Address": [],
+            "gendr": true,
+            "uqnm" : "BDS",
+            "clnm" : "BMS",
+            "loclt" : "Shastrinagar",
+            "ctynm" : "Hyderabad",
+            "picdetails" : [
+                     {
+                       "usimgurl" : "Picture1.jpg"
+                     },
+                     {
+                       "usimgurl" : "Picture2.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture3.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture4.jpg"
+                     }
+            ],
+            "vudv" : "4.8",
+            "ratin" : "3",
+            "Characteristics": [
+                {
+                    "descr": "Image",
+                    "mdtext": "Image",
+                    "regxt": "img",
+                    "usrid": 29,
+                    "lntxt": "Image",
+                    "srtxt": "Image",
+                    "chrid": 8,
+                    "value": "F-9.jpg"
+                },
+                {
+                    "descr": "Facebook",
+                    "mdtext": "Facebook",
+                    "regxt": "url",
+                    "usrid": 29,
+                    "lntxt": "Facebook",
+                    "srtxt": "FB",
+                    "chrid": 1,
+                    "value": "http://www.facebook.com"
+                },
+                {
+                    "descr": "Twitter",
+                    "mdtext": "Twitter",
+                    "regxt": "url",
+                    "usrid": 29,
+                    "lntxt": "Twitter",
+                    "srtxt": "TW",
+                    "chrid": 2,
+                    "value": "http://www.twitter.com"
+                },
+                {
+                    "descr": "Google+",
+                    "mdtext": "Google+",
+                    "regxt": "url",
+                    "usrid": 29,
+                    "lntxt": "Google+",
+                    "srtxt": "TW",
+                    "chrid": 3,
+                    "value": "http://www.plus.google.com"
+                },
+                {
+                    "descr": "Personal Email",
+                    "mdtext": "Personal Email",
+                    "regxt": "email",
+                    "usrid": 29,
+                    "lntxt": "Personal Email",
+                    "srtxt": "Email",
+                    "chrid": 4,
+                    "value": "danita.garret@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Business Email",
+                    "mdtext": "Business Email",
+                    "regxt": "email",
+                    "usrid": 29,
+                    "lntxt": "Business Email",
+                    "srtxt": "B-Email",
+                    "chrid": 5,
+                    "value": "danita.garret@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Landline",
+                    "mdtext": "Landline",
+                    "regxt": "phone",
+                    "usrid": 29,
+                    "lntxt": "Landline",
+                    "srtxt": "Phone",
+                    "chrid": 6,
+                    "value": "08012121212"
+                },
+                {
+                    "descr": "Mobile",
+                    "mdtext": "Mobile",
+                    "regxt": "mobile",
+                    "usrid": 29,
+                    "lntxt": "Mobile",
+                    "srtxt": "Mobile",
+                    "chrid": 7,
+                    "value": "9999999999"
+                }
+            ],
+            "dspnm": "Danita Garret",
+            "usrid": 29,
+            "ltnam": "Garret",
+            "prfix": "Dr.",
+            "title": "Ms.",
+            "frnam": "Danita",
+            "urdob": "1987-07-25",
+            "urcod": "A150000015"
+        },
+        {
+            "Address": [],
+            "gendr": true,
+            "uqnm" : "BDS",
+            "clnm" : "BMS",
+            "loclt" : "Shastrinagar",
+            "ctynm" : "Hyderabad",
+            "picdetails" : [
+                     {
+                       "usimgurl" : "Picture1.jpg"
+                     },
+                     {
+                       "usimgurl" : "Picture2.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture3.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture4.jpg"
+                     }
+            ],
+            "vudv" : "4.8",
+            "ratin" : "3",
+            "Characteristics": [
+                {
+                    "descr": "Image",
+                    "mdtext": "Image",
+                    "regxt": "img",
+                    "usrid": 30,
+                    "lntxt": "Image",
+                    "srtxt": "Image",
+                    "chrid": 8,
+                    "value": "F-10.jpg"
+                },
+                {
+                    "descr": "Facebook",
+                    "mdtext": "Facebook",
+                    "regxt": "url",
+                    "usrid": 30,
+                    "lntxt": "Facebook",
+                    "srtxt": "FB",
+                    "chrid": 1,
+                    "value": "http://www.facebook.com"
+                },
+                {
+                    "descr": "Twitter",
+                    "mdtext": "Twitter",
+                    "regxt": "url",
+                    "usrid": 30,
+                    "lntxt": "Twitter",
+                    "srtxt": "TW",
+                    "chrid": 2,
+                    "value": "http://www.twitter.com"
+                },
+                {
+                    "descr": "Google+",
+                    "mdtext": "Google+",
+                    "regxt": "url",
+                    "usrid": 30,
+                    "lntxt": "Google+",
+                    "srtxt": "TW",
+                    "chrid": 3,
+                    "value": "http://www.plus.google.com"
+                },
+                {
+                    "descr": "Personal Email",
+                    "mdtext": "Personal Email",
+                    "regxt": "email",
+                    "usrid": 30,
+                    "lntxt": "Personal Email",
+                    "srtxt": "Email",
+                    "chrid": 4,
+                    "value": "edwina.gibbs@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Business Email",
+                    "mdtext": "Business Email",
+                    "regxt": "email",
+                    "usrid": 30,
+                    "lntxt": "Business Email",
+                    "srtxt": "B-Email",
+                    "chrid": 5,
+                    "value": "edwina.gibbs@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Landline",
+                    "mdtext": "Landline",
+                    "regxt": "phone",
+                    "usrid": 30,
+                    "lntxt": "Landline",
+                    "srtxt": "Phone",
+                    "chrid": 6,
+                    "value": "08012121212"
+                },
+                {
+                    "descr": "Mobile",
+                    "mdtext": "Mobile",
+                    "regxt": "mobile",
+                    "usrid": 30,
+                    "lntxt": "Mobile",
+                    "srtxt": "Mobile",
+                    "chrid": 7,
+                    "value": "9999999999"
+                }
+            ],
+            "dspnm": "Edwina Gibbs",
+            "usrid": 30,
+            "ltnam": "Gibbs",
+            "prfix": "Dr.",
+            "title": "Ms.",
+            "frnam": "Edwina",
+            "urdob": "1954-01-25",
+            "urcod": "A150000016"
+        },
+        {
+            "Address": [],
+            "gendr": true,
+            "uqnm" : "BDS",
+            "clnm" : "BMS",
+            "loclt" : "Shastrinagar",
+            "ctynm" : "Hyderabad",
+            "picdetails" : [
+                     {
+                       "usimgurl" : "Picture1.jpg"
+                     },
+                     {
+                       "usimgurl" : "Picture2.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture3.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture4.jpg"
+                     }
+            ],
+            "vudv" : "4.8",
+            "ratin" : "3",
+            "Characteristics": [
+                {
+                    "descr": "Image",
+                    "mdtext": "Image",
+                    "regxt": "img",
+                    "usrid": 34,
+                    "lntxt": "Image",
+                    "srtxt": "Image",
+                    "chrid": 8,
+                    "value": "F-3.jpg"
+                },
+                {
+                    "descr": "Facebook",
+                    "mdtext": "Facebook",
+                    "regxt": "url",
+                    "usrid": 34,
+                    "lntxt": "Facebook",
+                    "srtxt": "FB",
+                    "chrid": 1,
+                    "value": "http://www.facebook.com"
+                },
+                {
+                    "descr": "Twitter",
+                    "mdtext": "Twitter",
+                    "regxt": "url",
+                    "usrid": 34,
+                    "lntxt": "Twitter",
+                    "srtxt": "TW",
+                    "chrid": 2,
+                    "value": "http://www.twitter.com"
+                },
+                {
+                    "descr": "Google+",
+                    "mdtext": "Google+",
+                    "regxt": "url",
+                    "usrid": 34,
+                    "lntxt": "Google+",
+                    "srtxt": "TW",
+                    "chrid": 3,
+                    "value": "http://www.plus.google.com"
+                },
+                {
+                    "descr": "Personal Email",
+                    "mdtext": "Personal Email",
+                    "regxt": "email",
+                    "usrid": 34,
+                    "lntxt": "Personal Email",
+                    "srtxt": "Email",
+                    "chrid": 4,
+                    "value": "minta.lynn@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Business Email",
+                    "mdtext": "Business Email",
+                    "regxt": "email",
+                    "usrid": 34,
+                    "lntxt": "Business Email",
+                    "srtxt": "B-Email",
+                    "chrid": 5,
+                    "value": "minta.lynn@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Landline",
+                    "mdtext": "Landline",
+                    "regxt": "phone",
+                    "usrid": 34,
+                    "lntxt": "Landline",
+                    "srtxt": "Phone",
+                    "chrid": 6,
+                    "value": "08012121212"
+                },
+                {
+                    "descr": "Mobile",
+                    "mdtext": "Mobile",
+                    "regxt": "mobile",
+                    "usrid": 34,
+                    "lntxt": "Mobile",
+                    "srtxt": "Mobile",
+                    "chrid": 7,
+                    "value": "9999999999"
+                }
+            ],
+            "dspnm": "Dr. Minta Lynn",
+            "usrid": 34,
+            "ltnam": "Lynn",
+            "prfix": "Dr.",
+            "title": "Ms.",
+            "frnam": "Minta",
+            "urdob": "1983-04-30",
+            "urcod": "A150000020"
+        },
+        {
+            "Address": [],
+            "gendr": true,
+            "uqnm" : "BDS",
+            "clnm" : "BMS",
+            "loclt" : "Shastrinagar",
+            "ctynm" : "Hyderabad",
+            "picdetails" : [
+                     {
+                       "usimgurl" : "Picture1.jpg"
+                     },
+                     {
+                       "usimgurl" : "Picture2.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture3.jpeg"
+                     },
+                     {
+                       "usimgurl" : "Picture4.jpg"
+                     }
+            ],
+            "vudv" : "4.8",
+            "ratin" : "3",
+            "Characteristics": [
+                {
+                    "descr": "Image",
+                    "mdtext": "Image",
+                    "regxt": "img",
+                    "usrid": 32,
+                    "lntxt": "Image",
+                    "srtxt": "Image",
+                    "chrid": 8,
+                    "value": "F-1.jpg"
+                },
+                {
+                    "descr": "Facebook",
+                    "mdtext": "Facebook",
+                    "regxt": "url",
+                    "usrid": 32,
+                    "lntxt": "Facebook",
+                    "srtxt": "FB",
+                    "chrid": 1,
+                    "value": "http://www.facebook.com"
+                },
+                {
+                    "descr": "Twitter",
+                    "mdtext": "Twitter",
+                    "regxt": "url",
+                    "usrid": 32,
+                    "lntxt": "Twitter",
+                    "srtxt": "TW",
+                    "chrid": 2,
+                    "value": "http://www.twitter.com"
+                },
+                {
+                    "descr": "Google+",
+                    "mdtext": "Google+",
+                    "regxt": "url",
+                    "usrid": 32,
+                    "lntxt": "Google+",
+                    "srtxt": "TW",
+                    "chrid": 3,
+                    "value": "http://www.plus.google.com"
+                },
+                {
+                    "descr": "Personal Email",
+                    "mdtext": "Personal Email",
+                    "regxt": "email",
+                    "usrid": 32,
+                    "lntxt": "Personal Email",
+                    "srtxt": "Email",
+                    "chrid": 4,
+                    "value": "kim.joshep@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Business Email",
+                    "mdtext": "Business Email",
+                    "regxt": "email",
+                    "usrid": 32,
+                    "lntxt": "Business Email",
+                    "srtxt": "B-Email",
+                    "chrid": 5,
+                    "value": "kim.joshep@aimersinfosoft.com"
+                },
+                {
+                    "descr": "Landline",
+                    "mdtext": "Landline",
+                    "regxt": "phone",
+                    "usrid": 32,
+                    "lntxt": "Landline",
+                    "srtxt": "Phone",
+                    "chrid": 6,
+                    "value": "08012121212"
+                },
+                {
+                    "descr": "Mobile",
+                    "mdtext": "Mobile",
+                    "regxt": "mobile",
+                    "usrid": 32,
+                    "lntxt": "Mobile",
+                    "srtxt": "Mobile",
+                    "chrid": 7,
+                    "value": "9999999999"
+                }
+            ],
+            "dspnm": "Kim Joshep",
+            "usrid": 32,
+            "ltnam": "Joshep",
+            "prfix": "Dr.",
+            "title": "Ms.",
+            "frnam": "Kim",
+            "urdob": "1975-04-26",
+            "urcod": "A150000018"
+        }
+    ]
+}

@@ -1,0 +1,59 @@
+<mvc:View controllerName="sap.ui.medApp.view.Booking"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns:c="sap.ui.core" xmlns="sap.m">
+	<Page id="booking" title="{i18n>BOOKING_TITLE}">
+		<content>
+			<Table id="idBookings" inset="true"
+				items="{
+			path: '/Bookings'
+			 
+		}">
+
+				<columns>
+					<Column width="12em">
+						<Text text="{i18n>Time}" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>APPOINTMENTS}" />
+					</Column>
+
+				</columns>
+				
+				    <headerToolbar>
+      <Toolbar>
+        <Title id="dateTitle" level="H2"/>
+        <ToolbarSpacer></ToolbarSpacer>
+
+        <Select change="handleEntityChange"
+          items="{
+            path: '/vendorList/Rules',
+            sorter: { path: 'ENTID' }
+          }">
+          <core:Item key="{ENTID}" text="{ENTID}" />
+        </Select>
+      </Toolbar>
+    </headerToolbar>
+				<items>
+					<ColumnListItem>
+						<cells>
+
+							<Text text="{time}" />
+							<FlexBox alignItems="Start"
+								items="{
+									path: 'appointment'
+			 
+							    }">
+								<items>
+									<Button text="{name}"
+										class="{path:'status', formatter:'sap.ui.demo.tdg.util.Formatter.getClass'}" />
+								</items>
+							</FlexBox>
+
+
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Page>
+</mvc:View>

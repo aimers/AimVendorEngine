@@ -1,0 +1,37 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" xmlns:l="sap.ui.layout" controllerName="sap.ui.medApp.view.Login"
+	xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page enableScrolling="false" showHeader="false" backgroundDesign="Solid">
+		<content>
+			<VBox width="100%" alignItems="Center">
+				<l:Grid defaultSpan="L12 M12 S12" width="auto">
+					<f:SimpleForm id="SimpleFormChange354" minWidth="300"
+						maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+						title="Login here" labelSpanL="3" labelSpanM="3" emptySpanL="4"
+						emptySpanM="4" columnsL="1" columnsM="1" class="editableForm">
+						<f:content>
+							<Text id="MessageBox" class="messageBox" visible="false" />
+							<Label text="Username" />
+							<Input id="usrNme" />
+							<Label text="Password" />
+							<Input id="pswd" type="Password">
+							</Input>
+							<Label />
+							<Button text="Login"  type="Emphasized" press="handleLogin" />
+							<Button text="Sign Up" press="handleRegister">
+								<layoutData>
+									<l:GridData span="L2 M4 S6" />
+								</layoutData>
+							</Button>
+							<Button text="Forgot Password?" class="buttonDesign">
+								<layoutData>
+									<l:GridData span="L4 M4 S6" />
+								</layoutData>
+							</Button>
+						</f:content>
+					</f:SimpleForm>
+				</l:Grid>
+			</VBox>
+		</content>
+	</Page>
+</core:View>

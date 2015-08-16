@@ -1,0 +1,38 @@
+{
+    "results": [
+        {
+            "DSPNM": "Dr.Dinesh Sharma",
+            "UQNM" : "MBBS",
+            "CLNM" : "Ramaya Medical College",
+            "LOCLT" : "Jayanagar",
+            "CTYNM" : "Bangalore",
+            "PIC_DATA" : [
+                     {
+                       "USIMGURL" : "Picture1.jpg"
+                     },
+                     {
+                       "USIMGURL" : "Picture2.jpeg"
+                     },
+                     {
+                       "USIMGURL" : "Picture3.jpeg"
+                     },
+                     {
+                       "USIMGURL" : "Picture4.jpg"
+                     }
+            ],
+            "VUDV" : "1.6",
+            "RATIN" : "14",
+            "DAYS_AVAILABLE" : [
+                   { "DAY" : 1},
+                   { "DAY" : 3},
+                   { "DAY" : 4},
+                   { "DAY" : 6}  
+            ],
+            "TIME_AVAILABLE" : [
+                   { "TIME" : "1:00 PM - 3:00 PM"},
+                   { "TIME" : "4:00 PM - 5:00 PM"},
+                   { "TIME" : "6:00 PM - 6:30 PM"}
+            ]
+        }
+        ]
+}

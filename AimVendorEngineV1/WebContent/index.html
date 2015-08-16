@@ -1,0 +1,34 @@
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Medical App</title>
+<script src="resources/sap-ui-core.js" id="sap-ui-bootstrap"
+	data-sap-ui-xx-bindingSyntax="complex"
+	data-sap-ui-libs="sap.m, sap.ui.unified,sap.ui.commons"
+	data-sap-ui-theme="sap_bluecrystal"
+	data-sap-ui-resourceroots='{"sap.ui.medApp": "./"}'>>
+	
+</script>
+<link rel="stylesheet" type="text/css" href="assets/css/style.css"
+	media="(max-width: 640px)" />
+<link rel="stylesheet" type="text/css" href="assets/css/style.css"
+	media="(min-width: 640px)" />
+<script type="text/javascript" src="global/config.js"></script>
+<script>		
+   sap.ui.getCore().attachInit(function() {
+   new sap.m.Shell({
+      app : new sap.ui.core.ComponentContainer({
+          name : "sap.ui.medApp",   
+      })
+     }).placeAt("content");
+   });
+   
+</script>
+</head>
+<body class="sapUiBody" role="application">
+  <div class="loader"></div>
+	<div id="content">
+		
+	</div>
+</body>
+</html>
