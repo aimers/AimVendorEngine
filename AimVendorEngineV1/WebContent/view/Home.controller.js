@@ -8,6 +8,9 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Home", {
   // Handler for routing event
   onRouteMatched: function(oEvent) {
 	  this.getView().byId("menu").clearSelection();
+	  if (oEvent.getParameter("name") === "home") {
+		 // sap.ui.core.UIComponent.getRouterFor(this).navTo("detailshome");
+	  }
   },
 
   handleSelectionChange: function(oControlEvent) {

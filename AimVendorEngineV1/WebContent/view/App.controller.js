@@ -60,15 +60,12 @@ sap.ui
 						var app = (bIsFullWidthRoute) ? this.fullWidthApp
 								: this.splitApp;
 						var oShell = this.getView().byId("myShell");
+
 						var oHeadItems = oShell.getHeadItems();
 						var oHeadEndItems = oShell.getHeadEndItems();
+						var oShell1 = this.getView().byId("mShell");
 
-						if (oShell.getContent()[0] === undefined
-								|| oShell.getContent()[0].getId() !== app
-										.getId()) {
-							oShell.removeAllContent();
-							oShell.addContent(app);
-						}
+						oShell1.setApp(app);
 
 						if (bShowHederItems) {
 							for ( var item in oHeadItems) {

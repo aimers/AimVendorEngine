@@ -10,11 +10,14 @@
 		}">
 
 				<columns>
-					<Column width="12em">
+					<Column width="4em">
 						<Text text="{i18n>Time}" />
 					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true">
+					<Column>
 						<Text text="{i18n>APPOINTMENTS}" />
+					</Column>
+					<Column width="3em">
+
 					</Column>
 
 				</columns>
@@ -37,16 +40,14 @@
 				<items>
 					<ColumnListItem>
 						<cells>
-
 							<Text text="{START}" />
-							<FlexBox alignItems="Start" items="{
-									path: 'BOOKINGS'}">
-								<items>
-									<Button text="{TITLE}   {FRNAM}  {LTNAM}" />
-								</items>
-							</FlexBox>
-
-
+							<l:Grid defaultSpan="L12 M12 S12" class="bookingGrid"
+								content="{path: 'BOOKINGS'}">
+								<l:content>
+									<Button text="{TITLE}  {FRNAM}  {LTNAM}"  width="100%"/>
+								</l:content>
+							</l:Grid>
+							<Button icon="sap-icon://add" visible="{path: 'BOOKINGS', formatter:'sap.ui.medApp.formatter.formatHelper.isBooked'}" />
 						</cells>
 					</ColumnListItem>
 				</items>

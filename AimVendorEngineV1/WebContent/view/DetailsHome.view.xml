@@ -1,0 +1,14 @@
+<mvc:View controllerName="sap.ui.medApp.view.DetailsHome" displayBlock="true" xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<Page id="detailshome" showHeader="false">
+		<content>
+			 
+		</content>
+		<footer >
+			<Bar visible="false">
+				<contentRight>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

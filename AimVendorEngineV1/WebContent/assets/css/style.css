@@ -77,7 +77,14 @@
 .sapMFocus>.sapMFF {
 	border-color: #4ECDC4 !important;
 }
+/*DropDown*/
+.sapMSltPressed>.sapMSltArrow{
+	background: #4ECDC4 !important;
+}
 
+.sap-desktop .sapMSlt:focus, .sapMSltHoverable:hover{
+    border-color: #4ECDC4 !important;	
+}
 /*Button*/
 
 html.sap-desktop .sapMBtn:focus>.sapMFocusable
@@ -260,3 +267,52 @@ background: #4ECDC4 !important;
 border-right: 1px solid #e1e1e1 !important;
 }
 
+.noBorder td{
+	border:none !important;
+}
+
+.leftPaddingZero{
+	padding-left:0px !important;
+}
+.rightPaddingZero{
+	padding-right:0px !important;
+}
+
+.bookingGrid{
+	width:100%;
+}
+
+.bookingGrid.sapUiRespGrid.sapUiRespGridVSpace1>div
+{
+	margin-bottom: 0px !important;
+}
+
+.bookingGrid.sapUiRespGrid.sapUiRespGridHSpace1{
+	padding: 0 0 !important; 
+}
+
+
+.btnBookingApproved span{
+	background-color: #80ddd6 !important;
+	color: #fff !important;
+    text-shadow: none !important;
+}
+
+.btnBookingApproved>div, .btnBookingApproved>.sapMBtnInner{
+	padding: 0px !important;
+	background:none !important;
+	border: none !important;
+}
+
+ .btnBookingPending span{
+	background-color: #f7f5b2 !important;
+	color: #fff !important;
+    text-shadow: none !important;
+}
+
+.btnBookingPending>div, .btnBookingApproved>.sapMBtnInner{
+	padding: 0px !important;
+	background:none !important;
+	border: none !important;
+}
+ 

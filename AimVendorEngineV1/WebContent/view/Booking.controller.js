@@ -1,4 +1,4 @@
-jQuery.sap.require("sap.ui.medApp.global.globalFormatter");
+jQuery.sap.require("sap.ui.medApp.formatter.formatHelper");
 sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking", {
 
 	onInit : function() {
@@ -49,13 +49,24 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking", {
 					var aBookings = [];
 					for (item1 in oBookingHistory) {
 						if (item.START === oBookingHistory[item1].BOSTM) {
+
+							var cls = "";
+							if (oBookingHistory[item1].STATS == "1") {
+								cls = "btnBookingApproved";
+							} else if (oBookingHistory[item1].STATS == "2") {
+								cls = "btnBookingPending";
+							}
+
 							aBookings.push({
 								TITLE : oBookingHistory[item1].TITLE,
 								FRNAM : oBookingHistory[item1].FRNAM,
 								LTNAM : oBookingHistory[item1].LTNAM,
-								STATS : oBookingHistory[item1].STATS
+								STATS : oBookingHistory[item1].STATS,
+								CLSS : cls
+
 							})
 						}
+
 					}
 					return {
 						START : item.START,
