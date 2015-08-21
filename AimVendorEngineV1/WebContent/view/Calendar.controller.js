@@ -38,9 +38,14 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Calendar", {
 	},
 
 	_showBookings : function(oDate) {
+		var bReplace = jQuery.device.is.phone ? false : true;
 		sap.ui.core.UIComponent.getRouterFor(this).navTo("bookings", {
 			date : oDate
-		});
+		},bReplace);
+	},
+	navBack:function(){
+		var bReplace = jQuery.device.is.phone ? false : true;
+		sap.ui.core.UIComponent.getRouterFor(this).navTo("home",{},bReplace);
 	}
 
 });

@@ -11,13 +11,12 @@ sap.ui.core.UIComponent.extend("sap.ui.medApp.Component", {
 				viewType : "XML",
 				viewPath : "sap.ui.medApp.view",
 				targetAggregation : "detailPages",
-				clearTarget : false
+				clearTarget : true
 			},
 			routes : [ {
 				pattern : "", // patern matching
 				name : "login", // router name
 				view : "Login", // View of the
-				// _DealsList Router
 				targetAggregation : "pages",
 				targetControl : "idAppControl",
 
@@ -28,12 +27,9 @@ sap.ui.core.UIComponent.extend("sap.ui.medApp.Component", {
 				targetAggregation : "masterPages",
 				targetControl : "idSplitAppControl",
 				subRoutes : [ {
-					pattern : "detailshome",
+					pattern : "home/detailshome",
 					name : "detailshome",
-					view : "DetailsHome",
-					viewLevel : 1,
-					targetAggregation : "detailPages",
-					targetControl : "idSplitAppControl",
+					view : "DetailsHome"
 				} ]
 			}, {
 				pattern : "home/bookinghome", // patern

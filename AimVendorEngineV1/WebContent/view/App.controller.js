@@ -49,7 +49,7 @@ sap.ui
 
 						var scope = oEvent.getParameter("config").name;
 						var showHeaderItemsRoutes = [ "home", "bookinghome",
-								"bookings" ];
+								"bookings", "detailshome" ];
 						var fullWidthRoutes = [ "login" ];
 						var bIsFullWidthRoute = (jQuery.inArray(scope,
 								fullWidthRoutes) >= 0);
@@ -64,7 +64,6 @@ sap.ui
 						var oHeadItems = oShell.getHeadItems();
 						var oHeadEndItems = oShell.getHeadEndItems();
 						var oShell1 = this.getView().byId("mShell");
-
 						oShell1.setApp(app);
 
 						if (bShowHederItems) {
@@ -88,7 +87,8 @@ sap.ui
 
 					},
 					handelHomeBtn : function(evt) {
-						this._oRouter.navTo('home');
+						var bReplace = jQuery.device.is.phone ? false : true;
+						this._oRouter.navTo('home',{},bReplace);
 					},
 					okCallback : function() {
 						var oService = new oDataService();
@@ -135,6 +135,8 @@ sap.ui
 						sessionStorage.removeItem("medAppUID");
 						sessionStorage.removeItem("medAppPWD");
 						this.oModel.setProperty("/LoggedUser", []);
+						var bReplace = jQuery.device.is.phone ? false : true;
+						
 						this._oRouter.navTo('login');
 					}
 				});

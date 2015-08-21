@@ -19,7 +19,12 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking", {
 			}
 			var oLoginDetails = this.oModel.getProperty("/LoggedUser");
 			var oDate = oEvent.getParameter("arguments").date;
-			var oSeletedItem = oView.byId("entitySelect").getSelectedItem();
+			var oEntities = oView.byId("entitySelect");
+			var oSeletedItem = oEntities.getSelectedItem();
+			if (!oSeletedItem) {
+				oEntities.setSelectedItem(oEntities.getFirstItem());
+				oSeletedItem = oEntities.getFirstItem();
+			}
 			var sPath = oSeletedItem.getBindingContext().sPath;
 			param = {
 				"USRID" : oLoginDetails.USRID,
@@ -84,6 +89,10 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking", {
 	},
 	handleEntityChange : function() {
 
+	},
+	navBack : function() {
+		var bReplace = jQuery.device.is.phone ? false : true;
+		sap.ui.core.UIComponent.getRouterFor(this).navTo("bookinghome",{},bReplace);
 	}
 
 });

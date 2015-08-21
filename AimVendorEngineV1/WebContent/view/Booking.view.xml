@@ -1,7 +1,7 @@
 <mvc:View controllerName="sap.ui.medApp.view.Booking"
 	xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
 	xmlns:c="sap.ui.core" xmlns="sap.m">
-	<Page id="booking" title="{i18n>BOOKING_TITLE}">
+	<Page id="booking" title="{i18n>BOOKING_TITLE}" showNavButton="{device>isPhone}" navButtonPress="navBack">
 		<content>
 			<Table id="idBookings" inset="true" class="rightBlackBorder"
 				items="{
