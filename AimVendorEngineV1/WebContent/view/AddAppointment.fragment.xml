@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+
+	<l:Grid defaultSpan="L12 M12 S12" width="auto">
+		<l:content>
+			<f:SimpleForm id="addAppointmentForm" minWidth="1024"
+				maxContainerCols="2" layout="ResponsiveGridLayout" labelSpanL="4"
+				labelSpanM="4" emptySpanL="1" emptySpanM="1" columnsL="1" columnsM="1">
+				<f:content>
+					<core:Title text="Add Appointment"></core:Title>
+					<Label text="User" />
+					<SegmentedButton selectedButton="sbExisting"
+						select="handleUserSelection">
+						<Button text="Existing User" id="sbExisting" />
+						<Button id="sbNew" text="New User" />
+					</SegmentedButton>
+					<Label text="Username" />
+					<Input id="inputUserName" type="Text" placeholder="Enter username"
+						showSuggestion="true" suggest="userSuggestHandle"
+						suggestionItemSelected="userSelectedHandle">
+					</Input>
+				</f:content>
+			</f:SimpleForm>
+		</l:content>
+	</l:Grid>
+</core:FragmentDefinition>

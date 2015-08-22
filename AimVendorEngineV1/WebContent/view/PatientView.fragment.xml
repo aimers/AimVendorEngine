@@ -13,10 +13,10 @@
 	<ResponsivePopover title="Patient Info" class="sapUiPopupWithPadding"
 		placement="Bottom">
 		<beginButton>
-			<Button text="Approve" press="handleApprovePress" />
+			<Button text="Approve" press="handleApprovePress" icon="sap-icon://employee-approvals" />
 		</beginButton>
 		<endButton>
-			<Button text="Reject" press="handleRejectPress" />
+			<Button text="Reject" press="handleRejectPress" icon="sap-icon://employee-rejections" />
 		</endButton>
 		<content>
 			<l:Grid defaultSpan="L6 M12 S12" width="auto">

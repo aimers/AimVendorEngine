@@ -24,7 +24,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking",
      this.oEntities = oView.byId("entitySelect");
      var oSeletedItem = this.oEntities.getSelectedItem();
      if (!oSeletedItem) {
-      this.oEntities.setSelectedItem(oEntities.getFirstItem());
+      this.oEntities.setSelectedItem(this.oEntities.getFirstItem());
       oSeletedItem = this.oEntities.getFirstItem();
      }
      var sPath = oSeletedItem.getBindingContext().sPath;
@@ -168,6 +168,39 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking",
    },
 
    handleAddAppointment : function(oEvent) {
+    var _this = this;
+    if (!_this.Appointmentdialog) {
+     _this.Appointmentdialog = new sap.m.Dialog({
+      title : 'Book Appointment',
+      content : sap.ui.xmlfragment("sap.ui.medApp.view.AddAppointment", this),
+      beginButton : new sap.m.Button({
+       text : 'Save',
+       press : function() {
+        _this.Appointmentdialog.close();
+       }
+      }),
+      endButton : new sap.m.Button({
+       text : 'Cancel',
+       press : function() {
+        _this.Appointmentdialog.close();
+       }
+      })
+     });
+     // to get access to the global model
+     _this.getView().addDependent(this.Appointmentdialog);
+    }
+
+    _this.Appointmentdialog.open();
+   },
+
+   userSuggestHandle : function() {
+
+   },
+
+   userSelectedHandle : function() {
+
+   },
+   handleUserSelection : function() {
 
    }
 
