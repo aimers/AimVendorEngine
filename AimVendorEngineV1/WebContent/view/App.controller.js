@@ -22,7 +22,7 @@ sap.ui
 
 						this.splitApp = new sap.m.SplitApp("idSplitAppControl",
 								{
-									mode : "PopoverMode",
+									mode : "ShowHideMode",
 									defaultTransitionNameDetail : "slide"
 								});
 						this.getView().byId('myShell').setModel(this.oModel);

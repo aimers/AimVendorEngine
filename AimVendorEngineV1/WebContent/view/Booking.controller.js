@@ -63,11 +63,38 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking", {
 							}
 
 							aBookings.push({
-								TITLE : oBookingHistory[item1].TITLE,
-								FRNAM : oBookingHistory[item1].FRNAM,
-								LTNAM : oBookingHistory[item1].LTNAM,
+								DSPNM : oBookingHistory[item1].DSPNM,
 								STATS : oBookingHistory[item1].STATS,
-								CLSS : cls
+								VLTNAM : oBookingHistory[item1].VLTNAM,
+								URDOB : oBookingHistory[item1].URDOB,
+								URCOD : oBookingHistory[item1].URCOD,
+								VURDOB : oBookingHistory[item1].VURDOB,
+								VURCOD : oBookingHistory[item1].VURCOD,
+								VTRMI : oBookingHistory[item1].VTRMI,
+								ETYID : oBookingHistory[item1].ETYID,
+								BOETM : oBookingHistory[item1].BOETM,
+								VPREFIX : oBookingHistory[item1].VPREFIX,
+								ENTID : oBookingHistory[item1].ENTID,
+								BOSTM : oBookingHistory[item1].BOSTM,
+								VFRNAM : oBookingHistory[item1].VFRNAM,
+								USRID : oBookingHistory[item1].USRID,
+								VTITLE : oBookingHistory[item1].VTITLE,
+								VGENDR : oBookingHistory[item1].VGENDR,
+								CUSID : oBookingHistory[item1].CUSID,
+								LTNAM : oBookingHistory[item1].LTNAM,
+								CUTID : oBookingHistory[item1].CUTID,
+								RTYPE : oBookingHistory[item1].RTYPE,
+								VUSRID : oBookingHistory[item1].VUSRID,
+								BTIMZ : oBookingHistory[item1].BTIMZ,
+								FRNAM : oBookingHistory[item1].FRNAM,
+								VDSPNM : oBookingHistory[item1].VDSPNM,
+								RULID : oBookingHistory[item1].RULID,
+								VSUID : oBookingHistory[item1].VSUID,
+								VUTID : oBookingHistory[item1].VUTID,
+								BDTIM : oBookingHistory[item1].BDTIM,
+								GENDR : oBookingHistory[item1].GENDR,
+								TITLE : oBookingHistory[item1].TITLE,
+								ETCID : oBookingHistory[item1].ETCID
 
 							})
 						}
@@ -92,7 +119,36 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking", {
 	},
 	navBack : function() {
 		var bReplace = jQuery.device.is.phone ? false : true;
-		sap.ui.core.UIComponent.getRouterFor(this).navTo("bookinghome",{},bReplace);
+		sap.ui.core.UIComponent.getRouterFor(this).navTo("bookinghome", {},
+				bReplace);
+	},
+	handlePatientViewPress : function(oEvent) {
+		var sPath = oEvent.getSource().getBindingContext().sPath;
+		this.openPatientView(oEvent, this.oModel, sPath);
+	},
+
+	openPatientView : function(oEvent, oModel, sPath) {
+		this.createPopover();
+
+		this._oPatientView.setModel(oModel);
+		this._oPatientView.bindElement(sPath);
+		var oButton = oEvent.getSource();
+		jQuery.sap.delayedCall(0, this, function() {
+			this._oPatientView.openBy(oButton);
+		});
+	},
+
+	createPopover : function() {
+		if (!this._oPatientView) {
+			this._oPatientView = sap.ui.xmlfragment(
+					"sap.ui.medApp.view.PatientView", this);
+			this.getView().addDependent(this._oPatientView);
+		}
+	},
+	onExit : function() {
+		if (this._oPatientView) {
+			this._oPatientView.destroy();
+		}
 	}
 
 });

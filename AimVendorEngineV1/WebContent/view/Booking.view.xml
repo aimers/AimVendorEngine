@@ -1,7 +1,7 @@
 <mvc:View controllerName="sap.ui.medApp.view.Booking"
 	xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
 	xmlns:c="sap.ui.core" xmlns="sap.m">
-	<Page id="booking" title="{i18n>BOOKING_TITLE}" showNavButton="{device>isPhone}" navButtonPress="navBack">
+	<Page id="booking" title="{i18n>BOOKING_TITLE}" showNavButton="false">
 		<content>
 			<Table id="idBookings" inset="true" class="rightBlackBorder"
 				items="{
@@ -24,9 +24,14 @@
 
 				<headerToolbar>
 					<Toolbar>
-						<Title text="Appointment Date:" level="H2" />
+						<Title text="Date:" level="H2" />
 						<Title id="dateTitle" level="H2" />
 						<ToolbarSpacer></ToolbarSpacer>
+						<SegmentedButton selectedButton="SBYes">
+							<Button text="All" id="all" />
+							<Button text="Approved" />
+							<Button text="Rejected" />
+						</SegmentedButton>
 						<Select change="handleEntityChange" id="entitySelect"
 							items="{
             path: '/vendorsList/0/Rules',
@@ -44,10 +49,12 @@
 							<l:Grid defaultSpan="L12 M12 S12" class="bookingGrid"
 								content="{path: 'BOOKINGS'}">
 								<l:content>
-									<Button text="{TITLE}  {FRNAM}  {LTNAM}"  width="100%"/>
+									<Button text="{TITLE}  {FRNAM}  {LTNAM}" press="handlePatientViewPress"
+										width="100%" />
 								</l:content>
 							</l:Grid>
-							<Button icon="sap-icon://add" visible="{path: 'BOOKINGS', formatter:'sap.ui.medApp.formatter.formatHelper.isBooked'}" />
+							<Button icon="sap-icon://add"
+								visible="{path: 'BOOKINGS', formatter:'sap.ui.medApp.formatter.formatHelper.isBooked'}" />
 						</cells>
 					</ColumnListItem>
 				</items>

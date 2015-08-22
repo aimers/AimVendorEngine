@@ -87,6 +87,14 @@
 }
 /*Button*/
 
+.sapMSegBBtn.sapMSegBBtnSel{
+	background:#4ECDC4 !important;
+	color:#fff !important;
+    border-color: #4ECDC4 !important;
+}
+.sapMSegBBtn{
+   color: #4ECDC4 !important;
+}
 html.sap-desktop .sapMBtn:focus>.sapMFocusable
 {
 	outline: none !important;
