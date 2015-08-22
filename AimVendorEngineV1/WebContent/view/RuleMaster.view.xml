@@ -1,0 +1,40 @@
+<mvc:View controllerName="sap.ui.medApp.view.RuleMaster"
+	displayBlock="true" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+	<Page id="home" title="{i18n>RULEMASTER_TITLE}" showNavButton="true"
+		navButtonPress="navBack">
+		<content>
+			<List id="ruleList" items="{/vendorRulesDefn/ruleDefinitions}">
+				<headerToolbar>
+					<Toolbar>
+						 
+						<ToolbarSpacer />
+						 
+						<Button icon="sap-icon://filter" press="handleFilterPress" />
+					</Toolbar>
+				</headerToolbar>
+				<infoToolbar>
+					<Toolbar active="true" press="handleInfobarPress">
+						<Label id="lblRuleTyp" text="Auto Approval" />
+					</Toolbar>
+				</infoToolbar>
+				<items>
+					<ObjectListItem title="{DESCR}" type="Active"
+						press="onRuleItemPress">
+						<attributes>
+							<ObjectAttribute text="Start Time: {DSTIM}" />
+							<ObjectAttribute text="End Time: {DETIM}" />
+						</attributes>
+					</ObjectListItem>
+				</items>
+			</List>
+		</content>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button icon="sap-icon://add" press="handlePressAddRule"></Button>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

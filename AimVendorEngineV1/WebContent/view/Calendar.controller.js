@@ -12,15 +12,16 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Calendar", {
 	onRouteMatched : function(oEvent) {
 		var oView = this.getView();
 
-		
 		if (oEvent.getParameter("name") === "bookinghome") {
 			var oCalendar = oView.byId("calendar1");
-			var oDate = this._getSelectedDate(oCalendar);
-			this._showBookings(oDate);
-		}
+			if (!sap.ui.Device.system.phone) {
+				var oDate = this._getSelectedDate(oCalendar);
+				this._showBookings(oDate);
+			}
+		}	
 	},
-	
-	_getSelectedDate:function(oCalendar){
+
+	_getSelectedDate : function(oCalendar) {
 		var aSelectedDates = oCalendar.getSelectedDates();
 		var oDate;
 		if (aSelectedDates.length > 0) {
@@ -38,14 +39,15 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Calendar", {
 	},
 
 	_showBookings : function(oDate) {
+
 		var bReplace = jQuery.device.is.phone ? false : true;
 		sap.ui.core.UIComponent.getRouterFor(this).navTo("bookings", {
 			date : oDate
-		},bReplace);
+		}, bReplace);
 	},
-	navBack:function(){
+	navBack : function() {
 		var bReplace = jQuery.device.is.phone ? false : true;
-		sap.ui.core.UIComponent.getRouterFor(this).navTo("home",{},bReplace);
+		sap.ui.core.UIComponent.getRouterFor(this).navTo("home", {}, bReplace);
 	}
 
 });

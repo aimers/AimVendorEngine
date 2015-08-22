@@ -17,103 +17,110 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking", {
 				sap.ui.medApp.global.util.loadVendorFILTERData(param);
 				oView.setModel(this.oModel);
 			}
-			var oLoginDetails = this.oModel.getProperty("/LoggedUser");
-			var oDate = oEvent.getParameter("arguments").date;
-			var oEntities = oView.byId("entitySelect");
+			this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
+			this.oDate = oEvent.getParameter("arguments").date;
+			this.oEntities = oView.byId("entitySelect");
 			var oSeletedItem = oEntities.getSelectedItem();
 			if (!oSeletedItem) {
-				oEntities.setSelectedItem(oEntities.getFirstItem());
+				this.oEntities.setSelectedItem(oEntities.getFirstItem());
 				oSeletedItem = oEntities.getFirstItem();
 			}
 			var sPath = oSeletedItem.getBindingContext().sPath;
-			param = {
-				"USRID" : oLoginDetails.USRID,
-				"RULID" : this.oModel.getProperty(sPath + "/RULID"),
-				"ETYID" : this.oModel.getProperty(sPath + "/ETYID"),
-				"ETCID" : this.oModel.getProperty(sPath + "/ETCID"),
-				"ENTID" : oView.byId("entitySelect").getSelectedKey(),
-				"STDATE" : oDate,
-				"ENDATE" : oDate
-			};
-			sap.ui.medApp.global.util.loadVendorRules(param);
-
-			var param = [ {
-				"key" : "details",
-				"value" : {
-					"VSUID" : oLoginDetails.USRID,
-					"VUTID" : oLoginDetails.UTYID,
-					"BDTIM" : oDate
-				}
-			} ];
-			sap.ui.medApp.global.util.loadVendorBookingHistory(param);
-
-			var oVendorRules = this.oModel.getProperty("/vendorRules");
-			var oBookingHistory = this.oModel.getProperty("/bookingHistory");
-			if (oVendorRules[0].TimeSlots) {
-				var finalArray = oVendorRules[0].TimeSlots.map(function(item) {
-					var aBookings = [];
-					for (item1 in oBookingHistory) {
-						if (item.START === oBookingHistory[item1].BOSTM) {
-
-							var cls = "";
-							if (oBookingHistory[item1].STATS == "1") {
-								cls = "btnBookingApproved";
-							} else if (oBookingHistory[item1].STATS == "2") {
-								cls = "btnBookingPending";
-							}
-
-							aBookings.push({
-								DSPNM : oBookingHistory[item1].DSPNM,
-								STATS : oBookingHistory[item1].STATS,
-								VLTNAM : oBookingHistory[item1].VLTNAM,
-								URDOB : oBookingHistory[item1].URDOB,
-								URCOD : oBookingHistory[item1].URCOD,
-								VURDOB : oBookingHistory[item1].VURDOB,
-								VURCOD : oBookingHistory[item1].VURCOD,
-								VTRMI : oBookingHistory[item1].VTRMI,
-								ETYID : oBookingHistory[item1].ETYID,
-								BOETM : oBookingHistory[item1].BOETM,
-								VPREFIX : oBookingHistory[item1].VPREFIX,
-								ENTID : oBookingHistory[item1].ENTID,
-								BOSTM : oBookingHistory[item1].BOSTM,
-								VFRNAM : oBookingHistory[item1].VFRNAM,
-								USRID : oBookingHistory[item1].USRID,
-								VTITLE : oBookingHistory[item1].VTITLE,
-								VGENDR : oBookingHistory[item1].VGENDR,
-								CUSID : oBookingHistory[item1].CUSID,
-								LTNAM : oBookingHistory[item1].LTNAM,
-								CUTID : oBookingHistory[item1].CUTID,
-								RTYPE : oBookingHistory[item1].RTYPE,
-								VUSRID : oBookingHistory[item1].VUSRID,
-								BTIMZ : oBookingHistory[item1].BTIMZ,
-								FRNAM : oBookingHistory[item1].FRNAM,
-								VDSPNM : oBookingHistory[item1].VDSPNM,
-								RULID : oBookingHistory[item1].RULID,
-								VSUID : oBookingHistory[item1].VSUID,
-								VUTID : oBookingHistory[item1].VUTID,
-								BDTIM : oBookingHistory[item1].BDTIM,
-								GENDR : oBookingHistory[item1].GENDR,
-								TITLE : oBookingHistory[item1].TITLE,
-								ETCID : oBookingHistory[item1].ETCID
-
-							})
-						}
-
-					}
-					return {
-						START : item.START,
-						BOOKINGS : aBookings
-					};
-
-				});
-				this.oModel.setProperty("/vendorRules", finalArray);
-			}
+			this._getVendorRules();
+			this._getVendorBookingHistory();
+			this._bindBookings(this);
+			
 
 			oView.byId("dateTitle").setText(oDate);
 
 		}
 		oView.setModel(this.oModel);
 	},
+	
+	_getVendorBookingHistory: function(){
+		var param = [ {
+			"key" : "details",
+			"value" : {
+				"VSUID" : this.oLoginDetails.USRID,
+				"VUTID" : this.oLoginDetails.UTYID,
+				"BDTIM" : this.oDate
+			}
+		} ];
+		sap.ui.medApp.global.util.loadVendorBookingHistory(param);
+	},
+	
+	_getVendorRules:function(){
+		var param = {
+				"USRID" : this.oLoginDetails.USRID,
+				"RULID" : this.oModel.getProperty(sPath + "/RULID"),
+				"ETYID" : this.oModel.getProperty(sPath + "/ETYID"),
+				"ETCID" : this.oModel.getProperty(sPath + "/ETCID"),
+				"ENTID" : oView.byId("entitySelect").getSelectedKey(),
+				"STDATE" : this.oDate,
+				"ENDATE" : this.oDate
+			};
+			sap.ui.medApp.global.util.loadVendorRules(param);
+	},
+	
+	
+	_bindBookings:function(that){
+		var oVendorRules = that.oModel.getProperty("/vendorRules");
+		var oBookingHistory = that.oModel.getProperty("/bookingHistory");
+		if (oVendorRules[0].TimeSlots) {
+			var finalArray = oVendorRules[0].TimeSlots.map(function(item) {
+				var aBookings = [];
+				for (item1 in oBookingHistory) {
+					if (item.START === oBookingHistory[item1].BOSTM) {
+
+						aBookings.push({
+							DSPNM : oBookingHistory[item1].DSPNM,
+							STATS : oBookingHistory[item1].STATS,
+							VLTNAM : oBookingHistory[item1].VLTNAM,
+							URDOB : oBookingHistory[item1].URDOB,
+							URCOD : oBookingHistory[item1].URCOD,
+							VURDOB : oBookingHistory[item1].VURDOB,
+							VURCOD : oBookingHistory[item1].VURCOD,
+							VTRMI : oBookingHistory[item1].VTRMI,
+							ETYID : oBookingHistory[item1].ETYID,
+							BOETM : oBookingHistory[item1].BOETM,
+							VPREFIX : oBookingHistory[item1].VPREFIX,
+							ENTID : oBookingHistory[item1].ENTID,
+							BOSTM : oBookingHistory[item1].BOSTM,
+							VFRNAM : oBookingHistory[item1].VFRNAM,
+							USRID : oBookingHistory[item1].USRID,
+							VTITLE : oBookingHistory[item1].VTITLE,
+							VGENDR : oBookingHistory[item1].VGENDR,
+							CUSID : oBookingHistory[item1].CUSID,
+							LTNAM : oBookingHistory[item1].LTNAM,
+							CUTID : oBookingHistory[item1].CUTID,
+							RTYPE : oBookingHistory[item1].RTYPE,
+							VUSRID : oBookingHistory[item1].VUSRID,
+							BTIMZ : oBookingHistory[item1].BTIMZ,
+							FRNAM : oBookingHistory[item1].FRNAM,
+							VDSPNM : oBookingHistory[item1].VDSPNM,
+							RULID : oBookingHistory[item1].RULID,
+							VSUID : oBookingHistory[item1].VSUID,
+							VUTID : oBookingHistory[item1].VUTID,
+							BDTIM : oBookingHistory[item1].BDTIM,
+							GENDR : oBookingHistory[item1].GENDR,
+							TITLE : oBookingHistory[item1].TITLE,
+							ETCID : oBookingHistory[item1].ETCID
+
+						})
+					}
+
+				}
+				return {
+					START : item.START,
+					BOOKINGS : aBookings
+				};
+
+			});
+			that.oModel.setProperty("/vendorRules", finalArray);
+		}
+	},
+	
+	
 	handleEntityChange : function() {
 
 	},
@@ -149,6 +156,12 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking", {
 		if (this._oPatientView) {
 			this._oPatientView.destroy();
 		}
+	},
+	handleApprovePress : function(oEvent) {
+
+	},
+	handleRejectPress : function(oEvent) {
+
 	}
 
 });

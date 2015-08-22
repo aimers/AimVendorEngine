@@ -27,18 +27,14 @@
 						<Title text="Date:" level="H2" />
 						<Title id="dateTitle" level="H2" />
 						<ToolbarSpacer></ToolbarSpacer>
-						<SegmentedButton selectedButton="SBYes">
-							<Button text="All" id="all" />
-							<Button text="Approved" />
-							<Button text="Rejected" />
-						</SegmentedButton>
-						<Select change="handleEntityChange" id="entitySelect"
-							items="{
+
+	<Select change="handleEntityChange" id="entitySelect"
+		items="{
             path: '/vendorsList/0/Rules',
             sorter: { path: 'ENTID' }
           }">
-							<c:Item key="{ENTID}" text="{DESCR}" />
-						</Select>
+		<c:Item key="{ENTID}" text="{DESCR}" />
+	</Select>
 
 					</Toolbar>
 				</headerToolbar>

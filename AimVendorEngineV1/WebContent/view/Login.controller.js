@@ -24,20 +24,15 @@ sap.ui.controller("sap.ui.medApp.view.Login",
 						this._handleRouteMatched, this);
 			},
 			_handleRouteMatched : function(evt) {
-				if (sessionStorage.medAppUID && evt.getParameter("name")==="login") {
-					this._oRouter.navTo('home');
-				}
+				//if (sessionStorage.medAppUID && evt.getParameter("name")==="login") {
+					//this._oRouter.navTo('home');
+			//	}
 				this.parameter = evt.getParameter("arguments");
 			},
 			/*
 			 * Handle Press Tile
 			 */
 			handleSearchKeyword : function(evt) {
-				// open the loading dialog
-				this._oRouter.navTo("_searchVendors", {
-					vendorId : "123"
-				});
-
 			},
 			handleLogin : function() {
 				var _this = this;

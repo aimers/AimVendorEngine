@@ -1,4 +1,4 @@
-jQuery.sap.declare("sap.ui.medApp.global.util");
+	jQuery.sap.declare("sap.ui.medApp.global.util");
 jQuery.sap.require("sap.ui.medApp.service.vendorListServiceFacade");
 sap.ui.medApp.global.util = {
 	getHomeModel : function(_oRouter) {
@@ -258,4 +258,11 @@ sap.ui.medApp.global.util = {
 				"getVendorRuleDetail", param);
 
 	},
+	loadVendorRulesDef : function(param) {
+		this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
+				this._mainModel);
+		this._vendorListServiceFacade.getRecords(null, null, "/vendorRulesDefn",
+				"getVendorRuleDef", param);
+
+	}
 }

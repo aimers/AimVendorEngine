@@ -1,0 +1,19 @@
+<mvc:View controllerName="sap.ui.medApp.view.RuleDetails"
+	displayBlock="true" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+	<Page id="home" title="{i18n>RULEDETAILS_TITLE}">
+		<content>
+			<core:Fragment fragmentName="sap.ui.medApp.view.Rule"
+				type="XML"></core:Fragment>
+		</content>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button text="Edit" icon="sap-icon://edit" visible="false"></Button>
+					<Button text="Save" icon="sap-icon://save" visible="false"></Button>
+					<Button text="Cancel" icon="sap-icon://sys-cancel" visible="false"></Button>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

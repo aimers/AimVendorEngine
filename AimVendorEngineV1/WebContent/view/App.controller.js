@@ -49,7 +49,8 @@ sap.ui
 
 						var scope = oEvent.getParameter("config").name;
 						var showHeaderItemsRoutes = [ "home", "bookinghome",
-								"bookings", "detailshome" ];
+								"bookings", "detailshome", "entity", "profile",
+								"characteristics","personalinfo","address","rules","ruledetails","addrule"];
 						var fullWidthRoutes = [ "login" ];
 						var bIsFullWidthRoute = (jQuery.inArray(scope,
 								fullWidthRoutes) >= 0);
@@ -82,13 +83,24 @@ sap.ui
 								oHeadEndItems[item].setVisible(false);
 							}
 						}
+
+						if (bIsHomeRoute) {
+							if (!sessionStorage.medAppUID) {
+								this._naveToLogin();
+								return false;
+							}
+						}
+
+					},
+					_naveToLogin : function() {
+						sap.ui.core.UIComponent.getRouterFor(this).navTo("login", {}, true);
 					},
 					onAfterRendering : function() {
 
 					},
 					handelHomeBtn : function(evt) {
 						var bReplace = jQuery.device.is.phone ? false : true;
-						this._oRouter.navTo('home',{},bReplace);
+						this._oRouter.navTo('home', {}, bReplace);
 					},
 					okCallback : function() {
 						var oService = new oDataService();
@@ -129,14 +141,14 @@ sap.ui
 					},
 
 					handleProfile : function(evt) {
-
+						this._oRouter.navTo('profile');
 					},
 					logout : function(evt) {
 						sessionStorage.removeItem("medAppUID");
 						sessionStorage.removeItem("medAppPWD");
 						this.oModel.setProperty("/LoggedUser", []);
 						var bReplace = jQuery.device.is.phone ? false : true;
-						
+
 						this._oRouter.navTo('login');
 					}
 				});

@@ -12,9 +12,9 @@
 						<f:content>
 							<Text id="MessageBox" class="messageBox" visible="false" />
 							<Label text="Username" />
-							<Input id="usrNme" />
+							<Input id="usrNme" value="thomas.stewart@aimersinfosoft.com" />
 							<Label text="Password" />
-							<Input id="pswd" type="Password">
+							<Input id="pswd" type="Password" value="aim@123">
 							</Input>
 							<Label />
 							<Button text="Login"  type="Emphasized" press="handleLogin" />

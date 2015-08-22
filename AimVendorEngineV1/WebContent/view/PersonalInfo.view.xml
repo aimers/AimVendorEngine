@@ -1,0 +1,53 @@
+<mvc:View controllerName="sap.ui.medApp.view.PersonalInfo"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" displayBlock="true"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<Page id="home" title="{i18n>PROFILEMASTER_TITLE}">
+		<content>
+
+			<l:Grid defaultSpan="L12 M12 S12" width="auto">
+				<l:content>
+					<f:SimpleForm id="ProfileForm" minWidth="1024"
+						maxContainerCols="1" editable="true" layout="ResponsiveGridLayout"
+						labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0"
+						columnsL="1" columnsM="1">
+						<f:content>
+							<core:Title text="Personal Details" />
+							
+							<Label text="User Code" />
+							<Text text="{URCOD}"/>
+							
+							<Label text="Title" />
+							<Select>
+								<core:Item key="1" text="Mr." />
+								<core:Item key="2" text="Ms." />
+							</Select>
+							<Label text="First Name" />
+							<Input value="{FRNAM}"/>
+							
+							 
+							<Label text="Last Name" />
+							<Input value="{LTNAM}"/>
+							 
+						 
+							<Label text="Display Name" />
+							<Input value="{DSPNM}"/>
+							
+							<Label text="Prefix" />
+							<Input value="{PRFIX}"/>
+							
+							<Label text="DOB" />
+							<Input value="{URDOB}"/>
+							
+							 
+							<core:Title text="Online" />
+							<Label text="Web" />
+							<Input value="{Url}" />
+							<Label text="Twitter" />
+							<Input value="{Twitter}" />
+						</f:content>
+					</f:SimpleForm>
+				</l:content>
+			</l:Grid>
+		</content>
+	</Page>
+</mvc:View>

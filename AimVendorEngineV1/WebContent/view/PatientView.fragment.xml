@@ -1,45 +1,29 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
-	xmlns:core="sap.ui.core"> 
- 	<QuickView id="patientViewView" placement="Auto">
-		<QuickViewPage header="Patient Info" icon="sap-icon://employee"
-			title="{TITLE} {FRNAM} {LTNAM}">
-			<groups>
-				<QuickViewGroup heading="Appointment Details">
-					<QuickViewGroupElement label="Appointment Booked Date"
-						value="{BDTIM}">
-					</QuickViewGroupElement>
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<!-- <QuickView id="patientViewView" placement="Auto"> <QuickViewPage header="Patient 
+		Info" icon="sap-icon://employee" title="{TITLE} {FRNAM} {LTNAM}"> <groups> 
+		<QuickViewGroup heading="Appointment Details"> <QuickViewGroupElement label="Appointment 
+		Booked Date" value="{BDTIM}"> </QuickViewGroupElement> </QuickViewGroup> 
+		<QuickViewGroup heading="Contact Details"> <QuickViewGroupElement label="Mobile" 
+		value="+001 6101 34869-0" type="mobile"> </QuickViewGroupElement> <QuickViewGroupElement 
+		label="Phone" value="+001 6101 34869-1" type="phone"> </QuickViewGroupElement> 
+		<QuickViewGroupElement label="Email" value="main.contact@company.com" type="email"> 
+		</QuickViewGroupElement> </QuickViewGroup> </groups> </QuickViewPage> </QuickView> -->
 
-				</QuickViewGroup>
-				<QuickViewGroup heading="Contact Details">
-					<QuickViewGroupElement label="Mobile"
-						value="+001 6101 34869-0" type="mobile">
-					</QuickViewGroupElement>
-					<QuickViewGroupElement label="Phone"
-						value="+001 6101 34869-1" type="phone">
-					</QuickViewGroupElement>
-					<QuickViewGroupElement label="Email"
-						value="main.contact@company.com" type="email">
-					</QuickViewGroupElement>
-
-				</QuickViewGroup>
-			</groups>
-		</QuickViewPage>
-	</QuickView>
- 
-	<!-- <ResponsivePopover title="Patient Info" class="sapUiPopupWithPadding"
+	<ResponsivePopover title="Patient Info" class="sapUiPopupWithPadding"
 		placement="Bottom">
 		<beginButton>
-			<Button text="Approve" press="handleCloseButton" />
+			<Button text="Approve" press="handleApprovePress" />
 		</beginButton>
 		<endButton>
-			<Button text="Reject" press="handleCloseButton" />
+			<Button text="Reject" press="handleRejectPress" />
 		</endButton>
 		<content>
 			<l:Grid defaultSpan="L6 M12 S12" width="auto">
 				<l:content>
 					<f:SimpleForm id="SimpleFormDisplay480"
-						maxContainerCols="1" layout="ResponsiveGridLayout"
-						columnsL="1" columnsM="1">
+						maxContainerCols="1" layout="ResponsiveGridLayout" columnsL="1"
+						columnsM="1">
 						<f:content>
 							<core:Title text="{TITLE} {FRNAM} {LTNAM}" />
 							<core:Title text="Appointment Details" />
@@ -57,5 +41,5 @@
 				</l:content>
 			</l:Grid>
 		</content>
-	</ResponsivePopover> -->
+	</ResponsivePopover>
 </core:FragmentDefinition>
