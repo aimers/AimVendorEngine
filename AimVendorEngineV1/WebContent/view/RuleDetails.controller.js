@@ -16,8 +16,11 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleDetails", {
    oView.byId("rulesForm").setModel(this.oModel);
    oView.bindElement(sRulePath);
    oView.byId("rulesForm").bindElement(sRulePath);
-   
 
   }
+ },
+ navBack : function() {
+  var bReplace = jQuery.device.is.phone ? false : true;
+  sap.ui.core.UIComponent.getRouterFor(this).navTo("rules", {}, bReplace);
  }
 });

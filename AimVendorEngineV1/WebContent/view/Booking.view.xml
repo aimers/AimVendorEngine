@@ -1,14 +1,14 @@
 <mvc:View controllerName="sap.ui.medApp.view.Booking"
 	xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
 	xmlns:c="sap.ui.core" xmlns="sap.m">
-	<Page id="booking" title="{i18n>BOOKING_TITLE}" showNavButton="false">
+	<Page id="booking" title="{i18n>BOOKING_TITLE}" showNavButton="{device>/isPhone}"
+		navButtonPress="navBack">
 		<content>
 			<Table id="idBookings" inset="true" class="rightBlackBorder"
 				items="{
 			path: '/vendorRules'
 			 
 		}">
-
 				<columns>
 					<Column width="4em">
 						<Text text="{i18n>Time}" />
@@ -17,25 +17,20 @@
 						<Text text="{i18n>APPOINTMENTS}" />
 					</Column>
 					<Column width="3em">
-
 					</Column>
-
 				</columns>
-
 				<headerToolbar>
 					<Toolbar>
 						<Title text="Date:" level="H2" />
 						<Title id="dateTitle" level="H2" />
 						<ToolbarSpacer></ToolbarSpacer>
-
-	<Select change="handleEntityChange" id="entitySelect"
-		items="{
+						<Select change="handleEntityChange" id="entitySelect"
+							items="{
             path: '/vendorsList/0/Rules',
             sorter: { path: 'ENTID' }
           }">
-		<c:Item key="{ENTID}" text="{DESCR}" />
-	</Select>
-
+							<c:Item key="{ENTID}" text="{DESCR}" />
+						</Select>
 					</Toolbar>
 				</headerToolbar>
 				<items>
@@ -49,8 +44,7 @@
 										width="100%" />
 								</l:content>
 							</l:Grid>
-							<Button icon="sap-icon://add"
-								visible="{path: 'BOOKINGS', formatter:'sap.ui.medApp.formatter.formatHelper.isBooked'}" />
+							<Button icon="sap-icon://add" press="handleAddAppointment"/>
 						</cells>
 					</ColumnListItem>
 				</items>
