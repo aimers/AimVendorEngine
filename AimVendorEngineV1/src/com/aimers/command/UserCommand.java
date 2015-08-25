@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 
 import com.aimers.dbaccess.ConnectionManager;
 import com.aimers.utils.Convertor;
+import com.aimers.utils.mail.SendMailUsingAuthentication;
 
 public class UserCommand extends aimCommand {
 
@@ -27,20 +29,260 @@ public class UserCommand extends aimCommand {
 		if(aimAction.equals("registerUser")){
 			return registerUser(myInfo, dbcon);
 		}else if(aimAction.equals("registerVendor")){
-			//return registerUser(myInfo, dbcon);
+			return registerVendor(myInfo, dbcon);
 		}else if(aimAction.equals("updateUser")){
 			return updateUser(myInfo, dbcon);
 		}else if(aimAction.equals("updateVendor")){
-			//return registerUser(myInfo, dbcon);
+			return updateVendor(myInfo, dbcon);
 		}else if(aimAction.equals("loginUser")){
 			return loginUser(myInfo, dbcon);
 		}else if(aimAction.equals("getBookingHistory")){
 			return getBookingHistory(myInfo, dbcon);
+		}else if(aimAction.equals("getAllUsers")){
+			return getAllUsers(myInfo, dbcon);
 		}
 		
 		return new JSONObject();
 
 	}
+
+private Object updateVendor(HashMap myInfo, ConnectionManager dbcon) {
+	try{
+		myInfo.put("details",  updateUserAccount(myInfo, dbcon));
+		String details 	=  myInfo.get("details")+"";
+		JSONObject detailsJSON 	= new JSONObject(details);
+		if(detailsJSON.has("USRID")){
+			myInfo.put("details",  updateUserMaster(myInfo, dbcon));
+			deleteUserEntityMapping(myInfo, dbcon);
+			myInfo.put("details",  createUserEntityMapping(myInfo, dbcon));
+			if(detailsJSON.has("Entities")){
+				deleteVendorEntities(myInfo, dbcon);
+				myInfo.put("details",  createVendorEntityMapping(myInfo, dbcon));
+			}
+			if(detailsJSON.has("Characteristics")){
+				deleteUserCharachteristics(myInfo, dbcon);
+				myInfo.put("details",  createUserCharachteristics(myInfo, dbcon));
+			}
+			if(detailsJSON.has("Address")){
+				deleteUserAddress(myInfo, dbcon);
+				myInfo.put("details",  createUserAddress(myInfo, dbcon));
+			}
+		}
+	}catch(Exception ex){
+		return new JSONObject();
+	}
+	
+	return myInfo.get("details");
+	
+}
+
+private void deleteVendorEntities(HashMap myInfo, ConnectionManager dbcon) {
+	ResultSet rs=null;
+	try{
+		String details 	=  myInfo.get("details")+"";
+		JSONObject detailsJSON 	= new JSONObject(details);
+		
+		String query1 = "DELETE FROM `vempt`"
+				+ " where `USRID` = '"+detailsJSON.get("USRID")+"'";				
+		System.out.println(query1);
+		int rowCount1=dbcon.stm.executeUpdate(query1);
+			
+		//return detailsJSON;
+
+	}
+	catch(Exception ex){
+		System.out.println("Error from USER usermaster Command "+ex +"==dbcon=="+dbcon);
+		//return null;
+	}
+
+	
+}
+
+private Object registerVendor(HashMap myInfo, ConnectionManager dbcon) {
+	try{
+		myInfo.put("details",  createUserAccount(myInfo, dbcon));
+		String details 	=  myInfo.get("details")+"";
+		JSONObject detailsJSON 	= new JSONObject(details);
+		if(detailsJSON.has("USRID")){
+			myInfo.put("details",  createUserMaster(myInfo, dbcon));
+			myInfo.put("details",  createUserEntityMapping(myInfo, dbcon));
+			if(detailsJSON.has("Entities")){
+				myInfo.put("details",  createVendorEntityMapping(myInfo, dbcon));
+			}
+			if(detailsJSON.has("Characteristics")){
+				myInfo.put("details",  createUserCharachteristics(myInfo, dbcon));
+			}
+			if(detailsJSON.has("Address")){
+				myInfo.put("details",  createUserAddress(myInfo, dbcon));
+			}
+		}
+	}catch(Exception ex){
+		return new JSONObject();
+	}
+	
+	return myInfo.get("details");
+	
+}
+
+private Object createVendorEntityMapping(HashMap myInfo, ConnectionManager dbcon) {
+	
+	
+	ResultSet rs=null;
+	try{
+		String details 	=  myInfo.get("details")+"";
+		JSONObject detailsJSON 	= new JSONObject(details);
+		JSONArray entJSONArray = (JSONArray) detailsJSON.get("Entities");
+		JSONArray entOutJARRAY = new JSONArray();
+		if(dbcon == null){
+			try{
+				dbcon.Connect("MYSQL");
+			}
+			catch(Exception ex){
+				System.out.println(""+ex);
+			}
+		}
+		for(int cIndex=0;cIndex<entJSONArray.length();cIndex++){
+			JSONObject entJSON = (JSONObject) entJSONArray.get(cIndex);
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			entJSON.put("UTYID", detailsJSON.get("UTYID"));
+			entJSON.put("USRID", detailsJSON.get("USRID"));
+			entJSON.put("MPNID", getNewEntityMapId(dbcon));
+			entJSON.put("CRTDT", dateFormat.format(date)+"");
+			entJSON.put("CRTBY", entJSON.get("USRID"));
+			entJSON.put("CHNDT", dateFormat.format(date)+"");
+			entJSON.put("CHNBY", entJSON.get("USRID"));
+			entJSON.put("ACTIV", "1");
+			
+			String query = "INSERT INTO `bookingdb`.`vempt` (`MPNID`, `USRID`, `UTYID`, "
+					+ " `ETYID`, `ETCID`, `ENTID`, `ACTIV`, `CRTDT`, `CRTBY`, `CHNDT`, "
+					+ " `CHNBY`) values("
+					//+ "'"+uchid+ "',"//AI
+					+ "'"+entJSON.get("MPNID")+ "', "
+					+ "'"+entJSON.get("USRID")+ "', "
+					+ "'"+entJSON.get("UTYID")+ "', "
+					+ "'"+entJSON.get("ETYID")+ "', "
+					+ "'"+entJSON.get("ETCID")+ "', "
+					+ "'"+entJSON.get("ENTID")+ "', "
+					+ "'"+entJSON.get("ACTIV")+ "', "
+					+ "'"+entJSON.get("CRTDT")+ "', "
+					+ "'"+entJSON.get("CRTBY")+ "', "
+					+ "'"+entJSON.get("CHNDT")+ "', "
+					+ "'"+entJSON.get("CHNBY")+ "')";
+
+		
+			System.out.println(query);
+			int rowCount=dbcon.stm.executeUpdate(query);
+			if(rowCount > 0){
+				entOutJARRAY.put(entJSON);
+			}else{
+				//TODO: Consider Raising Error
+				entOutJARRAY.put((JSONObject) entJSONArray.get(cIndex));
+			}
+		}
+		
+		detailsJSON.put("Entities",entOutJARRAY );
+		return detailsJSON;
+
+	}
+	catch(Exception ex){
+		System.out.println("Error from USER usermaster Command "+ex +"==dbcon=="+dbcon);
+		return null;
+	}
+}
+
+private String getNewEntityMapId(ConnectionManager dbcon) {
+	
+	ResultSet rs=null;
+	try{
+		if(dbcon == null){
+			try{
+				dbcon.Connect("MYSQL");
+			}
+			catch(Exception ex){
+				System.out.println(""+ex);
+			}
+		}
+		System.out.println("SELECT "+
+				"MAX(`MPNID`)+1"+
+				" FROM `vempt`  ");
+		rs=dbcon.stm.executeQuery("SELECT "+
+				"MAX(`MPNID`)+1"+
+				" FROM `vempt`  ");
+		if(rs.next()){
+			return rs.getString(1);
+		}
+		return "";
+
+	}
+	catch(Exception ex){
+		System.out.println("Error from USER next ID Command "+ex +"==dbcon=="+dbcon);
+		return "";
+	}
+}
+
+private Object getAllUsers(HashMap myInfo, ConnectionManager dbcon) {
+	JSONArray response = new JSONArray();
+	try{
+		
+		JSONArray details 	=  (JSONArray) selectAllUserAccount(myInfo, dbcon);
+		for(int dIndex=0;dIndex<details.length();dIndex++){
+			JSONObject detailsJSON 	= details.getJSONObject(dIndex);
+			myInfo = new HashMap();
+			myInfo.put("details", detailsJSON);
+			myInfo.put("details",  selectUserCharachteristics(myInfo, dbcon));
+			myInfo.put("details",  selectUserAddress(myInfo, dbcon));
+			response.put((JSONObject)myInfo.get("details"));
+		}
+		
+		
+	}catch(Exception ex){
+		return new JSONObject();
+	}
+	
+	return response;
+	
+}
+
+private Object selectAllUserAccount(HashMap myInfo, ConnectionManager dbcon) {
+	//TODO: Send email
+	ResultSet rs=null;
+	try{
+		String details 	=  myInfo.get("details")+"";
+		JSONObject detailsJSON 	= new JSONObject(details);
+		
+		if(dbcon == null){
+			try{
+				dbcon.Connect("MYSQL");
+			}
+			catch(Exception ex){
+				System.out.println(""+ex);
+			}
+		}
+		
+		String query = "SELECT `uacmt`.`USRID`,"
+				+ " `uacmt`.`USRNM`,"
+				+ " `uacmt`.`UERPW`, `usrmt`.`URCOD`, `usrmt`.`PRFIX`, `usrmt`.`TITLE`, "
+				+ " `usrmt`.`FRNAM`, `usrmt`.`LTNAM`, `usrmt`.`URDOB`, `usrmt`.`GENDR`, "
+				+ " `usrmt`.`DSPNM`, `uacmt`.`ACTIV`, `uacmt`.`CRTDT`, `uacmt`.`CRTBY`,"
+				+ " `uacmt`.`CHNDT`, `uacmt`.`CHNBY` "
+				+ " FROM `uacmt` left outer join "
+				+ " `usrmt` on `uacmt`.`USRID` = `usrmt`.`USRID`";
+		
+		if(detailsJSON.has("USRID")){
+			query = query + "where `usrmt`.`USRID` in ("+detailsJSON.get("USRID")+") ";
+		}
+	
+		System.out.println(query);
+		rs=dbcon.stm.executeQuery(query);
+		JSONArray userArray = Convertor.convertToJSON(rs);
+		return userArray;
+	}
+	catch(Exception ex){
+		System.out.println("Error from USER Command "+ex +"==dbcon=="+dbcon);
+		return null;
+	}
+}
 
 private Object getBookingHistory(HashMap myInfo, ConnectionManager dbcon) {
 	
@@ -52,9 +294,9 @@ private Object getBookingHistory(HashMap myInfo, ConnectionManager dbcon) {
 		
 		String query1 = "SELECT `vtrmt`.`VTRMI`, `vtrmt`.`VSUID`, `vtrmt`.`VUTID`, "
 				+ " `vtrmt`.`CUSID`, `vtrmt`.`CUTID`, "
-				+ " `usrmt`.`USRID`, `usrmt`.`URCOD`, `usrmt`.`PRFIX`, `usrmt`.`TITLE`, `usrmt`.`FRNAM`, "
+				+ " `usrmt`.`USRID`, `uacmt`.`USRNM`, `usrmt`.`URCOD`, `usrmt`.`PRFIX`, `usrmt`.`TITLE`, `usrmt`.`FRNAM`, "
 				+ " `usrmt`.`LTNAM`, `usrmt`.`URDOB`, `usrmt`.`GENDR`, `usrmt`.`DSPNM`, "
-				+ " `vendor`.`USRID` as `VUSRID`, `vendor`.`URCOD` as `VURCOD`, `vendor`.`PRFIX` as `VPREFIX`, "
+				+ " `vendor`.`USRID` as `VUSRID`, `vacct`.`USRNM` as `VERNM`, `vendor`.`URCOD` as `VURCOD`, `vendor`.`PRFIX` as `VPREFIX`, "
 				+ " `vendor`.`TITLE` as `VTITLE`, `vendor`.`FRNAM` as `VFRNAM`, `vendor`.`LTNAM` as `VLTNAM`, "
 				+ " `vendor`.`URDOB` as `VURDOB`, `vendor`.`GENDR` as `VGENDR`, `vendor`.`DSPNM` as `VDSPNM`, "
 				+ "`vtrmt`.`ETYID`, `vtrmt`.`ETCID`, `vtrmt`.`ENTID`, "
@@ -64,7 +306,11 @@ private Object getBookingHistory(HashMap myInfo, ConnectionManager dbcon) {
 				+ " FROM `bookingdb`.`vtrmt` left outer join  `bookingdb`.`usrmt` "
 				+ " on `vtrmt`.`CUSID` = `usrmt`.`USRID` "
 				+ " left outer join  `bookingdb`.`usrmt` as `vendor` "
-				+ " on `vtrmt`.`VSUID` = `vendor`.`USRID`";
+				+ " on `vtrmt`.`VSUID` = `vendor`.`USRID` "
+				+ " left outer join  `bookingdb`.`uacmt` "
+				+ " on `vtrmt`.`CUSID` = `uacmt`.`USRID`  "
+				+" left outer join  `bookingdb`.`uacmt` as `vacct`  "
+				+ " on `vtrmt`.`VSUID` = `vacct`.`USRID` ";
 		if(detailsJSON.has("CUSID") && detailsJSON.has("CUTID")){
 			query1 = query1+ "where `CUSID` = '"+detailsJSON.get("CUSID")+"' "
 					+ " and `CUTID` = '"+detailsJSON.get("CUTID")+"' ";	
@@ -76,7 +322,6 @@ private Object getBookingHistory(HashMap myInfo, ConnectionManager dbcon) {
 		if(detailsJSON.has("BDTIM")){
 			query1 = query1+ " and `BDTIM` = STR_TO_DATE('"+detailsJSON.get("BDTIM")+"', '%d-%m-%Y')  ";	
 		}
-		
 		
 		System.out.println(query1);
 		rs =dbcon.stm.executeQuery(query1);
@@ -413,6 +658,17 @@ private Object getBookingHistory(HashMap myInfo, ConnectionManager dbcon) {
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
 			if(rowCount > 0){
+				SendMailUsingAuthentication sendEmail = new SendMailUsingAuthentication();
+				String message = "Welcome to Aimmedics, Your user id is registered with us :"
+						+ "user id: "+detailsJSON.get("USRNM")+" and "
+						+ "password :"+detailsJSON.get("UERPW")+".";
+				String[] recipients = new String[2];
+				recipients[0] = detailsJSON.get("USRNM")+"";
+				recipients[1] = "uxdevsupport@aimersinfosoft.com";
+				String from = "uxdevsupport@aimersinfosoft.com";
+				String subject = "User Registered";
+				sendEmail.postMail(recipients, subject, message, from);
+				
 				return detailsJSON;
 			}else{
 				//TODO: Consider Raising Error

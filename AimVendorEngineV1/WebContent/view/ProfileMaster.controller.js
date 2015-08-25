@@ -22,7 +22,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
 	},
 	_showPersonalInfo : function() {
 		var bReplace = jQuery.device.is.phone ? false : true;
-		sap.ui.core.UIComponent.getRouterFor(this).navTo("personalInfo", {},
+		sap.ui.core.UIComponent.getRouterFor(this).navTo("personalinfo", {},
 				bReplace);
 	},
 	_showCharacteristics : function() {

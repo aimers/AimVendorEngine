@@ -4,7 +4,7 @@
 	<Page id="home" title="{i18n>PROFILEMASTER_TITLE}">
 		<content>
 			<SelectList id="menu" selectionChange="handleSelectionChange">
-				<core:Item key="personal" text="PersonalInfo" />
+				<core:Item key="personal" text="Personal Info" />
 				<core:Item key="char" text="Characteristics" />
 				<core:Item key="address" text="Address" />
 			</SelectList>

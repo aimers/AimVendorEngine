@@ -583,6 +583,7 @@ public class VendorCommand extends aimCommand {
 			}
 			String query = 
 					" SELECT `usrmt`.`USRID`, "+
+							" `uacmt`.`USRNM`, "+
 							" `uetmp`.`UTYID`, "+
 							" `usrmt`.`URCOD`, "+
 							" `usrmt`.`PRFIX`, "+
@@ -597,6 +598,10 @@ public class VendorCommand extends aimCommand {
 							" `uetmp` "+
 							"  on "+
 							" `usrmt`.`USRID` = `uetmp`.`USRID` "+
+							"  left outer join "+
+							" `uacmt` "+
+							"  on "+
+							" `usrmt`.`USRID` = `uacmt`.`USRID` "+
 							" left outer join "+
 							" `uadmp` "+
 							" on "+

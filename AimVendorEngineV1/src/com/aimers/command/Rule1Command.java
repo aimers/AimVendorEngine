@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import com.aimers.dbaccess.ConnectionManager;
 import com.aimers.utils.Convertor;
+import com.aimers.utils.mail.SendMailUsingAuthentication;
 
 public class Rule1Command extends aimCommand {
 
@@ -94,6 +95,20 @@ public class Rule1Command extends aimCommand {
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
 			if(rowCount > 0){
+				try{
+					SendMailUsingAuthentication sendEmail = new SendMailUsingAuthentication();
+					String message = "Welcome to Aimmedics, Your booking is canceled for"
+							+ "Date: "+detailsJSON.get("BDTIM")+" slot"
+							+ detailsJSON.get("BOSTM")+ ":"+detailsJSON.get("BOETM")+".";
+					String[] recipients = new String[2];
+					recipients[0] = detailsJSON.get("CUEML")+"";
+					recipients[1] = detailsJSON.get("VSEML")+"";
+					String from = "uxdevsupport@aimersinfosoft.com";
+					String subject = "User Registered";
+					sendEmail.postMail(recipients, subject, message, from);
+				}catch(Exception ex){
+					System.out.println("Error sending email :"+ex.getMessage());
+				}
 				return detailsJSON;
 			}else{
 				//TODO: Consider Raising Error
@@ -160,6 +175,20 @@ public class Rule1Command extends aimCommand {
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
 			if(rowCount > 0){
+				try{
+					SendMailUsingAuthentication sendEmail = new SendMailUsingAuthentication();
+					String message = "Welcome to Aimmedics, Your booking is accepted for"
+							+ "Date: "+detailsJSON.get("BDTIM")+" slot"
+							+ detailsJSON.get("BOSTM")+ ":"+detailsJSON.get("BOETM")+".";
+					String[] recipients = new String[2];
+					recipients[0] = detailsJSON.get("CUEML")+"";
+					recipients[1] = detailsJSON.get("VSEML")+"";
+					String from = "uxdevsupport@aimersinfosoft.com";
+					String subject = "User Registered";
+					sendEmail.postMail(recipients, subject, message, from);
+				}catch(Exception ex){
+					System.out.println("Error sending email :"+ex.getMessage());
+				}
 				return detailsJSON;
 			}else{
 				//TODO: Consider Raising Error
@@ -260,7 +289,8 @@ public class Rule1Command extends aimCommand {
 					//+ " `vtrdt`.`CRTDT`, `vtrdt`.`CRTBY`, `vtrdt`.`CHNDT`, `vtrdt`.`CHNBY` "
 					+ " FROM `vtrdt` "
 					+ " where UTYID = '"+detailsJSON.get("UTYID")+"' and "
-							+ " USRID = '"+detailsJSON.get("USRID")+"'";
+							+ " USRID = '"+detailsJSON.get("USRID")+"' and "
+							+ " RULID = '"+detailsJSON.get("RULID")+"' ";
 
 			if(dbcon == null){
 				try{
@@ -518,6 +548,20 @@ public class Rule1Command extends aimCommand {
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
 			if(rowCount > 0){
+				try{
+					SendMailUsingAuthentication sendEmail = new SendMailUsingAuthentication();
+					String message = "Welcome to Aimmedics, Your booking is confirmed for"
+							+ "Date: "+detailsJSON.get("BDTIM")+" slot"
+							+ detailsJSON.get("BOSTM")+ ":"+detailsJSON.get("BOETM")+".";
+					String[] recipients = new String[2];
+					recipients[0] = detailsJSON.get("CUEML")+"";
+					recipients[1] = detailsJSON.get("VSEML")+"";
+					String from = "uxdevsupport@aimersinfosoft.com";
+					String subject = "User Registered";
+					sendEmail.postMail(recipients, subject, message, from);
+				}catch(Exception ex){
+					System.out.println("Error sending email :"+ex.getMessage());
+				}
 				return detailsJSON;
 			}else{
 				//TODO: Consider Raising Error

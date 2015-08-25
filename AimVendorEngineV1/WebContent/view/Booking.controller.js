@@ -193,15 +193,31 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Booking",
     _this.Appointmentdialog.open();
    },
 
-   userSuggestHandle : function() {
+   userSuggestHandle : function(oEvent) {
+    var param = [ {
+     "key" : "details",
+     "value" : {}
+    } ];
+    sap.ui.medApp.global.util.getUsers(param);
+
+    oEvent.getSource().bindAggregation("suggestionItems", "/allUsers",
+      new sap.ui.core.Item({
+       text : "{USRNM}"
+      }));
 
    },
 
    userSelectedHandle : function() {
 
    },
-   handleUserSelection : function() {
-
+   handleUserSelection : function(oEvent) {
+    var selectedButton = oEvent.getSource().getSelectedButton();
+    var username = this.Appointmentdialog.byId("inputUserName");
+    if (selectedButton === "sbExisting") {
+     username.setSuggestion(true);
+    } else {
+     username.setSuggestion(false);
+    }
    }
 
   });
