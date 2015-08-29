@@ -5,6 +5,14 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Home",
     this.oModel = sap.ui.medApp.global.util.getHomeModel();
     sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
       this.onRouteMatched, this);
+
+    if (!this.oModel.getProperty("/vendorList")) {
+     param = {
+      "USRID" : this.oModel.getProperty("/LoggedUser/USRID")
+     };
+     sap.ui.medApp.global.util.loadVendorFILTERData(param);
+    }
+
    },
    // Handler for routing event
    onRouteMatched : function(oEvent) {

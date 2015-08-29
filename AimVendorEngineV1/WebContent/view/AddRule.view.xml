@@ -1,7 +1,8 @@
 <mvc:View controllerName="sap.ui.medApp.view.AddRule" xmlns:l="sap.ui.layout"
 	xmlns:f="sap.ui.layout.form" displayBlock="true" xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-	<Page id="home" title="{i18n>ADDRULE_TITLE}">
+	<Page id="home" title="{i18n>ADDRULE_TITLE}" showNavButton="{device>/isPhone}"
+		navButtonPress="navBack">
 		<content>
 			<l:Grid defaultSpan="L12 M12 S12" width="auto">
 				<l:content>
@@ -11,27 +12,38 @@
 						columnsM="1">
 						<f:content>
 							<core:Title text="Rule Details"></core:Title>
+							<Label text="Speciality" />
+							<Select id="entitySelect" items="{ path: '/vendorsList/0/Rules'}"
+								change="onEntitySelect">
+								<core:Item key="{ENTID}" text="{DESCR}" />
+							</Select>
+
 							<Label text="Rule Name" />
-							<Input value="{rule>/DESCR}" />
+							<Input id="ipDescr" valueState="{/valueState}"
+								valueStateText="Description is required" />
 							<Label text="Day Start Time" />
 
-							<DateTimeInput type="Time" dateValue="{rule>/DSTIM}"
-								valueFormat="hh:mm:ss" displayFormat="hh:mm:ss" />
+							<DateTimeInput type="Time" id="dtiDstim"
+								valueState="{/valueState}" change="onChangeDSTIMTime"
+								valueStateText="Day start time is required" />
 
 							<Label text="Day End Time" />
-							<DateTimeInput type="Time" dateValue="{rule>/DETIM}"
-								valueFormat="hh:mm:ss" displayFormat="hh:mm:ss" />
+							<DateTimeInput type="Time" id="dtiDetim"
+								valueState="{/valueState}" change="onChangeDETIMTime"
+								valueStateText="Day end time is required" />
 
 							<Label text="Start Time Slot" />
-							<DateTimeInput type="Time" dateValue="{rule>/OSTSL}"
-								valueFormat="hh:mm:ss" displayFormat="hh:mm:ss" />
+							<DateTimeInput type="Time" id="dtiOstsl"
+								valueState="{/valueState}" change="onChangeOSTSLTime"
+								valueStateText="Time slot start time is required" />
 
 							<Label text="End Time Slot" />
-							<DateTimeInput type="Time" dateValue="{rule>/OETSL}"
-								valueFormat="hh:mm:ss" displayFormat="hh:mm:ss" />
-
+							<DateTimeInput type="Time" id="dtiOestl"
+								valueState="{/valueState}" change="onChangeOETSLTime"
+								valueStateText="Time slot end time is required" />
 							<Label text="Days" />
-							<MultiComboBox>
+							<MultiComboBox id="daysCombo" selectionFinish="handleDaysSelectionFinish"
+								valueState="{/valueState}">
 								<core:Item key="1" text="Monday" />
 								<core:Item key="2" text="Tuesday" />
 								<core:Item key="3" text="Wednesday" />
@@ -41,19 +53,14 @@
 								<core:Item key="7" text="Sunday" />
 							</MultiComboBox>
 							<Label text="Rule Type" />
-							<Select id="ruleType" selectedKey="{rule>/RULID}">
+							<Select id="ruleType" change="handleRuleTypeSelection">
 								<core:Item key="1" text="Auto Approval" />
 								<core:Item key="2" text="Manual Approval" />
 								<core:Item key="3" text="Receieve Call" />
 							</Select>
-							<core:Title text="Activation Details"></core:Title>
-							<Label text="Activation Date" />
-							<Input value="{}" />
-							<Label text="Valid From" />
-							<Input value="{}" />
-							<Label text="Valid To" />
-							<Input value="{}" />
-
+							<!-- <core:Title text="Activation Details"></core:Title> <Label text="Activation 
+								Date" /> <Input value="{}" /> <Label text="Valid From" /> <Input value="{}" 
+								/> <Label text="Valid To" /> <Input value="{}" /> -->
 						</f:content>
 					</f:SimpleForm>
 				</l:content>
@@ -62,8 +69,8 @@
 		<footer>
 			<Bar>
 				<contentRight>
-					<Button text="Save"></Button>
-					<Button text="Cancel"></Button>
+					<Button text="Save" press="handleRuleSave"></Button>
+					<Button text="Cancel" press="handleRuleCancel"></Button>
 				</contentRight>
 			</Bar>
 		</footer>

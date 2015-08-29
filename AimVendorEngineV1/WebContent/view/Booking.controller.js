@@ -14,16 +14,9 @@ sap.ui.core.mvc.Controller
       this.AddAppointmentUser = "";
       var oView = this.getView();
       if (oEvent.getParameter("name") === "bookings") {
-
-       if (!this.oModel.getProperty("/vendorList")) {
-        param = {
-         "USRID" : this.oModel.getProperty("/LoggedUser/USRID")
-        };
-        sap.ui.medApp.global.util.loadVendorFILTERData(param);
-        oView.setModel(this.oModel);
-       }
        this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
        this.oDate = oEvent.getParameter("arguments").date;
+       oView.byId("dateTitle").setText(this.oDate);
        this.oEntities = oView.byId("entitySelect");
        var oSeletedItem = this.oEntities.getSelectedItem();
        if (!oSeletedItem) {
@@ -34,7 +27,6 @@ sap.ui.core.mvc.Controller
        this._getVendorRules(sPath);
        this._getVendorBookingHistory();
        this._bindBookings(this);
-       oView.byId("dateTitle").setText(this.oDate);
 
       }
       oView.setModel(this.oModel);
@@ -69,7 +61,7 @@ sap.ui.core.mvc.Controller
      _bindBookings : function(that) {
       var oVendorRules = that.oModel.getProperty("/vendorRules");
       var oBookingHistory = that.oModel.getProperty("/bookingHistory");
-      if (oVendorRules[0].TimeSlots) {
+      if (oVendorRules[0].TimeSlots && oVendorRules[0]) {
        var finalArray = oVendorRules[0].TimeSlots.map(function(item) {
         var aBookings = [];
         for (item1 in oBookingHistory) {
