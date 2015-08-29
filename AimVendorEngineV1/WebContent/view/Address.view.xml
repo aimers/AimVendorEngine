@@ -1,19 +1,41 @@
 <mvc:View controllerName="sap.ui.medApp.view.Address" xmlns:l="sap.ui.layout"
 	xmlns:f="sap.ui.layout.form" displayBlock="true" xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-	<Page id="home" title="{i18n>ADDRESS_TITLE}">
+	<Page id="home" title="{i18n>ADDRESS_TITLE}" showNavButton="{device>/isPhone}"
+		navButtonPress="navBack">
 		<content>
-
 			<l:Grid defaultSpan="L12 M12 S12" width="auto">
 				<l:content>
-
+					<f:SimpleForm id="addressForm" minWidth="1024"
+						maxContainerCols="1" editable="true" layout="ResponsiveGridLayout"
+						labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0"
+						columnsL="1" columnsM="1">
+						<f:content>
+							<core:Title text="" />
+							<Label text="Street" />
+							<Input value="{/vendorsList/0/Address/0/STREET}" />
+							<Label text="Locality" />
+							<Input value="{/vendorsList/0/Address/0/LOCLT}" />
+							<Label text="Landmark" />
+							<Input value="{/vendorsList/0/Address/0/LNDMK}" />
+							<Label text="City" />
+							<Input value="{/vendorsList/0/Address/0/CTYID}" />
+							<Label text="Pincode" />
+							<Input value="{/vendorsList/0/Address/0/PINCD}" />
+							<Label text="Latitude" />
+							<Input value="{/vendorsList/0/Address/0/LATIT}" />
+							<Label text="Longitude" />
+							<Input value="{/vendorsList/0/Address/0/LONGT}" />
+						</f:content>
+					</f:SimpleForm>
 				</l:content>
 			</l:Grid>
 		</content>
 		<footer>
 			<Bar>
 				<contentRight>
-					<Button text="Add New Address" icon="sap-icon://add"></Button>
+					<Button text="Save" icon="sap-icon://save" press="handleSave"></Button>
+	<!-- <Button text="Add New Address" icon="sap-icon://add"></Button> -->
 				</contentRight>
 			</Bar>
 		</footer>

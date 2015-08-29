@@ -1,7 +1,8 @@
 <mvc:View controllerName="sap.ui.medApp.view.ProfileMaster"
 	displayBlock="true" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m">
-	<Page id="home" title="{i18n>PROFILEMASTER_TITLE}">
+	<Page id="home" title="{i18n>PROFILEMASTER_TITLE}" showNavButton="{device>/isPhone}"
+		navButtonPress="navBack">
 		<content>
 			<SelectList id="menu" selectionChange="handleSelectionChange">
 				<core:Item key="personal" text="Personal Info" />

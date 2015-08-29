@@ -7,10 +7,20 @@ sap.ui.core.mvc.Controller
       this.oModel = sap.ui.medApp.global.util.getMainModel();
       sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
         this.onRouteMatched, this);
+      this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
      },
 
      onRouteMatched : function(oEvent) {
       if (oEvent.getParameter("name") === "speciality") {
+
+       var param = [ {
+        "key" : "INTENT",
+        "value" : "1"
+       }, {
+        "key" : "UID",
+        "value" : this.oLoginDetails.USRID.toString()
+       } ]
+       sap.ui.medApp.global.util.loadVendorCategory(param);
        sap.ui.medApp.global.util.loadListCategory();
        this._bindVendorEntities();
       }
@@ -57,7 +67,7 @@ sap.ui.core.mvc.Controller
       this.getView().setModel(this.oModel);
      },
 
-     handleDelete : function() {
+     handleDelete : function(oEvent) {
       var oList = oEvent.getSource(), oItem = oEvent.getParameter("listItem"), sPath = oItem
         .getBindingContext().getPath();
 
@@ -72,6 +82,21 @@ sap.ui.core.mvc.Controller
       if (this._oDialog) {
        this._oDialog.destroy();
       }
+     },
+     handleSave : function() {
+
+      var fnSuccess = function(oData) {
+       sap.m.MessageToast.show("Specialities saved");
+
+      };
+      this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
+        this.oModel);
+      this._vendorListServiceFacade.updateParameters(null, fnSuccess, null,
+        "updateUserDetails");
+     },
+     navBack : function() {
+      var bReplace = jQuery.device.is.phone ? false : true;
+      sap.ui.core.UIComponent.getRouterFor(this).navTo("profile", {}, bReplace);
      }
 
     });

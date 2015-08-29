@@ -36,6 +36,13 @@ sap.ui.medApp.global.util = {
    "key" : "UID",
    "value" : "1"
   } ]
+  this._vendorListServiceFacade.getRecords(null, null, "/allCategory",
+    "getVendorCategory", param);
+
+ },
+ loadVendorCategory : function(param) {
+  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
+    this._mainModel);
   this._vendorListServiceFacade.getRecords(null, null, "/vendorsCategory",
     "getVendorCategory", param);
 
@@ -279,5 +286,49 @@ sap.ui.medApp.global.util = {
   this._vendorListServiceFacade.updateParameters(param, fnSuccess, null,
     "createRule");
 
+ },
+ updateUserDetails : function(fnSuccess) {
+
+  var oModel = this.getMainModel();
+
+  // { "UTYID": "2",
+  // "CRTDT": "2015-07-29 00:23:01.0",
+  // "LTNAM": "B",
+  // "Address": [ { "PRIMR": true,
+  // "CRTDT": "2015-07-29 00:23:01.0",
+  // "MPNID": 28,
+  // "LATIT": 19,
+  // "CRTBY": 58, "STREET": "somestreet", "CHNDT": "2015-07-29 00:23:01.0",
+  // "LONGT": 20, "ACTIV": true, "CHNBY": 58, "LNDMK": "someLM", "CTYID":
+  // "SomeCity", "USRID": 58, "LOCLT": "someLocality", "ADRID": 15, "PINCD":
+  // "560103" } ], "DSPNM": "RockyB", "USRNM": "test22@test.com", "UERPW":
+  // "1699", "CRTBY": 58, "CHNDT": "2015-07-29 00:23:01.0", "ACTIV": true,
+  // "FRNAM": "Rocky", "URDOB": "2011-07-28", "URCOD": "58", "CHNBY": 58,
+  // "Characteristics": [ { "REGXT": "url", "SRTXT": "FB", "CHRID": 1, "USRID":
+  // 58, "VALUE": "http://fb.com/jt", "LNTXT": "Facebook", "MDTEXT": "Facebook",
+  // "DESCR": "Facebook" }, { "REGXT": "url", "SRTXT": "TW", "CHRID": 2,
+  // "USRID": 58, "VALUE": "http://tweet.com/jt", "LNTXT": "Twitter", "MDTEXT":
+  // "Twitter", "DESCR": "Twitter" }, { "CHRID": 11, "USRID": 58, "VALUE": "2",
+  // }, { "CHRID": 11, "USRID": 58, "VALUE": "4", } ], "GENDR": true, "TITLE":
+  // "Hon.", "USRID": 58, "PRFIX": "Mr" }
+  //  
+  //  
+  this._mainModel.setProperty("/vendorsList/0/Entities", this._mainModel
+    .getProperty("/vendorsCategory"))
+  var userData = this._mainModel.getProperty("/vendorsList/0");
+  var param = [ {
+   "key" : "details",
+   "value" : userData
+  } ];
+
+  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
+    this._mainModel);
+  this._vendorListServiceFacade.updateParameters(param, fnSuccess, null,
+    "updateUser");
+
+  this._vendorListServiceFacade.updateParameters(param, fnSuccess, null,
+    "updateVendor");
+
  }
+
 }

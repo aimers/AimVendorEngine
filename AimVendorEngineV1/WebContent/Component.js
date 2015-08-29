@@ -24,14 +24,15 @@ sap.ui.core.UIComponent.extend("sap.ui.medApp.Component", {
     name : "home",
     view : "Home",
     targetAggregation : "masterPages",
-    targetControl : "idSplitAppControl"
-   }, {
-    pattern : "detailshome",
-    name : "detailshome",
-    view : "DetailsHome",
-    viewLevel : 1,
-    targetAggregation : "detailPages",
-    targetControl : "idSplitAppControl"
+    targetControl : "idSplitAppControl",
+    subroutes : [ {
+     pattern : "home/detailshome",
+     name : "detailshome",
+     view : "DetailsHome",
+     viewLevel : 1,
+     targetAggregation : "detailPages",
+     targetControl : "idSplitAppControl"
+    } ]
    }, {
     pattern : "bookinghome",
     name : "bookinghome",
@@ -73,14 +74,14 @@ sap.ui.core.UIComponent.extend("sap.ui.medApp.Component", {
      viewLevel : 1,
      targetAggregation : "detailPages",
      targetControl : "idSplitAppControl"
-    } , {
+    }, {
      pattern : "profile/speciality",
      name : "speciality",
      view : "Entity",
      viewLevel : 1,
      targetAggregation : "detailPages",
      targetControl : "idSplitAppControl"
-    }]
+    } ]
    }, {
     pattern : "rules/:ruleid:",
     name : "rules",

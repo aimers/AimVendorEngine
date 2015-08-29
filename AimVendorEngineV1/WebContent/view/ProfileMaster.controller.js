@@ -8,12 +8,21 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
  // Handler for routing event
  onRouteMatched : function(oEvent) {
   if (oEvent.getParameter("name") === "profile") {
-   if (!this.oModel.getProperty("/vendorList")) {
+
+   if (!this.oModel.getProperty("/vendorsList")) {
     param = {
      "USRID" : this.oModel.getProperty("/LoggedUser/USRID")
     };
     sap.ui.medApp.global.util.loadVendorFILTERData(param);
    }
+   if (!sap.ui.Device.system.phone) {
+    var menuList = this.getView().byId("menu");
+    if (!menuList.getSelectedKey()) {
+     menuList.setSelectedKey("personal");
+     this._showPersonalInfo();
+    }
+   }
+
   }
  },
  handleSelectionChange : function(oControlEvent) {
@@ -46,5 +55,9 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
  _showSpeciality : function() {
   var bReplace = jQuery.device.is.phone ? false : true;
   sap.ui.core.UIComponent.getRouterFor(this).navTo("speciality", {}, bReplace);
+ },
+ navBack : function() {
+  var bReplace = jQuery.device.is.phone ? false : true;
+  sap.ui.core.UIComponent.getRouterFor(this).navTo("home", {}, bReplace);
  }
 });

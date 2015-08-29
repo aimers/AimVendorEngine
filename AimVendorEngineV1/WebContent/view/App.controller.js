@@ -49,7 +49,7 @@ sap.ui
 
 						var scope = oEvent.getParameter("config").name;
 						var showHeaderItemsRoutes = [ "home", "bookinghome",
-								"bookings", "detailshome", "entity", "profile",
+								"bookings", "detailshome", "speciality", "profile",
 								"characteristics","personalinfo","address","rules","ruledetails","addrule"];
 						var fullWidthRoutes = [ "login" ];
 						var bIsFullWidthRoute = (jQuery.inArray(scope,

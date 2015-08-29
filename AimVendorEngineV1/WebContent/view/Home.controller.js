@@ -23,12 +23,12 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Home",
       this._naveToLogin();
       return false;
      }
+     if (!sap.ui.Device.system.phone) {
+      this._showDetailsHome();
+     }
 
     }
 
-    if (!sap.ui.Device.system.phone) {
-     // this._showDetailsHome();
-    }
    },
 
    _naveToLogin : function() {

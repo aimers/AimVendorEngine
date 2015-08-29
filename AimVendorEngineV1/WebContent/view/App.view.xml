@@ -6,10 +6,10 @@
 			<u:ShellHeadItem tooltip="Home" icon="sap-icon://home"
 				press="handelHomeBtn" visible="false" />
 		</u:headItems>
-		<u:headEndItems>
+	<!-- 	<u:headEndItems>
 			<u:ShellHeadItem icon="sap-icon://favorite" tooltip="Favourite"
 				press="handleLogoffPress" visible="false" />
-		</u:headEndItems>
+		</u:headEndItems> -->
 		<!-- <u:headEndItems> <u:ShellHeadItem icon="sap-icon://customer-history" 
 			tooltip="Logoff" press="handleLogoffPress" visible="false" /> </u:headEndItems> -->
 		<u:user>

@@ -3,7 +3,7 @@
 	<SelectDialog noDataText="No Entity Found" title="Select Speciality"
 		search="handleEntitySearch" confirm="handleSaveEntity" close="handleClose"
 		items="{
-      path: '/vendorsCategory'
+      path: '/allCategory'
     }">
 		<StandardListItem title="{DESCR}" type="Active" />
 	</SelectDialog>
