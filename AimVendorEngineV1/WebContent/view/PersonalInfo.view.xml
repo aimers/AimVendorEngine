@@ -12,42 +12,35 @@
 						columnsL="1" columnsM="1">
 						<f:content>
 							<core:Title text="Personal Details" />
-							
 							<Label text="User Code" />
-							<Text text="{URCOD}"/>
-							
+							<Text text="{/vendorsList/0/URCOD}" />
 							<Label text="Title" />
-							<Select>
+							<Select
+								sectedKey="{path:'TITLE', formatter:'sap.ui.medApp.formatter.formatHelper.getTitle'}">
 								<core:Item key="1" text="Mr." />
 								<core:Item key="2" text="Ms." />
 							</Select>
 							<Label text="First Name" />
-							<Input value="{FRNAM}"/>
-							
-							 
+							<Input value="{/vendorsList/0/FRNAM}" />
 							<Label text="Last Name" />
-							<Input value="{LTNAM}"/>
-							 
-						 
+							<Input value="{/vendorsList/0/LTNAM}" />
 							<Label text="Display Name" />
-							<Input value="{DSPNM}"/>
-							
+							<Input value="{/vendorsList/0/DSPNM}" />
 							<Label text="Prefix" />
-							<Input value="{PRFIX}"/>
-							
+							<Input value="{/vendorsList/0/PRFIX}" />
 							<Label text="DOB" />
-							<Input value="{URDOB}"/>
-							
-							 
-							<core:Title text="Online" />
-							<Label text="Web" />
-							<Input value="{Url}" />
-							<Label text="Twitter" />
-							<Input value="{Twitter}" />
+							<Input value="{/vendorsList/0/URDOB}" />
 						</f:content>
 					</f:SimpleForm>
 				</l:content>
 			</l:Grid>
 		</content>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button text="Save" icon="sap-icon://save" press="handleSave"></Button>
+				</contentRight>
+			</Bar>
+		</footer>
 	</Page>
 </mvc:View>

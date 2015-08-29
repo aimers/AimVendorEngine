@@ -13,7 +13,7 @@
 		<footer>
 			<Bar>
 				<contentRight>
-					<Button text="Add New Address"></Button>
+					<Button text="Add New Address" icon="sap-icon://add"></Button>
 				</contentRight>
 			</Bar>
 		</footer>

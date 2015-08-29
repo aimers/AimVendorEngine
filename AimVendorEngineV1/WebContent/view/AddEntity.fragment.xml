@@ -1,0 +1,10 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog noDataText="No Entity Found" title="Select Speciality"
+		search="handleEntitySearch" confirm="handleSaveEntity" close="handleClose"
+		items="{
+      path: '/vendorsCategory'
+    }">
+		<StandardListItem title="{DESCR}" type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

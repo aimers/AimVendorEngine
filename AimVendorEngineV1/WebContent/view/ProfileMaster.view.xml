@@ -7,6 +7,7 @@
 				<core:Item key="personal" text="Personal Info" />
 				<core:Item key="char" text="Characteristics" />
 				<core:Item key="address" text="Address" />
+				<core:Item key="speciality" text="Specialities" />
 			</SelectList>
 		</content>
 	</Page>

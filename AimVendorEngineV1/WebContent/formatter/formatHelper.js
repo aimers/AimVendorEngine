@@ -59,5 +59,16 @@ sap.ui.medApp.formatter.formatHelper = {
   } else {
    return new Date();
   }
+ },
+ getTitle : function(title) {
+  var key = "1";
+  if (title == "Mr.") {
+   key = "1";
+  } else {
+   key = "2";
+  }
+
+  return key;
+
  }
 };
