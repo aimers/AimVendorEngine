@@ -1,10 +1,63 @@
-<mvc:View controllerName="sap.ui.medApp.view.AddRule"
-	displayBlock="true" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.m">
+<mvc:View controllerName="sap.ui.medApp.view.AddRule" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" displayBlock="true" xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
 	<Page id="home" title="{i18n>ADDRULE_TITLE}">
 		<content>
-			<core:Fragment fragmentName="sap.ui.medApp.view.Rule"
-				type="XML"></core:Fragment>
+			<l:Grid defaultSpan="L12 M12 S12" width="auto">
+				<l:content>
+					<f:SimpleForm id="rulesForm" minWidth="1024"
+						maxContainerCols="2" layout="ResponsiveGridLayout" labelSpanL="4"
+						labelSpanM="4" emptySpanL="1" emptySpanM="1" columnsL="1"
+						columnsM="1">
+						<f:content>
+							<core:Title text="Rule Details"></core:Title>
+							<Label text="Rule Name" />
+							<Input value="{rule>/DESCR}" />
+							<Label text="Day Start Time" />
+
+							<DateTimeInput type="Time" dateValue="{rule>/DSTIM}"
+								valueFormat="hh:mm:ss" displayFormat="hh:mm:ss" />
+
+							<Label text="Day End Time" />
+							<DateTimeInput type="Time" dateValue="{rule>/DETIM}"
+								valueFormat="hh:mm:ss" displayFormat="hh:mm:ss" />
+
+							<Label text="Start Time Slot" />
+							<DateTimeInput type="Time" dateValue="{rule>/OSTSL}"
+								valueFormat="hh:mm:ss" displayFormat="hh:mm:ss" />
+
+							<Label text="End Time Slot" />
+							<DateTimeInput type="Time" dateValue="{rule>/OETSL}"
+								valueFormat="hh:mm:ss" displayFormat="hh:mm:ss" />
+
+							<Label text="Days" />
+							<MultiComboBox>
+								<core:Item key="1" text="Monday" />
+								<core:Item key="2" text="Tuesday" />
+								<core:Item key="3" text="Wednesday" />
+								<core:Item key="4" text="Thursday" />
+								<core:Item key="5" text="Friday" />
+								<core:Item key="6" text="Saturday" />
+								<core:Item key="7" text="Sunday" />
+							</MultiComboBox>
+							<Label text="Rule Type" />
+							<Select id="ruleType" selectedKey="{rule>/RULID}">
+								<core:Item key="1" text="Auto Approval" />
+								<core:Item key="2" text="Manual Approval" />
+								<core:Item key="3" text="Receieve Call" />
+							</Select>
+							<core:Title text="Activation Details"></core:Title>
+							<Label text="Activation Date" />
+							<Input value="{}" />
+							<Label text="Valid From" />
+							<Input value="{}" />
+							<Label text="Valid To" />
+							<Input value="{}" />
+
+						</f:content>
+					</f:SimpleForm>
+				</l:content>
+			</l:Grid>
 		</content>
 		<footer>
 			<Bar>

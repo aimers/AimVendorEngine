@@ -5,7 +5,6 @@
 		<content>
 			<SelectList id="menu" selectionChange="handleSelectionChange">
 				<core:Item key="booking" text="Appointments" />
-				<core:Item key="entity" text="Specialities" />
 				<core:Item key="rules" text="Rules" />
 			</SelectList>
 		</content>

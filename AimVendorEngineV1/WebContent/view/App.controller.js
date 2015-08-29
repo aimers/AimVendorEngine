@@ -58,14 +58,14 @@ sap.ui
 						var bShowHederItems = (jQuery.inArray(scope,
 								showHeaderItemsRoutes) >= 0);
 						var bIsHomeRoute = (scope === "home");
-						var app = (bIsFullWidthRoute) ? this.fullWidthApp
+						this.app = (bIsFullWidthRoute) ? this.fullWidthApp
 								: this.splitApp;
 						var oShell = this.getView().byId("myShell");
 
 						var oHeadItems = oShell.getHeadItems();
 						var oHeadEndItems = oShell.getHeadEndItems();
 						var oShell1 = this.getView().byId("mShell");
-						oShell1.setApp(app);
+						oShell1.setApp(this.app);
 
 						if (bShowHederItems) {
 							for ( var item in oHeadItems) {

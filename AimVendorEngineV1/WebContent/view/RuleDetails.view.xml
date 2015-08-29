@@ -1,10 +1,70 @@
-<mvc:View controllerName="sap.ui.medApp.view.RuleDetails"
+<mvc:View controllerName="sap.ui.medApp.view.RuleDetails" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
 	displayBlock="true" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m">
-	<Page id="home" title="{i18n>RULEDETAILS_TITLE}" showNavButton="{device>/isPhone}" navButtonPress="navBack">
+	<Page id="home" title="{i18n>RULEDETAILS_TITLE}" showNavButton="{device>/isPhone}"
+		navButtonPress="navBack">
 		<content>
-			<core:Fragment fragmentName="sap.ui.medApp.view.Rule"
-				type="XML"></core:Fragment>
+			<l:Grid defaultSpan="L12 M12 S12" width="auto">
+				<l:content>
+					<f:SimpleForm id="rulesForm" minWidth="1024"
+						maxContainerCols="2" layout="ResponsiveGridLayout" labelSpanL="4"
+						labelSpanM="4" emptySpanL="1" emptySpanM="1" columnsL="1"
+						columnsM="1">
+						<f:content>
+							<core:Title text="Rule Details"></core:Title>
+							<Label text="Rule Name" />
+							<Input value="{DESCR}" />
+							<Label text="Day Start Time" />
+
+							<DateTimeInput type="Time"
+								dateValue="{path:'DSTIM', formatter:'sap.ui.medApp.formatter.formatHelper.getRuleTime'}"
+								valueFormat="hh:mm:ss" displayFormat="hh:mm:ss" />
+
+							<Label text="Day End Time" />
+							<DateTimeInput type="Time"
+								dateValue="{path:'DETIM', formatter:'sap.ui.medApp.formatter.formatHelper.getRuleTime'}"
+								valueFormat="hh:mm:ss" displayFormat="hh:mm:ss" />
+
+							<Label text="Start Time Slot" />
+							<DateTimeInput type="Time"
+								dateValue="{path:'OSTSL', formatter:'sap.ui.medApp.formatter.formatHelper.getRuleTime'}"
+								valueFormat="hh:mm:ss" displayFormat="hh:mm:ss" />
+
+							<Label text="End Time Slot" />
+							<DateTimeInput type="Time"
+								dateValue="{path:'OETSL', formatter:'sap.ui.medApp.formatter.formatHelper.getRuleTime'}"
+								valueFormat="hh:mm:ss" displayFormat="hh:mm:ss" />
+
+							<Label text="Days" />
+							<MultiComboBox selectionChange="handleDaysSelectionChange"
+								selectionFinish="handleDaysSelectionFinish"
+								selectedKeys="{path:'DAYS', formatter:'sap.ui.medApp.formatter.formatHelper.getSelectedDays'}">
+								<core:Item key="1" text="Monday" />
+								<core:Item key="2" text="Tuesday" />
+								<core:Item key="3" text="Wednesday" />
+								<core:Item key="4" text="Thursday" />
+								<core:Item key="5" text="Friday" />
+								<core:Item key="6" text="Saturday" />
+								<core:Item key="7" text="Sunday" />
+							</MultiComboBox>
+							<Label text="Rule Type" />
+							<Select id="ruleType" selectedKey="{RULID}">
+								<core:Item key="1" text="Auto Approval" />
+								<core:Item key="2" text="Manual Approval" />
+								<core:Item key="3" text="Receieve Call" />
+							</Select>
+							<core:Title text="Activation Details"></core:Title>
+							<Label text="Activation Date" />
+							<Input value="{}" />
+							<Label text="Valid From" />
+							<Input value="{}" />
+							<Label text="Valid To" />
+							<Input value="{}" />
+
+						</f:content>
+					</f:SimpleForm>
+				</l:content>
+			</l:Grid>
 		</content>
 		<footer>
 			<Bar>

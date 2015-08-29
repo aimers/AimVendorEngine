@@ -12,12 +12,13 @@
 					<SegmentedButton selectedButton="sbExisting"
 						select="handleUserSelection">
 						<Button text="Existing User" id="sbExisting" />
-						<Button id="sbNew" text="New User" />
+						<!-- <Button id="sbNew" text="New User" /> -->
 					</SegmentedButton>
 					<Label text="Username" />
 					<Input id="inputUserName" type="Text" placeholder="Enter username"
 						showSuggestion="true" suggest="userSuggestHandle"
 						suggestionItemSelected="userSelectedHandle">
+
 					</Input>
 				</f:content>
 			</f:SimpleForm>

@@ -41,10 +41,15 @@
 								content="{path: 'BOOKINGS'}">
 								<l:content>
 									<Button text="{TITLE}  {FRNAM}  {LTNAM}" press="handlePatientViewPress"
+										type="{path: 'STATS', formatter:'sap.ui.medApp.formatter.formatHelper.getButtonType'}"
 										width="100%" />
 								</l:content>
 							</l:Grid>
-							<Button icon="sap-icon://add" press="handleAddAppointment"/>
+							<Button icon="sap-icon://add" press="handleAddAppointment">
+								<customData>
+									<c:CustomData key="booking" value="{path: 'BOOKINGS'}"></c:CustomData>
+								</customData>
+							</Button>
 						</cells>
 					</ColumnListItem>
 				</items>

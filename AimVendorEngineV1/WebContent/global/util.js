@@ -264,7 +264,7 @@ sap.ui.medApp.global.util = {
     "getVendorRuleDef", param);
 
  },
- 
+
  getUsers : function(param) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
@@ -272,4 +272,12 @@ sap.ui.medApp.global.util = {
     "getAllUsers", param);
 
  },
+
+ createRule : function(param, fnSuccess) {
+  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
+    this._mainModel);
+  this._vendorListServiceFacade.updateParameters(param, fnSuccess, null,
+    "createRule");
+
+ }
 }
