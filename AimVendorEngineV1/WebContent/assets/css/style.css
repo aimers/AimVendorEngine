@@ -54,6 +54,11 @@
 	border-radius: 0.3rem !important;
 }
 
+.sapMSlt{
+	border-radius: 0.3rem !important;
+}
+
+
 .sapMFocus>.sapMSFF>.sapMSFB.sapMSFBA, .sapMSFB:active {
 	background-color: #4ECDC4 !important;
 	color: #ffffff !important;
@@ -233,12 +238,12 @@ html.sap-desktop .sapMBtn:focus>.sapMFocusable {
 	font-size: 1.2rem !important;
 }
 
-.sap-desktop .sapMLIBSelected:not (.sapMLIBActive ):not (.sapMALI ):hover,
-	.sap-desktop .sapMListUl:not (.sapMListModeDelete ):not (.sapMListModeNone
+.sap-desktop .sapMLIBSelected:not (.sapMLIBActive ):not(.sapMALI ):hover,
+	.sap-desktop .sapMListUl:not(.sapMListModeDelete ):not(.sapMListModeNone
 	) .sapMLIBSelected:not (.sapMLIBActive ):not (.sapMALI ):hover,
-	.sap-desktop .sapMLIBSelected:not (.sapMLIBActive ):not (.sapMALI ):hover>td,
-	.sap-desktop .sapMLIBSelected:not (.sapMLIBActive ):not (.sapMALI ):hover+.sapMListTblSubRow,
-	.sap-desktop .sapMLIBSelected:not (.sapMLIBActive ):not (.sapMALI ) +.sapMListTblSubRow:hover
+	.sap-desktop .sapMLIBSelected:not(.sapMLIBActive ):not(.sapMALI ):hover>td,
+	.sap-desktop .sapMLIBSelected:not(.sapMLIBActive ):not(.sapMALI ):hover+.sapMListTblSubRow,
+	.sap-desktop .sapMLIBSelected:not(.sapMLIBActive ):not(.sapMALI ) +.sapMListTblSubRow:hover
 	{
 	background: none !important;
 }

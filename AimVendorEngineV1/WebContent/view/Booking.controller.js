@@ -17,6 +17,13 @@ sap.ui.core.mvc.Controller
        this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
        this.oDate = oEvent.getParameter("arguments").date;
        oView.byId("dateTitle").setText(this.oDate);
+       if (!this.oModel.getProperty("/vendorList")) {
+        param = {
+         "USRID" : this.oLoginDetails.USRID.toString()
+        };
+        sap.ui.medApp.global.util.loadVendorFILTERData(param);
+        oView.setModel(this.oModel);
+       }
        this.oEntities = oView.byId("entitySelect");
        var oSeletedItem = this.oEntities.getSelectedItem();
        if (!oSeletedItem) {
@@ -29,6 +36,7 @@ sap.ui.core.mvc.Controller
        this._bindBookings(this);
 
       }
+
       oView.setModel(this.oModel);
      },
 
@@ -139,8 +147,8 @@ sap.ui.core.mvc.Controller
        }
      },
 
-     handleEntityChange : function() {
-
+     handleEntityChange : function(oEvent) {
+      this._bindBookings(this);
      },
 
      navBack : function() {
@@ -183,6 +191,7 @@ sap.ui.core.mvc.Controller
 
       var fnSuccess = function(oData) {
        sap.m.MessageToast.show("Appointment Accepted");
+       this._bindBookings(this);
       };
       fnError = function() {
        sap.m.MessageToast.show("Can't accept appointment");
@@ -196,6 +205,7 @@ sap.ui.core.mvc.Controller
 
       var fnSuccess = function(oData) {
        sap.m.MessageToast.show("Appointment Cancelled");
+       this._bindBookings(this);
       };
       fnError = function() {
        sap.m.MessageToast.show("Can't cancel appointment");

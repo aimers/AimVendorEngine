@@ -14,28 +14,43 @@ sap.ui.core.mvc.Controller
      },
      // Handler for routing event
      onRouteMatched : function(oEvent) {
-      var oData = {
-       "DAYS" : "",
-       "ETYID" : "",
-       "OETSL" : "",
-       "TIMZN" : "IST",
-       "OSTSL" : "",
-       "DETIM" : "",
-       "RULID" : "",
-       "USRID" : this.oLoginDetails.USRID.toString(),
-       "ENTID" : "",
-       "RECUR" : "1",
-       "DSTIM" : "",
-       "ETCID" : "",
-       "UTYID" : this.oLoginDetails.UTYID.toString(),
-       "DESCR" : ""
-      };
-      this.oModel.setProperty("/newRule", oData);
-      this._onEntitySelection(this.getView().byId("entitySelect")
-        .getSelectedItem());
-      this.oModel.setProperty("/newRule/RULID", this.getView().byId("ruleType")
-        .getSelectedKey());
-      this.oModel.setProperty("/valueState", "None");
+      if (oEvent.getParameter("name") === "addrule") {
+
+       var oData = {
+        "DAYS" : "",
+        "ETYID" : "",
+        "OETSL" : "",
+        "TIMZN" : "IST",
+        "OSTSL" : "",
+        "DETIM" : "",
+        "RULID" : "",
+        "USRID" : this.oLoginDetails.USRID.toString(),
+        "ENTID" : "",
+        "RECUR" : "1",
+        "DSTIM" : "",
+        "ETCID" : "",
+        "UTYID" : this.oLoginDetails.UTYID.toString(),
+        "DESCR" : ""
+       };
+       this.oModel.setProperty("/newRule", oData);
+
+       this.oModel.setProperty("/newRule/RULID", this.getView()
+         .byId("ruleType").getSelectedKey());
+       this.oModel.setProperty("/valueState", "None");
+       if (!this.oModel.getProperty("/vendorsCategory")) {
+        var param = [ {
+         "key" : "INTENT",
+         "value" : "1"
+        }, {
+         "key" : "UID",
+         "value" : this.oLoginDetails.USRID.toString()
+        } ];
+        sap.ui.medApp.global.util.loadVendorCategory(param);
+       }
+       this.getView().setModel(this.oModel);
+       this._onEntitySelection(this.getView().byId("entitySelect")
+         .getSelectedItem());
+      }
      },
      handleRuleSave : function(oEvent) {
       if (this._validateInputs()) {
@@ -60,7 +75,8 @@ sap.ui.core.mvc.Controller
        } ];
        var fnSuccess = function(oData) {
         sap.m.MessageToast.show("Rule Added");
-
+        var bReplace = jQuery.device.is.phone ? false : true;
+        sap.ui.core.UIComponent.getRouterFor(this).navTo("rules", {}, bReplace);
        };
        this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
          this.oModel);
@@ -102,18 +118,20 @@ sap.ui.core.mvc.Controller
      },
 
      onEntitySelect : function(oEvent) {
-      var SelectedItem = oEvent.getSource();
-      this._onEntitySelection(SelectedItem);
+      var oSource = oEvent.getSource();
+      this._onEntitySelection(oSource.getSelectedItem());
      },
 
      _onEntitySelection : function(SelectedItem) {
-      var sPath = SelectedItem.getBindingContext().getPath();
+      if (SelectedItem) {
+       var sPath = SelectedItem.getBindingContext().getPath();
 
-      this.oModel.setProperty("/newRule/ENTID", SelectedItem.getKey());
-      this.oModel.setProperty("/newRule/ETYID", this.oModel.getProperty(sPath
-        + "/ETYID"));
-      this.oModel.setProperty("/newRule/ETCID", this.oModel.getProperty(sPath
-        + "/ETCID"));
+       this.oModel.setProperty("/newRule/ENTID", SelectedItem.getKey());
+       this.oModel.setProperty("/newRule/ETYID", this.oModel.getProperty(sPath
+         + "/ETYID"));
+       this.oModel.setProperty("/newRule/ETCID", this.oModel.getProperty(sPath
+         + "/ETCID"));
+      }
      },
 
      handleDaysSelectionFinish : function(oEvent) {

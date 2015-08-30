@@ -17,11 +17,11 @@ sap.ui.medApp.formatter.formatHelper = {
  },
 
  getButtonType : function(status) {
-  var type = "Emphasized";
+  var type = "Default";
   if (status == "1") {
    type = "Accept";
   } else if (status == "2") {
-   type = "Default";
+   type = "Emphasized";
   }
 
   return type;
@@ -34,10 +34,14 @@ sap.ui.medApp.formatter.formatHelper = {
    return time;
  },
  getSelectedDays : function(days) {
-  if (days)
-   return days.toString().split(",");
-  else
-   return days;
+  var a = [];
+  if (days) {
+   for (d in days) {
+    a.push(days[d]);
+   }
+  }
+
+  return a;
  },
  am_pm_to_hours : function(time) {
   if (time) {
@@ -110,5 +114,25 @@ sap.ui.medApp.formatter.formatHelper = {
    }
   }
   return phone;
+ },
+ getUser : function(uid) {
+  var name;
+  var param = [ {
+   "key" : "details",
+   "value" : {
+    "USRID" : uid
+   }
+  } ];
+  sap.ui.medApp.global.util.getUsers(param);
+  var oModel = sap.ui.medApp.global.util.getMainModel();
+
+  name = oModel.getProperty("/searchUser/0/TITLE") + " "
+    + oModel.getProperty("/searchUser/0/FRNAM") + " " + oModel
+    .getProperty("/searchUser/0/LTNAM");
+  
+  if(!name.toString().trim()){
+   name =  oModel.getProperty("/searchUser/0/USRNM");
+  }
+  return name;
  }
 };

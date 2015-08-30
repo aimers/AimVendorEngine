@@ -7,7 +7,8 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
   }, this);
   this.oModel = sap.ui.medApp.global.util.getHomeModel();
   this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
-  this._bindViewModel("1");
+  this.ruleId = "1";
+
   sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
     this.onRouteMatched, this);
 
@@ -25,23 +26,10 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
 
    // On the empty hash select the first item
    if (sName === "rules") {
-
+    this._bindViewModel();
     this._selectFirstRule();
    }
-   // Try to select the item in the list
-   if (sName === "ruledetails") {
 
-    aItems = oList.getItems();
-    for (var i = 0; i < aItems.length; i++) {
-     aPath = aItems[i].getBindingContext().getPath();
-     rule = aPath[aPath.length - 1].toString();
-
-     if (rule == oArguments.rule) {
-      oList.setSelectedItem(aItems[i], true);
-      break;
-     }
-    }
-   }
   }, this));
 
  },
@@ -66,13 +54,13 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
   }, bReplace);
  },
 
- _bindViewModel : function(ruleId) {
+ _bindViewModel : function() {
   var oView = this.getView();
   var param = [ {
    "key" : "details",
    "value" : {
     "USRID" : this.oLoginDetails.USRID,
-    "RULID" : ruleId,
+    "RULID" : this.ruleId,
     "UTYID" : this.oLoginDetails.UTYID
    }
   } ];
@@ -82,7 +70,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
 
  handlePressAddRule : function() {
   var bReplace = jQuery.device.is.phone ? false : true;
-  sap.ui.core.UIComponent.getRouterFor(this).navTo("addrule", {}, bReplace); 
+  sap.ui.core.UIComponent.getRouterFor(this).navTo("addrule", {}, bReplace);
  },
 
  onRuleItemPress : function(oEvent) {
@@ -124,14 +112,14 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
   var sourceText = source.getText();
   if (sourceText === "Auto Approval") {
    label.setText(sourceText);
-   ruleid = "1";
+   this.ruleId = "1";
   } else if (sourceText === "Manual Approval") {
-   ruleid = "2";
+   this.ruleId = "2";
    label.setText(sourceText);
   } else if (sourceText === "Receieve Call") {
-   ruleid = "3";
+   this.ruleId = "3";
    label.setText(sourceText);
   }
-  this._bindViewModel(ruleid);
+  this._bindViewModel(this.ruleId);
  }
 });

@@ -13,14 +13,14 @@
 						<f:content>
 							<core:Title text="Rule Details"></core:Title>
 							<Label text="Speciality" />
-							<Select id="entitySelect" items="{ path: '/vendorsList/0/Rules'}"
-								change="onEntitySelect">
+							<Select id="entitySelect" items="{ path: '/vendorsCategory'}" change="onEntitySelect"
+								selectedKey="{ENTID}">
 								<core:Item key="{ENTID}" text="{DESCR}" />
 							</Select>
 
 							<Label text="Rule Name" />
 							<Input id="ipDescr" valueState="{/valueState}"
-								valueStateText="Description is required" />
+								valueStateText="Description is required" value="{/newRule/DESCR}" />
 							<Label text="Day Start Time" />
 
 							<DateTimeInput type="Time" id="dtiDstim"

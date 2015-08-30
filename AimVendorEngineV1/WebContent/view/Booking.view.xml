@@ -40,7 +40,7 @@
 							<l:Grid defaultSpan="L12 M12 S12" class="bookingGrid"
 								content="{path: 'BOOKINGS'}">
 								<l:content>
-									<Button text="{TITLE}  {FRNAM}  {LTNAM}" press="handlePatientViewPress"
+									<Button text="{path: 'USRID', formatter:'sap.ui.medApp.formatter.formatHelper.getUser'}" press="handlePatientViewPress"
 										type="{path: 'STATS', formatter:'sap.ui.medApp.formatter.formatHelper.getButtonType'}"
 										width="100%" />
 								</l:content>
