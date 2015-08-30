@@ -70,5 +70,45 @@ sap.ui.medApp.formatter.formatHelper = {
 
   return key;
 
+ },
+ getApproveButtonVisibility : function(status) {
+  var vsbl = true;
+  if (status == "1")
+   vsbl = false;
+  else
+   vsbl = true;
+
+  return vsbl;
+ },
+ getMobile : function(char) {
+  var mobile;
+  for (c in char) {
+   if (char[c].DESCR === "Mobile") {
+    mobile = char[c].VALUE;
+    break;
+   }
+   return mobile;
+  }
+
+ },
+ getEmail : function(char) {
+  var email;
+  for (c in char) {
+   if (char[c].DESCR === "Email") {
+    email = char[c].VALUE;
+    break;
+   }
+  }
+  return email;
+ },
+ getPhone : function(char) {
+  var phone;
+  for (c in char) {
+   if (char[c].DESCR === "Landline") {
+    phone = char[c].VALUE;
+    break;
+   }
+  }
+  return phone;
  }
 };

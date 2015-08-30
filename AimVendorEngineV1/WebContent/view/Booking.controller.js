@@ -58,68 +58,85 @@ sap.ui.core.mvc.Controller
       sap.ui.medApp.global.util.loadVendorRules(param);
      },
 
+     _getUser : function(sPath) {
+      var oUserId = this.oModel.getProperty(sPath);
+      oUserId = oUserId.USRID;
+
+      var param = [ {
+       "key" : "details",
+       "value" : {
+        "USRID" : oUserId
+       }
+      } ];
+      sap.ui.medApp.global.util.getUsers(param);
+
+      var patientBookingInfo = {
+       "booking" : this.oModel.getProperty(sPath),
+       "patient" : this.oModel.getProperty("/searchUser")
+
+      };
+      this.oModel.setProperty("/patientInfo", patientBookingInfo);
+     },
+
      _bindBookings : function(that) {
       var oVendorRules = that.oModel.getProperty("/vendorRules");
       var oBookingHistory = that.oModel.getProperty("/bookingHistory");
-      if (oVendorRules[0].TimeSlots && oVendorRules[0]) {
-       var finalArray = oVendorRules[0].TimeSlots.map(function(item) {
-        var aBookings = [];
-        for (item1 in oBookingHistory) {
-         if (item.START === oBookingHistory[item1].BOSTM) {
+      if (oVendorRules[0])
+       if (oVendorRules[0].TimeSlots) {
+        var finalArray = oVendorRules[0].TimeSlots.map(function(item) {
+         var aBookings = [];
+         for (item1 in oBookingHistory) {
+          if (item.START === oBookingHistory[item1].BOSTM) {
 
-          aBookings.push({
-           DSPNM : oBookingHistory[item1].DSPNM,
-           STATS : oBookingHistory[item1].STATS,
-           VLTNAM : oBookingHistory[item1].VLTNAM,
-           URDOB : oBookingHistory[item1].URDOB,
-           URCOD : oBookingHistory[item1].URCOD,
-           VURDOB : oBookingHistory[item1].VURDOB,
-           VURCOD : oBookingHistory[item1].VURCOD,
-           VTRMI : oBookingHistory[item1].VTRMI,
-           ETYID : oBookingHistory[item1].ETYID,
-           BOETM : oBookingHistory[item1].BOETM,
-           VPREFIX : oBookingHistory[item1].VPREFIX,
-           ENTID : oBookingHistory[item1].ENTID,
-           BOSTM : oBookingHistory[item1].BOSTM,
-           VFRNAM : oBookingHistory[item1].VFRNAM,
-           USRID : oBookingHistory[item1].USRID,
-           VTITLE : oBookingHistory[item1].VTITLE,
-           VGENDR : oBookingHistory[item1].VGENDR,
-           CUSID : oBookingHistory[item1].CUSID,
-           LTNAM : oBookingHistory[item1].LTNAM,
-           CUTID : oBookingHistory[item1].CUTID,
-           RTYPE : oBookingHistory[item1].RTYPE,
-           VUSRID : oBookingHistory[item1].VUSRID,
-           BTIMZ : oBookingHistory[item1].BTIMZ,
-           FRNAM : oBookingHistory[item1].FRNAM,
-           VDSPNM : oBookingHistory[item1].VDSPNM,
-           RULID : oBookingHistory[item1].RULID,
-           VSUID : oBookingHistory[item1].VSUID,
-           VUTID : oBookingHistory[item1].VUTID,
-           BDTIM : oBookingHistory[item1].BDTIM,
-           GENDR : oBookingHistory[item1].GENDR,
-           TITLE : oBookingHistory[item1].TITLE,
-           ETCID : oBookingHistory[item1].ETCID
+           aBookings.push({
+            DSPNM : oBookingHistory[item1].DSPNM,
+            STATS : oBookingHistory[item1].STATS,
+            VLTNAM : oBookingHistory[item1].VLTNAM,
+            URDOB : oBookingHistory[item1].URDOB,
+            URCOD : oBookingHistory[item1].URCOD,
+            VURDOB : oBookingHistory[item1].VURDOB,
+            VURCOD : oBookingHistory[item1].VURCOD,
+            VTRMI : oBookingHistory[item1].VTRMI,
+            ETYID : oBookingHistory[item1].ETYID,
+            BOETM : oBookingHistory[item1].BOETM,
+            VPREFIX : oBookingHistory[item1].VPREFIX,
+            ENTID : oBookingHistory[item1].ENTID,
+            BOSTM : oBookingHistory[item1].BOSTM,
+            VFRNAM : oBookingHistory[item1].VFRNAM,
+            USRID : oBookingHistory[item1].USRID,
+            VTITLE : oBookingHistory[item1].VTITLE,
+            VGENDR : oBookingHistory[item1].VGENDR,
+            CUSID : oBookingHistory[item1].CUSID,
+            LTNAM : oBookingHistory[item1].LTNAM,
+            CUTID : oBookingHistory[item1].CUTID,
+            RTYPE : oBookingHistory[item1].RTYPE,
+            VUSRID : oBookingHistory[item1].VUSRID,
+            BTIMZ : oBookingHistory[item1].BTIMZ,
+            FRNAM : oBookingHistory[item1].FRNAM,
+            VDSPNM : oBookingHistory[item1].VDSPNM,
+            RULID : oBookingHistory[item1].RULID,
+            VSUID : oBookingHistory[item1].VSUID,
+            VUTID : oBookingHistory[item1].VUTID,
+            BDTIM : oBookingHistory[item1].BDTIM,
+            GENDR : oBookingHistory[item1].GENDR,
+            TITLE : oBookingHistory[item1].TITLE,
+            ETCID : oBookingHistory[item1].ETCID
 
-          })
+           })
+          }
+
          }
+         return {
+          START : item.START,
+          BOOKINGS : aBookings
+         };
 
+        });
+        if (finalArray.length) {
+         that.oModel.setProperty("/vendorRulesB", finalArray);
         }
-        return {
-         START : item.START,
-         ETYID : item.ETYID,
-         ETCID : item.ETCID,
-         ENTID : item.ENTID,
-         RULID : item.RULID,
-         BTIMZ : item.BTIMZ,
-         BOSTM : item.BOSTM,
-         BOETM : item.BOETM,
-         BOOKINGS : aBookings
-        };
 
-       });
-       that.oModel.setProperty("/vendorRules", finalArray);
-      }
+       }
      },
 
      handleEntityChange : function() {
@@ -139,8 +156,9 @@ sap.ui.core.mvc.Controller
 
      openPatientView : function(oEvent, oModel, sPath) {
       this.createPopover();
+      this._getUser(sPath);
       this._oPatientView.setModel(oModel);
-      this._oPatientView.bindElement(sPath);
+      this._oPatientView.bindElement("/patientInfo");
       var oButton = oEvent.getSource();
       jQuery.sap.delayedCall(0, this, function() {
        this._oPatientView.openBy(oButton);
@@ -163,10 +181,28 @@ sap.ui.core.mvc.Controller
 
      handleApprovePress : function(oEvent) {
 
+      var fnSuccess = function(oData) {
+       sap.m.MessageToast.show("Appointment Accepted");
+      };
+      fnError = function() {
+       sap.m.MessageToast.show("Can't accept appointment");
+      }
+      var sPath = oEvent.getSource().getBindingContext().getPath();
+      sap.ui.medApp.global.util.acceptBooking(this.oModel.getProperty(sPath),
+        this.oLoginDetails.USRNM, fnSuccess, fnError);
      },
 
      handleRejectPress : function(oEvent) {
 
+      var fnSuccess = function(oData) {
+       sap.m.MessageToast.show("Appointment Cancelled");
+      };
+      fnError = function() {
+       sap.m.MessageToast.show("Can't cancel appointment");
+      }
+      var sPath = oEvent.getSource().getBindingContext().getPath();
+      sap.ui.medApp.global.util.cancelBooking(this.oModel.getProperty(sPath),
+        this.oLoginDetails.USRNM, fnSuccess, fnError);
      },
 
      handleAddAppointment : function(oEvent) {

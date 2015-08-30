@@ -1,7 +1,7 @@
 <mvc:View controllerName="sap.ui.medApp.view.PersonalInfo"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" displayBlock="true"
 	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-	<Page id="home" title="{i18n>PROFILEMASTER_TITLE}" showNavButton="{device>/isPhone}"
+	<Page id="home" title="{i18n>PERSONALINFO_TITLE}" showNavButton="{device>/isPhone}"
 		navButtonPress="navBack">
 		<content>
 			<l:Grid defaultSpan="L12 M12 S12" width="auto">

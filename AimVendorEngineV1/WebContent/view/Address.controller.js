@@ -14,10 +14,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Address", {
    sap.m.MessageToast.show("Address saved");
 
   };
-  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
-    this.oModel);
-  this._vendorListServiceFacade.updateParameters(null, fnSuccess, null,
-    "updateUserDetails");
+  sap.ui.medApp.global.util.updateUserDetails(fnSuccess);
  },
  navBack : function() {
   var bReplace = jQuery.device.is.phone ? false : true;

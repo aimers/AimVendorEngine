@@ -6,7 +6,7 @@
 		<content>
 			<Table id="idBookings" inset="true" class="rightBlackBorder"
 				items="{
-			path: '/vendorRules'
+			path: '/vendorRulesB'
 			 
 		}">
 				<columns>
@@ -16,8 +16,8 @@
 					<Column>
 						<Text text="{i18n>APPOINTMENTS}" />
 					</Column>
-					<Column width="3em">
-					</Column>
+<!-- 					<Column width="3em">
+					</Column> -->
 				</columns>
 				<headerToolbar>
 					<Toolbar>
@@ -45,11 +45,11 @@
 										width="100%" />
 								</l:content>
 							</l:Grid>
-							<Button icon="sap-icon://add" press="handleAddAppointment">
+<!-- 							<Button icon="sap-icon://add" press="handleAddAppointment">
 								<customData>
 									<c:CustomData key="booking" value="{path: 'BOOKINGS'}"></c:CustomData>
 								</customData>
-							</Button>
+							</Button> -->
 						</cells>
 					</ColumnListItem>
 				</items>

@@ -75,7 +75,7 @@ sap.ui.core.mvc.Controller
       oList.attachEventOnce("updateFinished", oList.focus, oList);
 
       // send a delete request to the odata service
-      this.oModel.remove(sPath);
+      delete this.oModel.getObject(sPath);
      },
 
      onExit : function() {
@@ -83,17 +83,7 @@ sap.ui.core.mvc.Controller
        this._oDialog.destroy();
       }
      },
-     handleSave : function() {
 
-      var fnSuccess = function(oData) {
-       sap.m.MessageToast.show("Specialities saved");
-
-      };
-      this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
-        this.oModel);
-      this._vendorListServiceFacade.updateParameters(null, fnSuccess, null,
-        "updateUserDetails");
-     },
      navBack : function() {
       var bReplace = jQuery.device.is.phone ? false : true;
       sap.ui.core.UIComponent.getRouterFor(this).navTo("profile", {}, bReplace);
