@@ -30,9 +30,66 @@ public class VendorCommand extends aimCommand {
 			return getVendorRuleDetail(myInfo, dbcon);
 		}else if(aimAction.equals("getUniqueAddress")){
 			return getUniqueAddress(myInfo, dbcon);
+		}else if(aimAction.equals("getAllCities")){
+			return getAllCities(myInfo, dbcon);
+		}else if(aimAction.equals("getCharList")){
+			return getCharList(myInfo, dbcon);
 		}
 		return new JSONObject();
 
+	}
+
+	private Object getCharList(HashMap myInfo, ConnectionManager dbcon) {
+		ResultSet rs=null;
+		try{
+			if(dbcon == null){
+				try{
+					dbcon.Connect("MYSQL");
+				}
+				catch(Exception ex){
+					System.out.println(""+ex);
+				}
+			}
+			String query =
+			" SELECT `chrmt`.`CHRID`, `chrmt`.`DESCR`, `chrmt`.`REGXT`, "
+			+ " `chrmt`.`MDTEXT`, `chrmt`.`LNTXT`, `chrmt`.`SRTXT`, "
+			+ " `chrmt`.`LOGOI`, `chrmt`.`ACTIV`, `chrmt`.`CRTDT`, "
+			+ " `chrmt`.`CHNDT`, `chrmt`.`CRTBY`, `chrmt`.`CHNBY` FROM `bookingdb`.`chrmt` ";
+			
+			System.out.println(query);
+			rs=dbcon.stm.executeQuery(query);
+			return Convertor.convertToJSON(rs);
+		}
+		catch(Exception ex){
+			System.out.println("Error from VENDOR Cities Command "+ex +"==dbcon=="+dbcon);
+			return null;
+		}
+	}
+
+	private Object getAllCities(HashMap myInfo, ConnectionManager dbcon) {
+		ResultSet rs=null;
+		try{
+			if(dbcon == null){
+				try{
+					dbcon.Connect("MYSQL");
+				}
+				catch(Exception ex){
+					System.out.println(""+ex);
+				}
+			}
+			String query =
+			" SELECT `ctymt`.`CTYID`, `ctymt`.`CTYNM`, `ctymt`.`STTID`, "
+			+ " `ctymt`.`ACTIV`, `ctymt`.`CRTDT`, `ctymt`.`CRTBY`, "
+			+ "`ctymt`.`CHNDT`, `ctymt`.`CHNBY` FROM `bookingdb`.`ctymt` ";
+			
+			System.out.println(query);
+			rs=dbcon.stm.executeQuery(query);
+			return Convertor.convertToJSON(rs);
+		}
+		catch(Exception ex){
+			System.out.println("Error from VENDOR Cities Command "+ex +"==dbcon=="+dbcon);
+			return null;
+		}
 	}
 
 	private Object getUniqueAddress(HashMap myInfo, ConnectionManager dbcon) {
