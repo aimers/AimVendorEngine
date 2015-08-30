@@ -272,7 +272,9 @@ private Object selectAllUserAccount(HashMap myInfo, ConnectionManager dbcon) {
 		if(detailsJSON.has("USRID")){
 			query = query + "where `usrmt`.`USRID` in ("+detailsJSON.get("USRID")+") ";
 		}
-	
+		if(detailsJSON.has("USRNM")){
+			query = query + "where `uacmt`.`USRNM` like \"%"+detailsJSON.get("USRNM")+"%\" ";
+		}
 		System.out.println(query);
 		rs=dbcon.stm.executeQuery(query);
 		JSONArray userArray = Convertor.convertToJSON(rs);
@@ -954,19 +956,23 @@ private Object getBookingHistory(HashMap myInfo, ConnectionManager dbcon) {
 			detailsJSON.put("CRTBY", detailsJSON.get("USRID"));
 			detailsJSON.put("CHNDT", dateFormat.format(date)+"");
 			detailsJSON.put("CHNBY", detailsJSON.get("USRID"));
-			if(!detailsJSON.has("UERPW")){
-				detailsJSON.put("UERPW", detailsJSON.get("USRID").hashCode()+"");
-			}
+//			if(!detailsJSON.has("UERPW")){
+//				detailsJSON.put("UERPW", detailsJSON.get("USRID").hashCode()+"");
+//			}
 			
 			String query = "UPDATE `uacmt` set"
 					+ "`USRNM` = '"+detailsJSON.get("USRNM")+ "', "
-					+ "`UERPW` = '"+detailsJSON.get("UERPW")+ "', "
 					+ "`ACTIV` = '"+detailsJSON.get("ACTIV")+ "', "
 					+ "`CRTDT` = '"+detailsJSON.get("CRTDT")+ "', "
 					+ "`CRTBY` = '"+detailsJSON.get("CRTBY")+ "',"
 					+ "`CHNDT` = '"+detailsJSON.get("CHNDT")+ "', "
-					+ "`CHNBY` = '"+detailsJSON.get("CHNBY")+ "' "
-					+ " where `USRID` = '"+detailsJSON.get("USRID")+ "'";
+					+ "`CHNBY` = '"+detailsJSON.get("CHNBY")+ "' ";
+			if(!detailsJSON.has("UERPW")){
+				query = query+  ",  `UERPW` = '"+detailsJSON.get("UERPW")+ "', ";
+			}
+					
+					
+			query = query+   " where `USRID` = '"+detailsJSON.get("USRID")+ "'";
 			
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
