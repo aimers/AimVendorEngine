@@ -803,28 +803,24 @@ public class VendorCommand extends aimCommand {
 					System.out.println(""+ex);
 				}
 			}
-			System.out.println("SELECT `entmt`.`ENTID`,"
-					+"  `entmt`.`DESCR`,"
-					+"    `entmt`.`ACTIV`,"
-					+"    `entmt`.`CRTDT`,"
-					+"   `entmt`.`CRTBY`,"
-					+"   `entmt`.`CHNDT`,"
-					+"   `entmt`.`CHNBY`"
-					+" FROM `entmt` where ENTID in ("
-					+"		SELECT  ENTID FROM `ienmp` where USRID = "+
-					userid + " and INTID = "+ intent+" and ACTIV = 1"
-					+" ) order by ENTID");
-			rs=dbcon.stm.executeQuery("SELECT `entmt`.`ENTID`,"
-					+"  `entmt`.`DESCR`,"
-					+"    `entmt`.`ACTIV`,"
-					+"    `entmt`.`CRTDT`,"
-					+"   `entmt`.`CRTBY`,"
-					+"   `entmt`.`CHNDT`,"
-					+"   `entmt`.`CHNBY`"
-					+" FROM `entmt` where ENTID in ("
-					+"		SELECT  ENTID FROM `ienmp` where USRID = "+
-					userid + " and INTID = "+ intent+" and ACTIV = 1"
-					+" ) order by ENTID");
+			System.out.println("SELECT `ienmp`.`ENTID`,`ienmp`.`ETYID`,`ienmp`.`ETCID`,  `entmt`.`DESCR`,  "
+					+ "  `entmt`.`ACTIV`, "
+					+ " `entmt`.`CRTDT`,   `entmt`.`CRTBY`,   "
+					+ " `entmt`.`CHNDT`,   `entmt`.`CHNBY`  FROM `entmt`  "
+					+ " left outer join `ienmp` "
+					+ " on `entmt`.`ENTID` = `ienmp`.`ENTID` "
+					+ " where `ienmp`.USRID = "+
+					userid + " and `ienmp`.INTID = "+ intent+" and `ienmp`.ACTIV = 1 "
+							+ " order by `entmt`.`ENTID`");
+			rs=dbcon.stm.executeQuery("SELECT `ienmp`.`ENTID`,`ienmp`.`ETYID`,`ienmp`.`ETCID`,  `entmt`.`DESCR`,  "
+					+ "  `entmt`.`ACTIV`, "
+					+ " `entmt`.`CRTDT`,   `entmt`.`CRTBY`,   "
+					+ " `entmt`.`CHNDT`,   `entmt`.`CHNBY`  FROM `entmt`  "
+					+ " left outer join `ienmp` "
+					+ " on `entmt`.`ENTID` = `ienmp`.`ENTID` "
+					+ " where `ienmp`.USRID = "+
+					userid + " and `ienmp`.INTID = "+ intent+" and `ienmp`.ACTIV = 1 "
+							+ " order by `entmt`.`ENTID`");
 			return Convertor.convertToJSON(rs);
 
 		}
