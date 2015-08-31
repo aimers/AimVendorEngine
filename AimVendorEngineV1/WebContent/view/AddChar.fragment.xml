@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<l:Grid defaultSpan="L12 M12 S12" width="auto">
+		<l:content>
+			<f:SimpleForm id="addChar" minWidth="1024"
+				maxContainerCols="2" layout="ResponsiveGridLayout" labelSpanL="4"
+				labelSpanM="4" emptySpanL="1" emptySpanM="1" columnsL="1" columnsM="1">
+				<f:content>
+					<Label text="Characteristic"></Label>
+					<Select items="{path:'/Char'}" id="selChar">
+						<core:Item key="{CHRID}" text="{DESCR}" />
+					</Select>
+					<Label text="Value"></Label>
+					<Input id="charValue"></Input>
+				</f:content>
+			</f:SimpleForm>
+		</l:content>
+	</l:Grid>
+</core:FragmentDefinition>

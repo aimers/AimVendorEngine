@@ -5,14 +5,19 @@ sap.ui.core.mvc.Controller
 
      onInit : function() {
       this.oModel = sap.ui.medApp.global.util.getMainModel();
+      this.oUpdateFinishedDeferred = jQuery.Deferred();
+      this.getView().byId("entityList").attachEventOnce("updateFinished",
+        function() {
+         this.oUpdateFinishedDeferred.resolve();
+        }, this);
       sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
         this.onRouteMatched, this);
       this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
      },
 
      onRouteMatched : function(oEvent) {
-      if (oEvent.getParameter("name") === "speciality") {
-
+      var sName = oEvent.getParameter("name");
+      if (sName === "speciality") {
        var param = [ {
         "key" : "INTENT",
         "value" : "1"
@@ -23,9 +28,21 @@ sap.ui.core.mvc.Controller
        sap.ui.medApp.global.util.loadVendorCategory(param);
        sap.ui.medApp.global.util.loadListCategory();
        this._bindVendorEntities();
+
+       jQuery.when(this.oUpdateFinishedDeferred).then(jQuery.proxy(function() {
+
+        this._toggleSaveButton();
+
+       }, this));
       }
      },
-
+     _toggleSaveButton : function() {
+      if (this.getView().byId("entityList").getItems().length) {
+       this.getView().byId("btnSave").setEnabled(true);
+      } else {
+       this.getView().byId("btnSave").setEnabled(false);
+      }
+     },
      handleAddEntity : function(oEvent) {
       var _this = this;
       if (!this._oDialog) {
@@ -55,6 +72,12 @@ sap.ui.core.mvc.Controller
          + aContexts.map(function(oContext) {
           return oContext.getObject().DESCR;
          }).join(", "));
+       var aData = this.oModel.getProperty("/vendorsCategory");
+       var newData = this.oModel.getProperty(aContexts[0].getPath());
+       aData.push(newData);
+       this.oModel.refresh(true);
+
+       this._toggleSaveButton();
       }
       oEvent.getSource().getBinding("items").filter([]);
      },
@@ -70,18 +93,26 @@ sap.ui.core.mvc.Controller
      handleDelete : function(oEvent) {
       var oList = oEvent.getSource(), oItem = oEvent.getParameter("listItem"), sPath = oItem
         .getBindingContext().getPath();
-
-      // after deletion put the focus back to the list
       oList.attachEventOnce("updateFinished", oList.focus, oList);
-
-      // send a delete request to the odata service
-      delete this.oModel.getObject(sPath);
+      var pathArray = sPath.split("/");
+      var index = pathArray[pathArray.length - 1];
+      sPath = sPath.substring(0, sPath.length - 2);
+      var aData = this.oModel.getProperty(sPath);
+      aData.splice(index, 1);
+      this.oModel.refresh(true);
+      this._toggleSaveButton();
      },
 
      onExit : function() {
       if (this._oDialog) {
        this._oDialog.destroy();
       }
+     },
+     handleSave : function() {
+      var fnSuccess = function(oData) {
+       sap.m.MessageToast.show("Speciality saved");
+      };
+      sap.ui.medApp.global.util.updateUserDetails(fnSuccess);
      },
 
      navBack : function() {
