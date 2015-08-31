@@ -18,8 +18,8 @@ public class ConnectionManager {
 		String url          = "jdbc:mysql://127.0.0.1:3306/"; 
 		String db           = "bookingdb"; 
 		String driver       = "com.mysql.jdbc.Driver"; 
-		String user         = "root"; //
-		String password     = "sa";  //
+		String user         = "iaadmin";//"root"; //
+		String password     = "iamocha";//"sa";  //
 		
 		try{
 			 ResourceBundle messageBundle = ResourceBundle.getBundle("appConfig");
