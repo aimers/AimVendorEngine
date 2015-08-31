@@ -275,13 +275,15 @@ sap.ui.medApp.global.util = {
  getUsers : function(param) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
-  if (param)
-   this._vendorListServiceFacade.getRecords(null, null, "/searchUser",
-     "getAllUsers", param);
-  else
-   this._vendorListServiceFacade.getRecords(null, null, "/allUsers",
-     "getAllUsers", param);
+  this._vendorListServiceFacade.getRecords(null, null, "/searchUser",
+    "getAllUsers", param);
 
+ },
+ getAllUsers : function(param) {
+  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
+    this._mainModel);
+  this._vendorListServiceFacade.getRecords(null, null, "/allUsers",
+    "getAllUsers", param);
  },
 
  createRule : function(param, fnSuccess) {

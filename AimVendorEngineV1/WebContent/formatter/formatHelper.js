@@ -127,12 +127,22 @@ sap.ui.medApp.formatter.formatHelper = {
   var oModel = sap.ui.medApp.global.util.getMainModel();
 
   name = oModel.getProperty("/searchUser/0/TITLE") + " "
-    + oModel.getProperty("/searchUser/0/FRNAM") + " " + oModel
-    .getProperty("/searchUser/0/LTNAM");
-  
-  if(!name.toString().trim()){
-   name =  oModel.getProperty("/searchUser/0/USRNM");
+    + oModel.getProperty("/searchUser/0/FRNAM") + " "
+    + oModel.getProperty("/searchUser/0/LTNAM");
+
+  if (!name.toString().trim()) {
+   name = oModel.getProperty("/searchUser/0/USRNM");
   }
   return name;
+ },
+ getAddButtonVisible : function(status) {
+
+  var vsbl = true;
+  if (status == "3")
+   vsbl = false;
+  else
+   vsbl = true;
+
+  return vsbl;
  }
 };
