@@ -967,7 +967,7 @@ private Object getBookingHistory(HashMap myInfo, ConnectionManager dbcon) {
 					+ "`CRTBY` = '"+detailsJSON.get("CRTBY")+ "',"
 					+ "`CHNDT` = '"+detailsJSON.get("CHNDT")+ "', "
 					+ "`CHNBY` = '"+detailsJSON.get("CHNBY")+ "' ";
-			if(!detailsJSON.has("UERPW")){
+			if(detailsJSON.has("UERPW")){
 				query = query+  ",  `UERPW` = '"+detailsJSON.get("UERPW")+ "', ";
 			}
 					
