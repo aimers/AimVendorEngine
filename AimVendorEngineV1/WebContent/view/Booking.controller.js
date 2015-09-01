@@ -191,10 +191,10 @@ sap.ui.core.mvc.Controller
      },
 
      handleApprovePress : function(oEvent) {
-
+      var _this = this;
       var fnSuccess = function(oData) {
        sap.m.MessageToast.show("Appointment Accepted");
-       this._bindBookings(this);
+       _this._bindBookings(this);
       };
       fnError = function() {
        sap.m.MessageToast.show("Can't accept appointment");
@@ -205,10 +205,10 @@ sap.ui.core.mvc.Controller
      },
 
      handleRejectPress : function(oEvent) {
-
+      var _this = this;
       var fnSuccess = function(oData) {
        sap.m.MessageToast.show("Appointment Cancelled");
-       this._bindBookings(this);
+       _this._bindBookings(this);
       };
       fnError = function() {
        sap.m.MessageToast.show("Can't cancel appointment");
@@ -222,7 +222,7 @@ sap.ui.core.mvc.Controller
 
       var _this = this;
       var oItem = oEvent.getSource().getParent();
-      var oBookingData = _this.oModel.getProperty(oItem.getBindingContext()
+      _this.oBookingData = _this.oModel.getProperty(oItem.getBindingContext()
         .getPath());
 
       if (!_this.Appointmentdialog) {
@@ -255,9 +255,7 @@ sap.ui.core.mvc.Controller
 
                oDate = _this.oDate;
                oDate = oDate.substring(6, 10) + "/" + oDate.substring(3, 5)
-                 + "/" + oDate.substring(0, 2) + "/"
-
-                 + " 00:00:00";
+                 + "/" + oDate.substring(0, 2) + " 00:00:00";
                var param = [ {
                 "key" : "details",
                 "value" : {
@@ -273,8 +271,8 @@ sap.ui.core.mvc.Controller
                  "VSEML" : _this.oLoginDetails.USRNM,
                  "BDTIM" : oDate,
                  "BTIMZ" : "IST",
-                 "BOSTM" : oBookingData.START.toString(),
-                 "BOETM" : oBookingData.END.toString(),
+                 "BOSTM" : _this.oBookingData.START.toString(),
+                 "BOETM" : _this.oBookingData.END.toString(),
                  "RTYPE" : "1"
                 }
                } ];
