@@ -144,5 +144,20 @@ sap.ui.medApp.formatter.formatHelper = {
    vsbl = true;
 
   return vsbl;
+ },
+
+ getCityName : function(cityid) {
+  var CityName;
+  var oModel = sap.ui.medApp.global.util.getMainModel();
+  var oCity = oModel.getProperty("/City");
+  if (oCity) {
+   for (c in oCity) {
+    if (oCity[c].CTYID == cityid) {
+     CityName = oCity[c].CTYNM;
+     break;
+    }
+   }
+   return CityName;
+  }
  }
 };

@@ -8,6 +8,9 @@ sap.ui.core.mvc.Controller
       this.oModel = sap.ui.medApp.global.util.getMainModel();
       sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
         this.onRouteMatched, this);
+      if (!this.oModel.getProperty("/City")) {
+       sap.ui.medApp.global.util.getAllCities();
+      }
      },
 
      onRouteMatched : function(oEvent) {
@@ -194,7 +197,7 @@ sap.ui.core.mvc.Controller
       var _this = this;
       var fnSuccess = function(oData) {
        sap.m.MessageToast.show("Appointment Accepted");
-       _this._bindBookings(this);
+       _this._bindBookings(_this);
       };
       fnError = function() {
        sap.m.MessageToast.show("Can't accept appointment");
@@ -208,7 +211,7 @@ sap.ui.core.mvc.Controller
       var _this = this;
       var fnSuccess = function(oData) {
        sap.m.MessageToast.show("Appointment Cancelled");
-       _this._bindBookings(this);
+       _this._bindBookings(_this);
       };
       fnError = function() {
        sap.m.MessageToast.show("Can't cancel appointment");

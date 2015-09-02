@@ -386,6 +386,13 @@ sap.ui.medApp.global.util = {
     this._mainModel);
   this._vendorListServiceFacade.getRecords(null, null, "/Char", "getCharList",
     param);
+ },
+ getAllCities : function() {
+  var param = [ {} ];
+  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
+    this._mainModel);
+  this._vendorListServiceFacade.getRecords(null, null, "/City", "getAllCities",
+    param);
  }
 
 }
