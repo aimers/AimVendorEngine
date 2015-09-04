@@ -82,11 +82,16 @@ private void deleteVendorEntities(HashMap myInfo, ConnectionManager dbcon) {
 		String details 	=  myInfo.get("details")+"";
 		JSONObject detailsJSON 	= new JSONObject(details);
 		
-		String query1 = "DELETE FROM `vempt`"
+		String query = "DELETE FROM `vempt`"
+				+ " where `USRID` = '"+detailsJSON.get("USRID")+"'";				
+		System.out.println(query);
+		int rowCount=dbcon.stm.executeUpdate(query);
+		
+		String query1 = "DELETE FROM `ienmp`"
 				+ " where `USRID` = '"+detailsJSON.get("USRID")+"'";				
 		System.out.println(query1);
 		int rowCount1=dbcon.stm.executeUpdate(query1);
-			
+		
 		//return detailsJSON;
 
 	}
@@ -173,8 +178,25 @@ private Object createVendorEntityMapping(HashMap myInfo, ConnectionManager dbcon
 		
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
+			
 			if(rowCount > 0){
-				entOutJARRAY.put(entJSON);
+				String query1 = "INSERT INTO `bookingdb`.`ienmp` "
+						+ " (`USRID`, `UTYID`, `ITCMT`, `ITYID`, `INTID`, "
+						+ " `ETYID`, `ETCID`, `ENTID`, `ACTIV`, `CRTDT`, `CRTBY`, `CHNDT`, `CHNBY`) "
+						+ " SELECT " 
+						+ " '"+entJSON.get("USRID")+ "', "
+						+ "  `UTYID`, `ITCMT`, `ITYID`, `INTID`, "
+						+ " `ETYID`, `ETCID`, `ENTID`,  "
+						+ " `ACTIV`, `CRTDT`, `CRTBY`, `CHNDT`, `CHNBY` "
+						+ " FROM bookingdb.ienmp";
+
+			
+				System.out.println(query1);
+				int rowCount1=dbcon.stm.executeUpdate(query1);
+				
+				if(rowCount1 > 0){
+					entOutJARRAY.put(entJSON);
+				}
 			}else{
 				//TODO: Consider Raising Error
 				entOutJARRAY.put((JSONObject) entJSONArray.get(cIndex));
@@ -967,7 +989,7 @@ private Object getBookingHistory(HashMap myInfo, ConnectionManager dbcon) {
 					+ "`CRTBY` = '"+detailsJSON.get("CRTBY")+ "',"
 					+ "`CHNDT` = '"+detailsJSON.get("CHNDT")+ "', "
 					+ "`CHNBY` = '"+detailsJSON.get("CHNBY")+ "' ";
-			if(!detailsJSON.has("UERPW")){
+			if(detailsJSON.has("UERPW")){
 				query = query+  ",  `UERPW` = '"+detailsJSON.get("UERPW")+ "', ";
 			}
 					

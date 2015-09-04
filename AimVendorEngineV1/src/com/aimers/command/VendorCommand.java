@@ -804,23 +804,27 @@ public class VendorCommand extends aimCommand {
 				}
 			}
 			System.out.println("SELECT `ienmp`.`ENTID`,`ienmp`.`ETYID`,`ienmp`.`ETCID`,  `entmt`.`DESCR`,  "
-					+ "  `entmt`.`ACTIV`, "
-					+ " `entmt`.`CRTDT`,   `entmt`.`CRTBY`,   "
-					+ " `entmt`.`CHNDT`,   `entmt`.`CHNBY`  FROM `entmt`  "
-					+ " left outer join `ienmp` "
-					+ " on `entmt`.`ENTID` = `ienmp`.`ENTID` "
-					+ " where `ienmp`.USRID = "+
-					userid + " and `ienmp`.INTID = "+ intent+" and `ienmp`.ACTIV = 1 "
-							+ " order by `entmt`.`ENTID`");
+					+ " `entmt`.`ACTIV`,  `entmt`.`CRTDT`,   `entmt`.`CRTBY`,    "
+					+ " `entmt`.`CHNDT`,   `entmt`.`CHNBY`   FROM `vempt`  "
+					+ " left outer join `entmt`   "
+					+ " on `vempt`.`ENTID` = `entmt`.`ENTID`   "
+					+ " left outer join `ienmp`  "
+					+ " on `vempt`.`USRID` = `ienmp`.`USRID`   and `vempt`.`ENTID` = `ienmp`.`ENTID` "
+					+ " where `vempt`.USRID = "+
+					userid + " and  "
+					+ " `ienmp`.INTID = 1 and  "
+					+ " `vempt`.ACTIV = 1  order by `vempt`.`ENTID`");
 			rs=dbcon.stm.executeQuery("SELECT `ienmp`.`ENTID`,`ienmp`.`ETYID`,`ienmp`.`ETCID`,  `entmt`.`DESCR`,  "
-					+ "  `entmt`.`ACTIV`, "
-					+ " `entmt`.`CRTDT`,   `entmt`.`CRTBY`,   "
-					+ " `entmt`.`CHNDT`,   `entmt`.`CHNBY`  FROM `entmt`  "
-					+ " left outer join `ienmp` "
-					+ " on `entmt`.`ENTID` = `ienmp`.`ENTID` "
-					+ " where `ienmp`.USRID = "+
-					userid + " and `ienmp`.INTID = "+ intent+" and `ienmp`.ACTIV = 1 "
-							+ " order by `entmt`.`ENTID`");
+					+ " `entmt`.`ACTIV`,  `entmt`.`CRTDT`,   `entmt`.`CRTBY`,    "
+					+ " `entmt`.`CHNDT`,   `entmt`.`CHNBY`   FROM `vempt`  "
+					+ " left outer join `entmt`   "
+					+ " on `vempt`.`ENTID` = `entmt`.`ENTID`   "
+					+ " left outer join `ienmp`  "
+					+ " on `vempt`.`USRID` = `ienmp`.`USRID`   and `vempt`.`ENTID` = `ienmp`.`ENTID` "
+					+ " where `vempt`.USRID = "+
+					userid + " and  "
+					+ " `ienmp`.INTID = 1 and  "
+					+ " `vempt`.ACTIV = 1  order by `vempt`.`ENTID`");
 			return Convertor.convertToJSON(rs);
 
 		}
