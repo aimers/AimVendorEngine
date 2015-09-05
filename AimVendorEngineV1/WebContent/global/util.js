@@ -395,10 +395,9 @@ sap.ui.medApp.global.util = {
     param);
  },
  uploadFile : function(user, form, fnSuccess, fnError) {
-  var formData = new FormData(form);
   $.ajax({
    url : 'FileUploadServlet?USRID=' + user,
-   data : formData,
+   data : form,
    type : "POST",
    contentType : false,
    processData : false,
@@ -406,6 +405,18 @@ sap.ui.medApp.global.util = {
    enctype: 'multipart/form-data',
    error : fnError
   })
- }
+ },
+ 
+ deleteFile : function(user, filename, fnSuccess, fnError) {
+  $.ajax({
+   url : 'FileUploadServlet?USRID=' + user+"&DelfileName="+filename,
+   type : "POST",
+   contentType : false,
+   processData : false,
+   success : fnSuccess,
+   enctype: 'multipart/form-data',
+   error : fnError
+  })
+ } 
 
 }
