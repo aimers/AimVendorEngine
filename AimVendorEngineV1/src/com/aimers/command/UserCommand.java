@@ -188,7 +188,7 @@ private Object createVendorEntityMapping(HashMap myInfo, ConnectionManager dbcon
 						+ "  `UTYID`, `ITCMT`, `ITYID`, `INTID`, "
 						+ " `ETYID`, `ETCID`, `ENTID`,  "
 						+ " `ACTIV`, `CRTDT`, `CRTBY`, `CHNDT`, `CHNBY` "
-						+ " FROM bookingdb.ienmp";
+						+ " FROM bookingdb.ienmp where USRID = 1";
 
 			
 				System.out.println(query1);
