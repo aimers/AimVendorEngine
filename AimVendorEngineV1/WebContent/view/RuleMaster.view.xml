@@ -32,7 +32,7 @@
 		<footer>
 			<Bar>
 				<contentRight>
-					<Button icon="sap-icon://add" press="handlePressAddRule"></Button>
+					<Button icon="sap-icon://add" press="handlePressAddRule" text="Add"></Button>
 				</contentRight>
 			</Bar>
 		</footer>

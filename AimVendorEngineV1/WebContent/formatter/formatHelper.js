@@ -115,6 +115,18 @@ sap.ui.medApp.formatter.formatHelper = {
   }
   return phone;
  },
+
+ getImagesOnly : function(char) {
+  var imgs=[];
+  for (c in char) {
+   if (char[c].DESCR === "Image") {
+    imgs.push({"VALUE":char[c].VALUE, "DESCR":char[c].DESCR, "CHRID":char[c].CHRID}) ;
+    break;
+   }
+  }
+  return imgs;
+ },
+
  getUser : function(uid) {
   var name;
   var param = [ {

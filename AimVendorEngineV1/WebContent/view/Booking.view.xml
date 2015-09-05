@@ -47,7 +47,8 @@
 										width="100%" />
 								</l:content>
 							</l:Grid>
-							<Button icon="sap-icon://add" press="handleAddAppointment" visible="{path: 'STATS', formatter:'sap.ui.medApp.formatter.formatHelper.getAddButtonVisible'}">
+							<Button icon="sap-icon://add" press="handleAddAppointment"
+								visible="{path: 'STATS', formatter:'sap.ui.medApp.formatter.formatHelper.getAddButtonVisible'}">
 								<customData>
 									<c:CustomData key="booking" value="{path: 'BOOKINGS'}"></c:CustomData>
 								</customData>
@@ -57,5 +58,8 @@
 				</items>
 			</Table>
 		</content>
+		<footer>
+			<Bar></Bar>
+		</footer>
 	</Page>
 </mvc:View>

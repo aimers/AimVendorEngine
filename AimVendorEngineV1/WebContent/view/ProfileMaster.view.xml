@@ -9,7 +9,11 @@
 				<core:Item key="char" text="Characteristics" />
 				<core:Item key="address" text="Address" />
 				<core:Item key="speciality" text="Specialities" />
+				<core:Item key="images" text="Images" />
 			</SelectList>
 		</content>
+		<footer>
+			 <Bar></Bar>
+		</footer>
 	</Page>
 </mvc:View>

@@ -36,6 +36,8 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
    this._showAddress();
   } else if (oSelectedKey === "speciality") {
    this._showSpeciality();
+  } else if (oSelectedKey === "images") {
+   this._showImages();
   }
  },
  _showPersonalInfo : function() {
@@ -55,6 +57,10 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
  _showSpeciality : function() {
   var bReplace = jQuery.device.is.phone ? false : true;
   sap.ui.core.UIComponent.getRouterFor(this).navTo("speciality", {}, bReplace);
+ },
+ _showImages : function() {
+  var bReplace = jQuery.device.is.phone ? false : true;
+  sap.ui.core.UIComponent.getRouterFor(this).navTo("images", {}, bReplace);
  },
  navBack : function() {
   var bReplace = jQuery.device.is.phone ? false : true;

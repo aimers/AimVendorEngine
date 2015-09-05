@@ -69,8 +69,8 @@
 		<footer>
 			<Bar>
 				<contentRight>
-					<Button text="Save" press="handleRuleSave"></Button>
-					<Button text="Cancel" press="handleRuleCancel"></Button>
+					<Button text="Save" icon="sap-icon://save" press="handleRuleSave"></Button>
+					<Button text="Cancel" press="handleRuleCancel" icon="sap-icon://sys-cancel"></Button>
 				</contentRight>
 			</Bar>
 		</footer>
