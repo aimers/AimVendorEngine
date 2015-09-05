@@ -69,9 +69,9 @@ public class FileUploadServlet extends HttpServlet {
         	File file = new File(delFileName);
         	
     		if(file.delete()){
-    			dataResponse.print("{ \"fileName\"=\""+ delFileName + "\", \"status\"= \"Deleted\" }");
+    			dataResponse.print("{ \"fileName\":\""+ delFileName + "\", \"status\":\"Deleted\" }");
     		}else{
-    			dataResponse.print("{ \"fileName\"=\""+ delFileName + "\", \"status\"= \"Not Deleted\" }");
+    			dataResponse.print("{ \"fileName\":\""+ delFileName + "\", \"status\":\"Not Deleted\" }");
     		}
         }else{
 	        String fileName = null;
@@ -82,7 +82,7 @@ public class FileUploadServlet extends HttpServlet {
 	        }
 	        
 	       // request.setAttribute("message", fileName + " File uploaded successfully!");
-	        dataResponse.print("{ \"fileName\"=\""+ fileName + "\", \"relativePath\"= \""+fileSaveDir.getAbsolutePath()+"\" }");
+	        dataResponse.print("{ \"fileName\":\""+ fileName + "\", \"relativePath\":\""+fileSaveDir.getAbsolutePath()+"\" }");
 	//        getServletContext().getRequestDispatcher("/response.jsp").forward(
 	//                request, response);
         }
