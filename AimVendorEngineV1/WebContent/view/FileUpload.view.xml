@@ -5,13 +5,7 @@
 		navButtonPress="navBack">
 		<content>
 			<Table id="idCharTable" inset="false" mode="Delete" delete="handleDelete"
-				items="{
-      path: '/vendorsList/0/Characteristics',
-      filter: 'sap.ui.medApp.formatter.formatHelper.getImagesOnly',
-      sorter: {
-        path: 'REGXT'
-      }
-    }">
+ >
 				<headerToolbar>
 					<Toolbar>
 						<Title text="Your Images" level="H2" />
@@ -22,20 +16,11 @@
 						<Text text="Images" />
 					</Column>
 				</columns>
-				<items>
-					<ColumnListItem>
-						<cells>
-							<Image src="/Users/i313586/Dev/files/{VALUE}" />
-						</cells>
-					</ColumnListItem>
-				</items>
+				 
 			</Table>
 		</content>
 		<footer>
 			<Bar>
-				<contentLeft>
-
-				</contentLeft>
 				<contentRight>
 					<Button text="Add" icon="sap-icon://add" press="addCharacteristics"></Button>
 

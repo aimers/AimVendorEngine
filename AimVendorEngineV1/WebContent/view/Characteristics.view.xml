@@ -6,12 +6,7 @@
 		<content>
 
 			<Table id="idCharTable" inset="false" mode="Delete" delete="handleDelete"
-				items="{
-      path: '/vendorsList/0/Characteristics',
-      sorter: {
-        path: 'REGXT'
-      }
-    }">
+				>
 				<headerToolbar>
 					<Toolbar>
 						<Title text="Your Characteristics" level="H2" />
@@ -25,14 +20,7 @@
 						<Text text="Value" />
 					</Column>
 				</columns>
-				<items>
-					<ColumnListItem>
-						<cells>
-							<Text text="{DESCR}" />
-							<Input value="{VALUE}" />
-						</cells>
-					</ColumnListItem>
-				</items>
+ 
 			</Table>
 		</content>
 		<footer>
