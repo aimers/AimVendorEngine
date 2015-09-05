@@ -68,10 +68,6 @@ sap.ui.core.mvc.Controller
      handleSaveEntity : function(oEvent) {
       var aContexts = oEvent.getParameter("selectedContexts");
       if (aContexts.length) {
-       sap.m.MessageToast.show("You have chosen "
-         + aContexts.map(function(oContext) {
-          return oContext.getObject().DESCR;
-         }).join(", "));
        var aData = this.oModel.getProperty("/vendorsCategory");
        var newData = this.oModel.getProperty(aContexts[0].getPath());
        aData.push(newData);

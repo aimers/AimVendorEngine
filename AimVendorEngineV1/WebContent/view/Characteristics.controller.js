@@ -5,25 +5,40 @@ sap.ui.core.mvc.Controller
 
      onInit : function() {
       this.oModel = sap.ui.medApp.global.util.getHomeModel();
-      this.oUpdateFinishedDeferred = jQuery.Deferred();
-      this.getView().byId("idCharTable").attachEventOnce("updateFinished",
-        function() {
-         this.oUpdateFinishedDeferred.resolve();
-        }, this);
       sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
         this.onRouteMatched, this);
       this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
      },
+
      // Handler for routing event
      onRouteMatched : function(oEvent) {
       var sName = oEvent.getParameter("name");
-      jQuery.when(this.oUpdateFinishedDeferred).then(jQuery.proxy(function() {
-       if (sName === "characteristics") {
-        this._toggleSaveButton();
-       }
-      }, this));
+      if (sName === "characteristics") {
+       this._bindImage();
+       this._toggleSaveButton();
+      }
+     },
+
+     _bindImage : function() {
+      var oTable = this.getView().byId("idCharTable");
+      oTable.bindItems({
+       path : "/vendorsList/0/Characteristics",
+       template : new sap.m.ColumnListItem({
+        cells : [ new sap.m.Text({
+         text : "{DESCR}"
+        }), new sap.m.Input({
+         value : "{VALUE}"
+        }) ]
+       }),
+       filters : [ new sap.ui.model.Filter({
+        path : "DESCR",
+        operator : sap.ui.model.FilterOperator.NE,
+        value1 : "Image"
+       }) ]
+      });
 
      },
+
      _toggleSaveButton : function() {
       if (this.getView().byId("idCharTable").getItems().length) {
        this.getView().byId("btnSave").setEnabled(true);

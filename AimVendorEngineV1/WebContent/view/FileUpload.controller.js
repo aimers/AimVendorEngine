@@ -12,37 +12,78 @@ sap.ui.core.mvc.Controller
       this.oHtml = new sap.ui.core.HTML();
 
       this.oHtml
-        .setContent('<form id="myform" action="FileUploadServlet?USRID='
-          + this.oLoginDetails.USRID
-          + '" method="post" enctype="multipart/form-data">Select File to Upload:<input id="myFile" type="file" name="fileName"></form>');
+        .setContent('<form id="myform" action="FileUploadServlet?USRID=3" method="post" enctype="multipart/form-data">Select File to Upload:<input id="myFile" type="file" name="fileName"></form>');
      },
 
      onRouteMatched : function(oEvent) {
       var sName = oEvent.getParameter("name");
-      
+      this._bindImage();
+     },
+
+     _bindImage : function() {
+      var oTable = this.getView().byId("idCharTable");
+      oTable.bindItems({
+       path : "/vendorsList/0/Characteristics",
+       template : new sap.m.ColumnListItem({
+        cells : [ new sap.m.Image({
+         height : "2rem",
+         width : "2rem",
+         src : "{VALUE}",
+         densityAware : false
+        }) ]
+       }),
+       filters : [ new sap.ui.model.Filter({
+        path : "DESCR",
+        operator : sap.ui.model.FilterOperator.EQ,
+        value1 : "Image"
+       }) ]
+      });
+
      },
 
      navBack : function() {
       var bReplace = jQuery.device.is.phone ? false : true;
       sap.ui.core.UIComponent.getRouterFor(this).navTo("profile", {}, bReplace);
      },
- 
 
      handleDelete : function(oEvent) {
-      var oList = oEvent.getSource(), oItem = oEvent.getParameter("listItem"), sPath = oItem
-        .getBindingContext().getPath();
+      var _this = this;
+      var oList = oEvent.getSource(), 
+      oItem = oEvent.getParameter("listItem"), 
+      sPath = oItem.getBindingContext().getPath();
+      
       oList.attachEventOnce("updateFinished", oList.focus, oList);
+      
+      var fileNamevalue = _this.oModel.getProperty(sPath).VALUE;
+      fileNameValue = fileNamevalue.split("/");
+      var filename = fileNameValue[fileNameValue.length - 1];
+      
       var pathArray = sPath.split("/");
       var index = pathArray[pathArray.length - 1];
       sPath = sPath.substring(0, sPath.length - 2);
-      var aData = this.oModel.getProperty(sPath);
-      aData.splice(index, 1);
-      this.oModel.refresh(true);
-      var fnSuccess = function(oData) {
+      
+      var usrid = this.oLoginDetails.USRID;
+      
+      _this.fnSuccess = function(oData) {
        sap.m.MessageToast.show("Image deleted");
+       var aData = _this.oModel.getProperty(sPath);
+       aData.splice(index, 1);
+       _this.oModel.refresh(true);
       };
-      sap.ui.medApp.global.util.updateUserDetails(fnSuccess);
+      
+      var fnDelSuccess = function(oData) {
+       sap.ui.medApp.global.util.updateUserDetails(_this.fnSuccess);
+      };
+      
+      var fnDelError = function(oData) {
+       sap.m.MessageToast.show("Error occured while deleting image");
+      };
+      
+      sap.ui.medApp.global.util.deleteFile(usrid, filename, fnDelSuccess,
+        fnDelError);
+      
      },
+     
      navBack : function() {
       var bReplace = jQuery.device.is.phone ? false : true;
       sap.ui.core.UIComponent.getRouterFor(this).navTo("profile", {}, bReplace);
@@ -58,7 +99,7 @@ sap.ui.core.mvc.Controller
         beginButton : new sap.m.Button({
          text : "{i18n>ADD_BUTTON}",
          press : function() {
-          var charData = _this.oModel
+          _this.charData = _this.oModel
             .getProperty("/vendorsList/0/Characteristics");
           var x = document.getElementById("myFile");
           var txt = sap.ui.getCore().byId("txtNoFileMsg");
@@ -66,9 +107,18 @@ sap.ui.core.mvc.Controller
            if (x.files.length == 0 || x.files.length > 1) {
             txt.setText("Select one file to upload");
            } else {
-            for (var i = 0; i < x.files.length; i++) {
-             var file = x.files[i];
-             charData.push({
+            _this.fnSuccess = function(oData) {
+
+             sap.m.MessageToast.show("Images saved");
+            };
+
+            var fnFileUploadError = function(err) {
+             sap.m.MessageToast.show("Erorr occured while uploading file");
+            }
+
+            var fnFileUploadSuccess = function(response) {
+             response = JSON.parse(response);
+             _this.charData.push({
               "CHRID" : "8",
               "DESCR" : "Image",
               "LNTXT" : "Image",
@@ -76,20 +126,21 @@ sap.ui.core.mvc.Controller
               "REGXT" : "img",
               "SRTXT" : "Image",
               "USRID" : _this.oLoginDetails.USRID,
-              "VALUE" : file.name
+              "VALUE" : response.relativePath + "/" + response.fileName
              });
-            }
+
+             _this.oModel.refresh(true);
+             sap.ui.medApp.global.util.updateUserDetails(_this.fnSuccess);
+            };
+
+            sap.ui.medApp.global.util.uploadFile(_this.oLoginDetails.USRID,
+              new FormData(document.getElementById("myform")),
+              fnFileUploadSuccess, fnFileUploadError);
+
+            _this._oCharDialog.close();
            }
           }
-          _this.oModel.refresh(true);
-          var fnSuccess = function(oData) {
-           sap.m.MessageToast.show("Images saved");
-           $('#myform').submit();
-           $('#myform')[0] = [];
-          };
-          sap.ui.medApp.global.util.updateUserDetails(fnSuccess);
 
-          _this._oCharDialog.close();
          }
         }),
         endButton : new sap.m.Button({

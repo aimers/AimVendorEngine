@@ -393,6 +393,30 @@ sap.ui.medApp.global.util = {
     this._mainModel);
   this._vendorListServiceFacade.getRecords(null, null, "/City", "getAllCities",
     param);
- }
+ },
+ uploadFile : function(user, form, fnSuccess, fnError) {
+  $.ajax({
+   url : 'FileUploadServlet?USRID=' + user,
+   data : form,
+   type : "POST",
+   contentType : false,
+   processData : false,
+   success : fnSuccess,
+   enctype: 'multipart/form-data',
+   error : fnError
+  })
+ },
+ 
+ deleteFile : function(user, filename, fnSuccess, fnError) {
+  $.ajax({
+   url : 'FileUploadServlet?USRID=' + user+"&DelfileName="+filename,
+   type : "POST",
+   contentType : false,
+   processData : false,
+   success : fnSuccess,
+   enctype: 'multipart/form-data',
+   error : fnError
+  })
+ } 
 
 }
