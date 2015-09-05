@@ -24,7 +24,11 @@ public class FileUploadServlet extends HttpServlet {
      * the web application directory.
      */
     private static final String UPLOAD_DIR = "uploads";
-      
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    		throws ServletException, IOException {
+    		
+    				doPost(request,response);
+    }  
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
     	
@@ -36,6 +40,7 @@ public class FileUploadServlet extends HttpServlet {
         // constructs path of the directory to save uploaded file
         ////home/saath/public_html/bookingdemodocs
         String uploadFilePath = "/Users";//"/home/saath/jvm/apache-tomcat-7.0.57/domains/bookingdemo.aimersinfosoft.com/bookingdemodocs";//"/home/saath/public_html/bookingdemodocs";
+        String delFileName = "";
         //"/Users/i039198/Documents/Projects/BOOKING/UPLOAD";
         //File.createTempFile("upload-", ".bin");;//applicationPath + File.separator + UPLOAD_DIR;
         // creates the save directory if it does not exists
@@ -48,6 +53,10 @@ public class FileUploadServlet extends HttpServlet {
     			//rootLicKey = request.getParameter(paraName);
     			uploadFilePath =uploadFilePath+"/"+request.getParameter(paraName);
     		}
+    		if(paraName.equals("DelfileName")){
+    			//rootLicKey = request.getParameter(paraName);
+    			delFileName = uploadFilePath+"/"+request.getParameter(paraName);
+    		}
     	}
         
         File fileSaveDir = new File(uploadFilePath);
@@ -56,18 +65,27 @@ public class FileUploadServlet extends HttpServlet {
         }
         
         System.out.println("Upload File Directory="+fileSaveDir.getAbsolutePath());
-         
-        String fileName = null;
-        //Get all the parts from request and write it to the file on server
-        for (Part part : request.getParts()) {
-            fileName = getFileName(part);
-            part.write(uploadFilePath + File.separator + fileName);
+        if(!delFileName.equals("")){
+        	File file = new File(delFileName);
+        	
+    		if(file.delete()){
+    			dataResponse.print("{ \"fileName\"=\""+ delFileName + "\", \"status\"= \"Deleted\" }");
+    		}else{
+    			dataResponse.print("{ \"fileName\"=\""+ delFileName + "\", \"status\"= \"Not Deleted\" }");
+    		}
+        }else{
+	        String fileName = null;
+	        //Get all the parts from request and write it to the file on server
+	        for (Part part : request.getParts()) {
+	            fileName = getFileName(part);
+	            part.write(uploadFilePath + File.separator + fileName);
+	        }
+	        
+	       // request.setAttribute("message", fileName + " File uploaded successfully!");
+	        dataResponse.print("{ \"fileName\"=\""+ fileName + "\", \"relativePath\"= \""+fileSaveDir.getAbsolutePath()+"\" }");
+	//        getServletContext().getRequestDispatcher("/response.jsp").forward(
+	//                request, response);
         }
-        
-       // request.setAttribute("message", fileName + " File uploaded successfully!");
-        dataResponse.print("{ \"fileName\"=\""+ fileName + "\", \"relativePath\"= \""+fileSaveDir.getAbsolutePath()+"\" }");
-//        getServletContext().getRequestDispatcher("/response.jsp").forward(
-//                request, response);
     }
   
     /**
