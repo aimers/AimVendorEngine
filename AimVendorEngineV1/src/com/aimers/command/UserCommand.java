@@ -179,7 +179,7 @@ private Object createVendorEntityMapping(HashMap myInfo, ConnectionManager dbcon
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
 			
-			if(rowCount > 0){
+			if(rowCount > 0 && cIndex == 0){
 				String query1 = "INSERT INTO `bookingdb`.`ienmp` "
 						+ " (`USRID`, `UTYID`, `ITCMT`, `ITYID`, `INTID`, "
 						+ " `ETYID`, `ETCID`, `ENTID`, `ACTIV`, `CRTDT`, `CRTBY`, `CHNDT`, `CHNBY`) "
@@ -189,6 +189,7 @@ private Object createVendorEntityMapping(HashMap myInfo, ConnectionManager dbcon
 						+ " `ETYID`, `ETCID`, `ENTID`,  "
 						+ " `ACTIV`, `CRTDT`, `CRTBY`, `CHNDT`, `CHNBY` "
 						+ " FROM bookingdb.ienmp where USRID = 1";
+				
 
 			
 				System.out.println(query1);
