@@ -4,6 +4,11 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Address", {
   this.oModel = sap.ui.medApp.global.util.getHomeModel();
   sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
     this.onRouteMatched, this);
+  
+  if(!this.oModel.getProperty("/City")){
+   sap.ui.medApp.global.util.getAllCities();
+  }
+  
  },
  // Handler for routing event
  onRouteMatched : function(oEvent) {

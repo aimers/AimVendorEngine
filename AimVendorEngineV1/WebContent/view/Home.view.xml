@@ -9,10 +9,7 @@
 			</SelectList>
 		</content>
 		<footer>
-			<Bar visible="false">
-				<contentRight>
-				</contentRight>
-			</Bar>
+			 <Bar></Bar>
 		</footer>
 	</Page>
 </mvc:View>

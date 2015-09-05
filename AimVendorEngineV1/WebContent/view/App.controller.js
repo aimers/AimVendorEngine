@@ -50,7 +50,7 @@ sap.ui
 						var scope = oEvent.getParameter("config").name;
 						var showHeaderItemsRoutes = [ "home", "bookinghome",
 								"bookings", "detailshome", "speciality", "profile",
-								"characteristics","personalinfo","address","rules","ruledetails","addrule"];
+								"characteristics","personalinfo","address","rules","ruledetails","addrule","images"];
 						var fullWidthRoutes = [ "login" ];
 						var bIsFullWidthRoute = (jQuery.inArray(scope,
 								fullWidthRoutes) >= 0);
@@ -146,9 +146,8 @@ sap.ui
 					logout : function(evt) {
 						sessionStorage.removeItem("medAppUID");
 						sessionStorage.removeItem("medAppPWD");
-						this.oModel.setProperty("/LoggedUser", []);
+						delete this.oModel.getProperty("/LoggedUser");
 						var bReplace = jQuery.device.is.phone ? false : true;
-
 						this._oRouter.navTo('login');
 					}
 				});

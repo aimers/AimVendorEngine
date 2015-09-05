@@ -16,13 +16,12 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Home",
    },
    // Handler for routing event
    onRouteMatched : function(oEvent) {
+//    if (!sessionStorage.medAppUID || !this.oModel.getProperty("/LoggedUser")) {
+//     this._naveToLogin();
+//     return false;
+//    }
     this.getView().byId("menu").clearSelection();
     if (oEvent.getParameter("name") === "home") {
-
-     if (!sessionStorage.medAppUID) {
-      this._naveToLogin();
-      return false;
-     }
      if (!sap.ui.Device.system.phone) {
       this._showDetailsHome();
      }

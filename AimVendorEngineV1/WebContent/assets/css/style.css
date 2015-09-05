@@ -96,7 +96,32 @@
 .sap-desktop .sapMSlt:focus, .sapMSltHoverable:hover {
 	border-color: #4ECDC4 !important;
 }
+
+/*list*/
+.sap-desktop .sapMLIB:focus{
+     outline: none !important; 
+}
+.sapMSelectList{
+	background: none !important; 
+}
+
+.sapMSelectListItemHoverable:hover{
+	background: #4ECDC4 !important;
+}
 /*Button*/
+.sapMBtnTransparent{
+	color:#4ECDC4 !important;
+}
+.sapMBtnTransparent:hover{
+	color:#FFF !important;
+}
+.sap-desktop .sapMDTICustom .dwbg .dwbw:hover .dwb, .sapMDTICustom .dwbg .dwbw .dwb-a{
+	background: #4ECDC4 !important;
+}
+.sapMLIBActive.sapMLIB, .sapMLIBActive.sapMLIB>td{
+	background: #4ECDC4 !important;
+}
+
 .sapMSegBBtn.sapMSegBBtnSel {
 	background: #4ECDC4 !important;
 	color: #fff !important;
@@ -105,6 +130,9 @@
 
 .sapMSegBBtn {
 	color: #4ECDC4 !important;
+}
+.sapMBtn:hover>.sapMBtnHoverable{
+	background-color: #4ECDC4 !important;
 }
 
 html.sap-desktop .sapMBtn:focus>.sapMFocusable {

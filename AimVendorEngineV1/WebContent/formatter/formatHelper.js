@@ -115,6 +115,18 @@ sap.ui.medApp.formatter.formatHelper = {
   }
   return phone;
  },
+
+ getImagesOnly : function(char) {
+  var imgs=[];
+  for (c in char) {
+   if (char[c].DESCR === "Image") {
+    imgs.push({"VALUE":char[c].VALUE, "DESCR":char[c].DESCR, "CHRID":char[c].CHRID}) ;
+    break;
+   }
+  }
+  return imgs;
+ },
+
  getUser : function(uid) {
   var name;
   var param = [ {
@@ -127,12 +139,37 @@ sap.ui.medApp.formatter.formatHelper = {
   var oModel = sap.ui.medApp.global.util.getMainModel();
 
   name = oModel.getProperty("/searchUser/0/TITLE") + " "
-    + oModel.getProperty("/searchUser/0/FRNAM") + " " + oModel
-    .getProperty("/searchUser/0/LTNAM");
-  
-  if(!name.toString().trim()){
-   name =  oModel.getProperty("/searchUser/0/USRNM");
+    + oModel.getProperty("/searchUser/0/FRNAM") + " "
+    + oModel.getProperty("/searchUser/0/LTNAM");
+
+  if (!name.toString().trim()) {
+   name = oModel.getProperty("/searchUser/0/USRNM");
   }
   return name;
+ },
+ getAddButtonVisible : function(status) {
+
+  var vsbl = true;
+  if (status == "3")
+   vsbl = false;
+  else
+   vsbl = true;
+
+  return vsbl;
+ },
+
+ getCityName : function(cityid) {
+  var CityName;
+  var oModel = sap.ui.medApp.global.util.getMainModel();
+  var oCity = oModel.getProperty("/City");
+  if (oCity) {
+   for (c in oCity) {
+    if (oCity[c].CTYID == cityid) {
+     CityName = oCity[c].CTYNM;
+     break;
+    }
+   }
+   return CityName;
+  }
  }
 };

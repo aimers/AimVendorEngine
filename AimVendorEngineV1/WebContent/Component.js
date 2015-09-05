@@ -81,6 +81,13 @@ sap.ui.core.UIComponent.extend("sap.ui.medApp.Component", {
      viewLevel : 1,
      targetAggregation : "detailPages",
      targetControl : "idSplitAppControl"
+    } ,{
+     pattern : "profile/images",
+     name : "images",
+     view : "FileUpload",
+     viewLevel : 1,
+     targetAggregation : "detailPages",
+     targetControl : "idSplitAppControl"
     } ]
    }, {
     pattern : "rules/:ruleid:",

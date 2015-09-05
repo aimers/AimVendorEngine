@@ -1,0 +1,46 @@
+<mvc:View controllerName="sap.ui.medApp.view.FileUpload"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core" xmlns="sap.m">
+	<Page id="entity" title="{i18n>FILEUPLOAD_TITLE}" showNavButton="{device>/isPhone}"
+		navButtonPress="navBack">
+		<content>
+			<Table id="idCharTable" inset="false" mode="Delete" delete="handleDelete"
+				items="{
+      path: '/vendorsList/0/Characteristics',
+      filter: 'sap.ui.medApp.formatter.formatHelper.getImagesOnly',
+      sorter: {
+        path: 'REGXT'
+      }
+    }">
+				<headerToolbar>
+					<Toolbar>
+						<Title text="Your Images" level="H2" />
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="12em">
+						<Text text="Images" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Image src="/Users/i313586/Dev/files/{VALUE}" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<footer>
+			<Bar>
+				<contentLeft>
+
+				</contentLeft>
+				<contentRight>
+					<Button text="Add" icon="sap-icon://add" press="addCharacteristics"></Button>
+
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

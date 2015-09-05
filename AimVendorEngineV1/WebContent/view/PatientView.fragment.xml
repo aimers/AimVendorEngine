@@ -28,6 +28,9 @@
 								text="{/patientInfo/patient/0/Address/0/STREET}, {/patientInfo/patient/0/Address/0/LOCLT}" />
 							<Label text="Landmark" />
 							<Text text="{/patientInfo/patient/0/Address/0/LNDMK}" />
+							<Label text="City" />
+							<Text text="{path:'/patientInfo/patient/0/Address/0/CTYID',formatter: 'sap.ui.medApp.formatter.formatHelper.getCityName'}" />
+							
 							<Label text="Pincode" />
 							<Text text="{/patientInfo/patient/0/Address/0/PINCD}" />
 

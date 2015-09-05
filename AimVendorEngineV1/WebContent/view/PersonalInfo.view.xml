@@ -29,7 +29,10 @@
 							<Label text="Prefix" />
 							<Input value="{/vendorsList/0/PRFIX}" />
 							<Label text="DOB" />
-							<Input value="{/vendorsList/0/URDOB}" />
+
+							<DatePicker value="{/vendorsList/0/URDOB}" displayFormat="dd-MM-yyyy"
+								valueFormat="yyyy-MM-dd" change ="handleChange"/>
+ 
 						</f:content>
 					</f:SimpleForm>
 				</l:content>
@@ -38,7 +41,7 @@
 		<footer>
 			<Bar>
 				<contentRight>
-					<Button text="Save" icon="sap-icon://save" press="handleSave"></Button>
+					<Button id="btnSave" text="Save" icon="sap-icon://save" press="handleSave"></Button>
 				</contentRight>
 			</Bar>
 		</footer>

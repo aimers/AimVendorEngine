@@ -19,7 +19,12 @@
 							<Label text="Landmark" />
 							<Input value="{/vendorsList/0/Address/0/LNDMK}" />
 							<Label text="City" />
-							<Input value="{/vendorsList/0/Address/0/CTYID}" />
+							<Select id="selCity" selectedKey="{/vendorsList/0/Address/0/CTYID}"
+								items="{
+            path: '/City'
+          }">
+								<core:Item key="{CTYID}" text="{CTYNM}" />
+							</Select>
 							<Label text="Pincode" />
 							<Input value="{/vendorsList/0/Address/0/PINCD}" />
 							<Label text="Latitude" />
@@ -35,7 +40,7 @@
 			<Bar>
 				<contentRight>
 					<Button text="Save" icon="sap-icon://save" press="handleSave"></Button>
-	<!-- <Button text="Add New Address" icon="sap-icon://add"></Button> -->
+					<!-- <Button text="Add New Address" icon="sap-icon://add"></Button> -->
 				</contentRight>
 			</Bar>
 		</footer>

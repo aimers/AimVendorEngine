@@ -20,10 +20,14 @@
 		</content>
 		<footer>
 			<Bar>
-				<contentRight>
-				
-				<Button id="btnSave" text="Save" icon="sap-icon://save" press="handleSave"></Button>
+				<contentLeft>
 					<Button text="Add" icon="sap-icon://add" press="handleAddEntity"></Button>
+				</contentLeft>
+				<contentRight>
+
+					<Button id="btnSave" text="Save" icon="sap-icon://save"
+						press="handleSave"></Button>
+
 				</contentRight>
 			</Bar>
 		</footer>

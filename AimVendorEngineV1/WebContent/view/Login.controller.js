@@ -24,16 +24,12 @@ sap.ui.controller("sap.ui.medApp.view.Login",
 						this._handleRouteMatched, this);
 			},
 			_handleRouteMatched : function(evt) {
-				//if (sessionStorage.medAppUID && evt.getParameter("name")==="login") {
+				//if (sessionStorage.medAppUID) {
 					//this._oRouter.navTo('home');
 			//	}
 				this.parameter = evt.getParameter("arguments");
 			},
-			/*
-			 * Handle Press Tile
-			 */
-			handleSearchKeyword : function(evt) {
-			},
+
 			handleLogin : function() {
 				var _this = this;
 				var username = this.oView.byId("usrNme").getValue();
@@ -57,37 +53,12 @@ sap.ui.controller("sap.ui.medApp.view.Login",
 					this.oModel.setProperty("/LoggedUser", oData.results);
 					
 					 param =   {
-							 
 								"USRID" : this.oModel.getProperty("/LoggedUser/USRID")
-							 //"USRID" : 8
-						 
 						} ;
 					
 					sap.ui.medApp.global.util.loadVendorFILTERData(param);
-					
 					this._oRouter.navTo('home');
 				}
-			},
-			handleFovoriteUsers : function(uData) {
-				var aUserIds = [];
-				if (uData.Characteristics) {
-					for (var i = 0; i < uData.Characteristics.length; i++) {
-						if (uData.Characteristics[i].CHRID == 11) {
-							aUserIds.push(uData.Characteristics[i].VALUE);
-						}
-					}
-					if (aUserIds.length > 0) {
-						this._oRouter.navTo("VendorListDetail", {
-							ENTID : evt.oSource.getUseMap(),
-							ETYID : "1",
-							ETCID : "1",
-							UID : medAppUID,
-							FILTER : aUserIds.toString()
-						});
-						return false;
-					}
-				}
-				return true;
 			},
 			handleRegister : function() {
 				var _this = this;

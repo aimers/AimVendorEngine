@@ -16,8 +16,8 @@
 					<Column>
 						<Text text="{i18n>APPOINTMENTS}" />
 					</Column>
-<!-- 					<Column width="3em">
-					</Column> -->
+					<Column width="3em">
+					</Column>
 				</columns>
 				<headerToolbar>
 					<Toolbar>
@@ -40,20 +40,26 @@
 							<l:Grid defaultSpan="L12 M12 S12" class="bookingGrid"
 								content="{path: 'BOOKINGS'}">
 								<l:content>
-									<Button text="{path: 'USRID', formatter:'sap.ui.medApp.formatter.formatHelper.getUser'}" press="handlePatientViewPress"
+									<Button
+										text="{path: 'USRID', formatter:'sap.ui.medApp.formatter.formatHelper.getUser'}"
+										press="handlePatientViewPress"
 										type="{path: 'STATS', formatter:'sap.ui.medApp.formatter.formatHelper.getButtonType'}"
 										width="100%" />
 								</l:content>
 							</l:Grid>
-<!-- 							<Button icon="sap-icon://add" press="handleAddAppointment">
+							<Button icon="sap-icon://add" press="handleAddAppointment"
+								visible="{path: 'STATS', formatter:'sap.ui.medApp.formatter.formatHelper.getAddButtonVisible'}">
 								<customData>
 									<c:CustomData key="booking" value="{path: 'BOOKINGS'}"></c:CustomData>
 								</customData>
-							</Button> -->
+							</Button>
 						</cells>
 					</ColumnListItem>
 				</items>
 			</Table>
 		</content>
+		<footer>
+			<Bar></Bar>
+		</footer>
 	</Page>
 </mvc:View>
