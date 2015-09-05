@@ -104,7 +104,7 @@ public class Rule1Command extends aimCommand {
 					recipients[0] = detailsJSON.get("CUEML")+"";
 					recipients[1] = detailsJSON.get("VSEML")+"";
 					String from = "uxdevsupport@aimersinfosoft.com";
-					String subject = "User Registered";
+					String subject = "Booking Canceled";
 					sendEmail.postMail(recipients, subject, message, from);
 				}catch(Exception ex){
 					System.out.println("Error sending email :"+ex.getMessage());
@@ -184,7 +184,7 @@ public class Rule1Command extends aimCommand {
 					recipients[0] = detailsJSON.get("CUEML")+"";
 					recipients[1] = detailsJSON.get("VSEML")+"";
 					String from = "uxdevsupport@aimersinfosoft.com";
-					String subject = "User Registered";
+					String subject = "Booking Accepted";
 					sendEmail.postMail(recipients, subject, message, from);
 				}catch(Exception ex){
 					System.out.println("Error sending email :"+ex.getMessage());
@@ -557,7 +557,7 @@ public class Rule1Command extends aimCommand {
 					recipients[0] = detailsJSON.get("CUEML")+"";
 					recipients[1] = detailsJSON.get("VSEML")+"";
 					String from = "uxdevsupport@aimersinfosoft.com";
-					String subject = "User Registered";
+					String subject = "Booing Confirmed";
 					sendEmail.postMail(recipients, subject, message, from);
 				}catch(Exception ex){
 					System.out.println("Error sending email :"+ex.getMessage());
