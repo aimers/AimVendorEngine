@@ -39,7 +39,11 @@ public class FileUploadServlet extends HttpServlet {
         String applicationPath = request.getServletContext().getRealPath("");
         // constructs path of the directory to save uploaded file
         ////home/saath/public_html/bookingdemodocs
-        String uploadFilePath = "/Users";//"/home/saath/jvm/apache-tomcat-7.0.57/domains/bookingdemo.aimersinfosoft.com/bookingdemodocs";//"/home/saath/public_html/bookingdemodocs";
+        String uploadFilePath = "/home/saath/jvm/apache-tomcat-7.0.57/domains/bookingdemo.aimersinfosoft.com/bookingdemodocs";
+        String displayPath = "http://bookingdemo.aimersinfosoft.com/bookingdemodocs";
+        //"/home/saath/public_html/bookingdemodocs";
+        
+        //"/Users";//
         String delFileName = "";
         //"/Users/i039198/Documents/Projects/BOOKING/UPLOAD";
         //File.createTempFile("upload-", ".bin");;//applicationPath + File.separator + UPLOAD_DIR;
@@ -52,6 +56,7 @@ public class FileUploadServlet extends HttpServlet {
     		if(paraName.equals("USRID")){
     			//rootLicKey = request.getParameter(paraName);
     			uploadFilePath =uploadFilePath+"/"+request.getParameter(paraName);
+    			displayPath=displayPath+"/"+request.getParameter(paraName);
     		}
     		if(paraName.equals("DelfileName")){
     			//rootLicKey = request.getParameter(paraName);
@@ -79,10 +84,11 @@ public class FileUploadServlet extends HttpServlet {
 	        for (Part part : request.getParts()) {
 	            fileName = getFileName(part);
 	            part.write(uploadFilePath + File.separator + fileName);
+	            displayPath=displayPath+"/"+fileName;
 	        }
 	        
 	       // request.setAttribute("message", fileName + " File uploaded successfully!");
-	        dataResponse.print("{ \"fileName\":\""+ fileName + "\", \"relativePath\":\""+fileSaveDir.getAbsolutePath()+"\" }");
+	        dataResponse.print("{ \"fileName\":\""+ fileName + "\", \"relativePath\":\""+displayPath+"\" }");
 	//        getServletContext().getRequestDispatcher("/response.jsp").forward(
 	//                request, response);
         }
