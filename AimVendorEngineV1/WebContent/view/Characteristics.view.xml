@@ -4,9 +4,7 @@
 	<Page id="vendorchar" title="{i18n>CHARACTERISTICS_TITLE}"
 		showNavButton="{device>/isPhone}" navButtonPress="navBack">
 		<content>
-
-			<Table id="idCharTable" inset="false" mode="Delete" delete="handleDelete"
-				>
+			<Table id="idCharTable" inset="false" mode="Delete" delete="handleDelete">
 				<headerToolbar>
 					<Toolbar>
 						<Title text="Your Characteristics" level="H2" />
@@ -20,7 +18,6 @@
 						<Text text="Value" />
 					</Column>
 				</columns>
- 
 			</Table>
 		</content>
 		<footer>
@@ -31,7 +28,6 @@
 				<contentRight>
 					<Button id="btnSave" text="Save" icon="sap-icon://save"
 						press="handleSave"></Button>
-
 				</contentRight>
 			</Bar>
 		</footer>

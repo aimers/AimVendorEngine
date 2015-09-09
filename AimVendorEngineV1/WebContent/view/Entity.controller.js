@@ -2,40 +2,39 @@ sap.ui.core.mvc.Controller
   .extend(
     "sap.ui.medApp.view.Entity",
     {
-
+     // onInit
+     // ******************************************
      onInit : function() {
       this.oModel = sap.ui.medApp.global.util.getMainModel();
-      this.oUpdateFinishedDeferred = jQuery.Deferred();
-      this.getView().byId("entityList").attachEventOnce("updateFinished",
-        function() {
-         this.oUpdateFinishedDeferred.resolve();
-        }, this);
       sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
         this.onRouteMatched, this);
-      this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
      },
-
+     // onRouteMatched
+     // ******************************************
      onRouteMatched : function(oEvent) {
+      var _this = this;
+      _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
       var sName = oEvent.getParameter("name");
       if (sName === "speciality") {
+       var fnSuccess = function() {
+        _this._bindVendorEntities();
+        _this._toggleSaveButton();
+        sap.ui.medApp.global.util.loadListCategory();
+        sap.ui.medApp.global.busyDialog.close();
+       };
        var param = [ {
         "key" : "INTENT",
         "value" : "1"
        }, {
         "key" : "UID",
         "value" : this.oLoginDetails.USRID.toString()
-       } ]
-       sap.ui.medApp.global.util.loadVendorCategory(param);
-       sap.ui.medApp.global.util.loadListCategory();
-       this._bindVendorEntities();
-
-       jQuery.when(this.oUpdateFinishedDeferred).then(jQuery.proxy(function() {
-
-        this._toggleSaveButton();
-
-       }, this));
+       } ];
+       sap.ui.medApp.global.busyDialog.open();
+       sap.ui.medApp.global.util.loadVendorCategory(param, fnSuccess);
       }
      },
+     // _toggleSaveButton
+     // ******************************************
      _toggleSaveButton : function() {
       if (this.getView().byId("entityList").getItems().length) {
        this.getView().byId("btnSave").setEnabled(true);
@@ -43,6 +42,8 @@ sap.ui.core.mvc.Controller
        this.getView().byId("btnSave").setEnabled(false);
       }
      },
+     // handleAddEntity
+     // ******************************************
      handleAddEntity : function(oEvent) {
       var _this = this;
       if (!this._oDialog) {
@@ -56,7 +57,8 @@ sap.ui.core.mvc.Controller
       // toggle compact style
       this._oDialog.open();
      },
-
+     // handleEntitySearch
+     // ******************************************
      handleEntitySearch : function(oEvent) {
       var sValue = oEvent.getParameter("value");
       var oFilter = new sap.ui.model.Filter("DESCR",
@@ -64,7 +66,8 @@ sap.ui.core.mvc.Controller
       var oBinding = oEvent.getSource().getBinding("items");
       oBinding.filter([ oFilter ]);
      },
-
+     // handleSaveEntity
+     // ******************************************
      handleSaveEntity : function(oEvent) {
       var aContexts = oEvent.getParameter("selectedContexts");
       if (aContexts.length) {
@@ -72,20 +75,22 @@ sap.ui.core.mvc.Controller
        var newData = this.oModel.getProperty(aContexts[0].getPath());
        aData.push(newData);
        this.oModel.refresh(true);
-
        this._toggleSaveButton();
       }
       oEvent.getSource().getBinding("items").filter([]);
      },
-
+     // handleClose
+     // ******************************************
      handleClose : function(oEvent) {
       this._oDialog.close();
      },
-
+     // _bindVendorEntities
+     // ******************************************
      _bindVendorEntities : function() {
       this.getView().setModel(this.oModel);
      },
-
+     // handleDelete
+     // ******************************************
      handleDelete : function(oEvent) {
       var oList = oEvent.getSource(), oItem = oEvent.getParameter("listItem"), sPath = oItem
         .getBindingContext().getPath();
@@ -98,19 +103,25 @@ sap.ui.core.mvc.Controller
       this.oModel.refresh(true);
       this._toggleSaveButton();
      },
-
+     // onExit
+     // ******************************************
      onExit : function() {
       if (this._oDialog) {
        this._oDialog.destroy();
       }
      },
+     // handleSave
+     // ******************************************
      handleSave : function() {
       var fnSuccess = function(oData) {
+       sap.ui.medApp.global.busyDialog.close();
        sap.m.MessageToast.show("Speciality saved");
       };
+      sap.ui.medApp.global.busyDialog.open();
       sap.ui.medApp.global.util.updateUserDetails(fnSuccess);
      },
-
+     // navBack
+     // ******************************************
      navBack : function() {
       var bReplace = jQuery.device.is.phone ? false : true;
       sap.ui.core.UIComponent.getRouterFor(this).navTo("profile", {}, bReplace);

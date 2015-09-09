@@ -117,10 +117,14 @@ sap.ui.medApp.formatter.formatHelper = {
  },
 
  getImagesOnly : function(char) {
-  var imgs=[];
+  var imgs = [];
   for (c in char) {
    if (char[c].DESCR === "Image") {
-    imgs.push({"VALUE":char[c].VALUE, "DESCR":char[c].DESCR, "CHRID":char[c].CHRID}) ;
+    imgs.push({
+     "VALUE" : char[c].VALUE,
+     "DESCR" : char[c].DESCR,
+     "CHRID" : char[c].CHRID
+    });
     break;
    }
   }
@@ -135,17 +139,22 @@ sap.ui.medApp.formatter.formatHelper = {
     "USRID" : uid
    }
   } ];
-  sap.ui.medApp.global.util.getUsers(param);
-  var oModel = sap.ui.medApp.global.util.getMainModel();
 
-  name = oModel.getProperty("/searchUser/0/TITLE") + " "
-    + oModel.getProperty("/searchUser/0/FRNAM") + " "
-    + oModel.getProperty("/searchUser/0/LTNAM");
+  var fnSuccess = function() {
+   var oModel = sap.ui.medApp.global.util.getMainModel();
 
-  if (!name.toString().trim()) {
-   name = oModel.getProperty("/searchUser/0/USRNM");
+   name = oModel.getProperty("/searchUser/0/TITLE") + " "
+     + oModel.getProperty("/searchUser/0/FRNAM") + " "
+     + oModel.getProperty("/searchUser/0/LTNAM");
+
+   if (!name.toString().trim()) {
+    name = oModel.getProperty("/searchUser/0/USRNM");
+   }
+   return name;
   }
-  return name;
+
+  sap.ui.medApp.global.util.getUsers(param, fnSuccess);
+
  },
  getAddButtonVisible : function(status) {
 

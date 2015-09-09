@@ -2,24 +2,26 @@ sap.ui.core.mvc.Controller
   .extend(
     "sap.ui.medApp.view.Characteristics",
     {
-
+     // onInit
+     // ******************************************
      onInit : function() {
       this.oModel = sap.ui.medApp.global.util.getHomeModel();
       sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
         this.onRouteMatched, this);
-      this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
      },
-
-     // Handler for routing event
+     // onRouteMatched
+     // ******************************************
      onRouteMatched : function(oEvent) {
+      this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
       var sName = oEvent.getParameter("name");
       if (sName === "characteristics") {
-       this._bindImage();
+       this._bindChar();
        this._toggleSaveButton();
       }
      },
-
-     _bindImage : function() {
+     // _bindChar
+     // ******************************************
+     _bindChar : function() {
       var oTable = this.getView().byId("idCharTable");
       oTable.bindItems({
        path : "/vendorsList/0/Characteristics",
@@ -36,9 +38,9 @@ sap.ui.core.mvc.Controller
         value1 : "Image"
        }) ]
       });
-
      },
-
+     // _toggleSaveButton
+     // ******************************************
      _toggleSaveButton : function() {
       if (this.getView().byId("idCharTable").getItems().length) {
        this.getView().byId("btnSave").setEnabled(true);
@@ -46,7 +48,8 @@ sap.ui.core.mvc.Controller
        this.getView().byId("btnSave").setEnabled(false);
       }
      },
-
+     // handleDelete
+     // ******************************************
      handleDelete : function(oEvent) {
       var oList = oEvent.getSource(), oItem = oEvent.getParameter("listItem"), sPath = oItem
         .getBindingContext().getPath();
@@ -59,27 +62,34 @@ sap.ui.core.mvc.Controller
       this.oModel.refresh(true);
       this._toggleSaveButton();
      },
-
+     // handleSave
+     // ******************************************
      handleSave : function() {
       var fnSuccess = function(oData) {
+       sap.ui.medApp.global.busyDialog.close();
        sap.m.MessageToast.show("Characteristics saved");
       };
+      sap.ui.medApp.global.busyDialog.open();
       sap.ui.medApp.global.util.updateUserDetails(fnSuccess);
      },
-
+     // navBack
+     // ******************************************
      navBack : function() {
       var bReplace = jQuery.device.is.phone ? false : true;
       sap.ui.core.UIComponent.getRouterFor(this).navTo("profile", {}, bReplace);
      },
-
+     // addCharacteristics
+     // ******************************************
      addCharacteristics : function(oEvent) {
       var _this = this;
       if (!this.oModel.getProperty("/Char")) {
-       sap.ui.medApp.global.util.getCharecteristics();
+       var fnSuccess = function() {
+        sap.ui.medApp.global.busyDialog.close();
+       }
+       sap.ui.medApp.global.busyDialog.open();
+       sap.ui.medApp.global.util.getCharecteristics(fnSuccess);
       }
-
       if (!_this._oCharDialog) {
-
        _this._oCharDialog = new sap.m.Dialog({
         title : "{i18n>ADD_CHAR}",
         content : sap.ui.xmlfragment("sap.ui.medApp.view.AddChar", this),
@@ -92,7 +102,6 @@ sap.ui.core.mvc.Controller
             .getBindingContext().getPath());
           var charData = _this.oModel
             .getProperty("/vendorsList/0/Characteristics");
-
           charData.push({
            "CHRID" : oSelectedChar.getKey().toString(),
            "DESCR" : oNewChar.DESCR,
@@ -117,13 +126,11 @@ sap.ui.core.mvc.Controller
          }
         })
        });
-       // to get access to the global model
        _this.getView().addDependent(_this._oCharDialog);
       }
       sap.ui.getCore().byId("charValue").setValue("");
       _this._oCharDialog.setModel(this.oModel);
       _this._oCharDialog.bindElement("/Char");
       _this._oCharDialog.open();
-
      }
     });

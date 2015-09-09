@@ -15,14 +15,12 @@
 						<Text text="Images" />
 					</Column>
 				</columns>
-
 			</Table>
 		</content>
 		<footer>
 			<Bar>
 				<contentRight>
 					<Button text="Add" icon="sap-icon://add" press="addCharacteristics"></Button>
-
 				</contentRight>
 			</Bar>
 		</footer>

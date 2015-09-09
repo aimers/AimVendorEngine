@@ -5,10 +5,7 @@
 		navButtonPress="navBack">
 		<content>
 			<Table id="idBookings" inset="true" class="rightBlackBorder"
-				items="{
-			path: '/vendorRulesB'
-			 
-		}">
+				items="{path: '/vendorRulesB'}">
 				<columns>
 					<Column width="4em">
 						<Text text="{i18n>Time}" />
@@ -25,10 +22,7 @@
 						<Title id="dateTitle" level="H2" />
 						<ToolbarSpacer></ToolbarSpacer>
 						<Select change="handleEntityChange" id="entitySelect"
-							items="{
-            path: '/vendorsList/0/Rules',
-            sorter: { path: 'ENTID' }
-          }">
+							items="{path: '/vendorsList/0/Rules',sorter:{path:'ENTID'}}">
 							<c:Item key="{ENTID}" text="{DESCR}" />
 						</Select>
 					</Toolbar>
@@ -41,7 +35,7 @@
 								content="{path: 'BOOKINGS'}">
 								<l:content>
 									<Button
-										text="{path: 'USRID', formatter:'sap.ui.medApp.formatter.formatHelper.getUser'}"
+										text="{TITLE} {FRNAM} {LTNAM} - {USRNM}"
 										press="handlePatientViewPress"
 										type="{path: 'STATS', formatter:'sap.ui.medApp.formatter.formatHelper.getButtonType'}"
 										width="100%" />

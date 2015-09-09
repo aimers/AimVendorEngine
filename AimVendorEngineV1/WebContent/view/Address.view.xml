@@ -11,7 +11,7 @@
 						labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0"
 						columnsL="1" columnsM="1">
 						<f:content>
-							<core:Title text="" />
+							<core:Title text="Address Details" />
 							<Label text="Street" />
 							<Input value="{/vendorsList/0/Address/0/STREET}" />
 							<Label text="Locality" />
@@ -20,9 +20,7 @@
 							<Input value="{/vendorsList/0/Address/0/LNDMK}" />
 							<Label text="City" />
 							<Select id="selCity" selectedKey="{/vendorsList/0/Address/0/CTYID}"
-								items="{
-            path: '/City'
-          }">
+								items="{path: '/City'}">
 								<core:Item key="{CTYID}" text="{CTYNM}" />
 							</Select>
 							<Label text="Pincode" />
@@ -44,6 +42,5 @@
 				</contentRight>
 			</Bar>
 		</footer>
-
 	</Page>
 </mvc:View>

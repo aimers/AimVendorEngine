@@ -1,16 +1,13 @@
-<mvc:View controllerName="sap.ui.medApp.view.Calendar"
-	xmlns:u="sap.ui.unified" xmlns:l="sap.ui.layout" displayBlock="true"
-	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-	<Page id="bookinghome" title="{i18n>BOOKING_HOME_TITLE}" showNavButton="true" navButtonPress="navBack">
-
+<mvc:View controllerName="sap.ui.medApp.view.Calendar" xmlns:u="sap.ui.unified"
+	xmlns:l="sap.ui.layout" displayBlock="true" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+	<Page id="bookinghome" title="{i18n>BOOKING_HOME_TITLE}"
+		showNavButton="true" navButtonPress="navBack">
 		<content>
-
-
 			<u:Calendar id="calendar1" class="widht100Per" select="onDateSelectionChanged" />
-
 		</content>
-		<footer >
-			  <Bar></Bar>
+		<footer>
+			<Bar></Bar>
 		</footer>
 	</Page>
 </mvc:View>

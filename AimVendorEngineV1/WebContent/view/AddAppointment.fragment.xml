@@ -17,7 +17,6 @@
 					<Input id="inputUserName" type="Text" placeholder="Enter username"
 						showSuggestion="true" suggest="userSuggestHandle"
 						suggestionItemSelected="userSelectedHandle">
-
 					</Input>
 				</f:content>
 			</f:SimpleForm>

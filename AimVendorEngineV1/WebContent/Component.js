@@ -148,7 +148,7 @@ sap.ui.core.UIComponent.extend("sap.ui.medApp.Component", {
   oRouter.initialize();
  },
  createContent : function() {
-
+  jQuery.sap.require("sap.ui.medApp.global.busyDialog");
   // create root view
   var oView = sap.ui.view({
    id : "medApp",

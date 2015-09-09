@@ -1,8 +1,10 @@
 jQuery.sap.declare("sap.ui.medApp.global.util");
 jQuery.sap.require("sap.ui.medApp.service.vendorListServiceFacade");
-sap.ui.medApp.global.util = {
+sap.ui.medApp.global.util = { // Get Home Model
+ // ******************************************
  getHomeModel : function(_oRouter) {
   if (!this._mainModel) {
+   var _this = this;
    this._mainModel = new sap.ui.model.json.JSONModel();
    if (sessionStorage.medAppUID != undefined
      && sessionStorage.medAppPWD != undefined) {
@@ -13,19 +15,34 @@ sap.ui.medApp.global.util = {
       "UERPW" : sessionStorage.medAppPWD
      }
     } ];
-    var oData = this.getLoginData(param);
-    this._mainModel.setProperty("/LoggedUser", oData.results);
+    var fnSuccess = function(oData) {
+     _this._mainModel.setProperty("/LoggedUser", oData.results);
+    }
+    var oData = this.getLoginData(param, fnSuccess);
    }
-
   }
   return this._mainModel;
  },
+ // Get Login Data
+ // ******************************************
+ getLoginData : function(param, fnSuccess) {
+  var _this = this;
+  var bool;
+  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
+    this._mainModel);
+  this._vendorListServiceFacade.updateParameters(param, fnSuccess, null,
+    "loginUser");
+ },
+ // Get Main Model
+ // ******************************************
  getMainModel : function() {
   if (!this._mainModel) {
    this._mainModel = this.getHomeModel();
   }
   return this._mainModel;
  },
+ // Get All Categories ( Entities )
+ // ******************************************
  loadListCategory : function(facade) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
@@ -40,28 +57,28 @@ sap.ui.medApp.global.util = {
     "getVendorCategory", param);
 
  },
- loadVendorCategory : function(param) {
+ // Get Vendor's Categories ( Entities )
+ // ******************************************
+ loadVendorCategory : function(param, fnSuccess) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
-  this._vendorListServiceFacade.getRecords(null, null, "/vendorsCategory",
+  this._vendorListServiceFacade.getRecords(fnSuccess, null, "/vendorsCategory",
     "getVendorCategory", param);
-
  },
- getVendorModel : function(paramValue) {
-  if (!this._mainModel) {
-   this._mainModel = this.getHomeModel();
-  }
-  this.loadVendorData(paramValue);
-  return this._mainModel;
- },
+ // Get Vendor Data
+ // ******************************************
  getVendorFilterModel : function(paramValue) {
   if (!this._mainModel) {
    this._mainModel = this.getHomeModel();
   }
-  this.loadVendorFILTERData(paramValue);
-  return this._mainModel;
+  var fnSuccess = function() {
+   return this._mainModel;
+  }
+  this.loadVendorFILTERData(paramValue, fnSuccess);
  },
- loadVendorData : function(paramValue) {
+ // Load All Vendor Data
+ // ******************************************
+ loadVendorData : function(paramValue, fnSuccess) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
   var param = [ {
@@ -80,11 +97,12 @@ sap.ui.medApp.global.util = {
    "key" : "ENTID",
    "value" : "1"
   } ]
-  this._vendorListServiceFacade.getRecords(null, null, "/vendorsList",
+  this._vendorListServiceFacade.getRecords(fnSuccess, null, "/vendorsList",
     "getVendorData", param);
-
  },
- loadVendorFILTERData : function(paramValue) {
+ // Load Vendor Data with ID
+ // ******************************************
+ loadVendorFILTERData : function(paramValue, fnSuccess) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
   var param = [ {
@@ -102,31 +120,12 @@ sap.ui.medApp.global.util = {
   }, {
    "key" : "filters",
    "value" : '{"USRID" = ' + paramValue.USRID + '}'
-  } ]
-  this._vendorListServiceFacade.getRecords(null, null, "/vendorsList",
+  } ];
+  this._vendorListServiceFacade.getRecords(fnSuccess, null, "/vendorsList",
     "getVendorData", param);
-
  },
- distance : function(lat1, lon1, lat2, lon2, unit) {
-  var radlat1 = Math.PI * lat1 / 180
-  var radlat2 = Math.PI * lat2 / 180
-  var radlon1 = Math.PI * lon1 / 180
-  var radlon2 = Math.PI * lon2 / 180
-  var theta = lon1 - lon2
-  var radtheta = Math.PI * theta / 180
-  var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1)
-    * Math.cos(radlat2) * Math.cos(radtheta);
-  dist = Math.acos(dist)
-  dist = dist * 180 / Math.PI
-  dist = dist * 60 * 1.1515
-  if (unit == "K") {
-   dist = dist * 1.609344
-  }
-  if (unit == "N") {
-   dist = dist * 0.8684
-  }
-  return dist
- },
+ // Handle Booking
+ // ******************************************
  handleBooking : function(oEvent, oRouter) {
   var sTime = oEvent.oSource.getText();
   var sContextPath = oEvent.oSource.oParent.getBindingContext().getPath();
@@ -157,85 +156,26 @@ sap.ui.medApp.global.util = {
    });
   }
  },
- getLoginData : function(param, args) {
-  // var _oRouter = sap.ui.core.UIComponent.getRouterFor(_this);
+ // Get Register Data
+ // ******************************************
+ getRegisterData : function(param, fnSuccess) {
   var _this = this;
-  var bool;
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
-  var fnSuccess = function(oData) {
-   bool = oData;
-  };
-  this._vendorListServiceFacade.updateParameters(param, fnSuccess, null,
-    "loginUser");
-  return bool;
- },
- getRegisterData : function(param, args) {
-  // var _oRouter = sap.ui.core.UIComponent.getRouterFor(_this);
-  var _this = this;
-  var bool;
-  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
-    this._mainModel);
-  var fnSuccess = function(oData) {
-   bool = oData;
-  };
   this._vendorListServiceFacade.updateParameters(param, fnSuccess, null,
     "registerUser");
-  return bool;
  },
- setFavorite : function(userId) {
-  var value = -1;
-  var oData;
-  var bool;
-  var userData = this._mainModel.getProperty("/LoggedUser");
-  var chars = userData.Characteristics;
-  for (var i = 0; i < chars.length; i++) {
-   if (chars[i].CHRID == 11) {
-    if (chars[i].VALUE == userId) {
-     value = i;
-    }
-   }
-  }
-  if (value > 0) {
-   delete userData.Characteristics.splice(value, 1);
-   bool = false;
-
-  } else {
-   bool = true;
-   oData = {
-    CHRID : 11,
-    DESCR : "Fav Char",
-    LNTXT : "fav char",
-    MDTEXT : "fav char",
-    REGXT : "uid",
-    SRTXT : "uid",
-    USRID : userData.USRID,
-    VALUE : userId
-   }
-   userData.Characteristics.push(oData);
-  }
+ // Load Vendor Booking History
+ // ******************************************
+ loadVendorBookingHistory : function(param, fnSuccess) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
-  var param = [ {
-   "key" : "details",
-   "value" : userData
-  } ];
-
-  var fnSuccess = function(oData) {
-
-  };
-  this._vendorListServiceFacade.updateParameters(param, fnSuccess, null,
-    "updateUser");
-  return bool;
- },
- loadVendorBookingHistory : function(param) {
-  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
-    this._mainModel);
-  this._vendorListServiceFacade.getRecords(null, null, "/bookingHistory",
+  this._vendorListServiceFacade.getRecords(fnSuccess, null, "/bookingHistory",
     "getBookingHistory", param);
-
  },
- loadVendorRules : function(paramValue) {
+ // Load Vendor Rules
+ // ******************************************
+ loadVendorRules : function(paramValue, fnSuccess) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
   var param = [ {
@@ -260,48 +200,51 @@ sap.ui.medApp.global.util = {
    "key" : "ENDATE",
    "value" : paramValue.ENDATE
   } ]
-  this._vendorListServiceFacade.getRecords(null, null, "/vendorRules",
+  this._vendorListServiceFacade.getRecords(fnSuccess, null, "/vendorRules",
     "getVendorRuleDetail", param);
-
  },
- loadVendorRulesDef : function(param) {
+ // Load Vendor Rule Definition
+ // ******************************************
+ loadVendorRulesDef : function(param, fnSuccess) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
-  this._vendorListServiceFacade.getRecords(null, null, "/vendorRulesDefn",
+  this._vendorListServiceFacade.getRecords(fnSuccess, null, "/vendorRulesDefn",
     "getVendorRuleDef", param);
-
  },
-
- getUsers : function(param) {
+ // Get User With ID
+ // ******************************************
+ getUsers : function(param, fnSuccess) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
-  this._vendorListServiceFacade.getRecords(null, null, "/searchUser",
+  this._vendorListServiceFacade.getRecords(fnSuccess, null, "/searchUser",
     "getAllUsers", param);
-
  },
- getAllUsers : function(param) {
+ // Get All Users
+ // ******************************************
+ getAllUsers : function(param, fnSuccess) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
   this._vendorListServiceFacade.getRecords(null, null, "/allUsers",
     "getAllUsers", param);
  },
-
+ // Create Rule
+ // ******************************************
  createRule : function(param, fnSuccess) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
   this._vendorListServiceFacade.updateParameters(param, fnSuccess, null,
     "createRule");
-
  },
-
+ // Update Rule
+ // ******************************************
  updateRule : function(param, fnSuccess, fnError) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
   this._vendorListServiceFacade.updateParameters(param, fnSuccess, fnError,
     "updateRule");
-
  },
-
+ // Update Vendor Details
+ // ******************************************
  updateUserDetails : function(fnSuccess) {
   this._mainModel.setProperty("/vendorsList/0/Entities", this._mainModel
     .getProperty("/vendorsCategory"))
@@ -310,40 +253,14 @@ sap.ui.medApp.global.util = {
    "key" : "details",
    "value" : userData
   } ];
-
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
   this._vendorListServiceFacade.updateParameters(param, fnSuccess, null,
     "updateVendor");
-
  },
- cancelBooking : function(boomingData) {
-  var param = [ {
-   "key" : "details",
-   "value" : {
-    "VTRMI" : boomingData.VTRMI,
-    "RULID" : boomingData.RULID.toString(),
-    "USRID" : boomingData.USRID,
-    "BDTIM" : boomingData.BDTIM,
-    "BTIMZ" : boomingData.BTIMZ,
-    "BOSTM" : boomingData.BOSTM,
-    "BOETM" : boomingData.BOETM,
-    "CUEML" : boomingData.USRNM,
-    "VSEML" : boomingData.VERNM,
-   }
-  } ];
-
-  var fnSuccess = function(oData) {
-   sap.m.MessageToast.show("Booking has been cancelled");
-  };
-  fnError = function() {
-   sap.m.MessageToast.show("Booking cannot be cancelled");
-  }
-  this._vendorListServiceFacade.updateParameters(param, fnSuccess, fnError,
-    "cancelBooking");
- },
+ // Reject Appointment - Cancel Booking
+ // ******************************************
  cancelBooking : function(bookingData, VERNM, fnSuccess, fnError) {
-
   var param = [ {
    "key" : "details",
    "value" : {
@@ -361,6 +278,8 @@ sap.ui.medApp.global.util = {
   this._vendorListServiceFacade.updateParameters(param, fnSuccess, fnError,
     "cancelBooking");
  },
+ // Accept Appointment - Approve Booking
+ // ******************************************
  acceptBooking : function(bookingData, VERNM, fnSuccess, fnError) {
   var param = [ {
    "key" : "details",
@@ -376,24 +295,29 @@ sap.ui.medApp.global.util = {
     "VSEML" : VERNM.toString()
    }
   } ];
-
   this._vendorListServiceFacade.updateParameters(param, fnSuccess, fnError,
     "acceptBooking");
  },
- getCharecteristics : function() {
+ // Get All Characteristics
+ // ******************************************
+ getCharecteristics : function(fnSuccess) {
   var param = [ {} ];
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
-  this._vendorListServiceFacade.getRecords(null, null, "/Char", "getCharList",
-    param);
+  this._vendorListServiceFacade.getRecords(fnSuccess, null, "/Char",
+    "getCharList", param);
  },
- getAllCities : function() {
+ // Get All Cities
+ // ******************************************
+ getAllCities : function(fnSuccess) {
   var param = [ {} ];
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
-  this._vendorListServiceFacade.getRecords(null, null, "/City", "getAllCities",
-    param);
+  this._vendorListServiceFacade.getRecords(fnSuccess, null, "/City",
+    "getAllCities", param);
  },
+ // Image Upload
+ // ******************************************
  uploadFile : function(user, form, fnSuccess, fnError) {
   $.ajax({
    url : 'FileUploadServlet?USRID=' + user,
@@ -402,21 +326,21 @@ sap.ui.medApp.global.util = {
    contentType : false,
    processData : false,
    success : fnSuccess,
-   enctype: 'multipart/form-data',
+   enctype : 'multipart/form-data',
    error : fnError
   })
  },
- 
+ // Delete Image
+ // ******************************************
  deleteFile : function(user, filename, fnSuccess, fnError) {
   $.ajax({
-   url : 'FileUploadServlet?USRID=' + user+"&DelfileName="+filename,
+   url : 'FileUploadServlet?USRID=' + user + "&DelfileName=" + filename,
    type : "POST",
    contentType : false,
    processData : false,
    success : fnSuccess,
-   enctype: 'multipart/form-data',
+   enctype : 'multipart/form-data',
    error : fnError
   })
- } 
-
+ }
 }

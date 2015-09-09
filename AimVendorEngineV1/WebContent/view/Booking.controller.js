@@ -3,46 +3,52 @@ sap.ui.core.mvc.Controller
   .extend(
     "sap.ui.medApp.view.Booking",
     {
-
+     // onInit
+     // ******************************************
      onInit : function() {
       this.oModel = sap.ui.medApp.global.util.getMainModel();
       sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
         this.onRouteMatched, this);
       if (!this.oModel.getProperty("/City")) {
-       sap.ui.medApp.global.util.getAllCities();
+       sap.ui.medApp.global.busyDialog.open();
+       var fnSuccess = function(oData) {
+       };
+       sap.ui.medApp.global.util.getAllCities(fnSuccess);
       }
      },
-
+     // onRouteMatched
+     // ******************************************
      onRouteMatched : function(oEvent) {
-      this.AddAppointmentUser = "";
-      var oView = this.getView();
+      var _this = this;
+      _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
+      _this.AddAppointmentUser = "";
+      var oView = _this.getView();
       if (oEvent.getParameter("name") === "bookings") {
-       this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
-       this.oDate = oEvent.getParameter("arguments").date;
-       oView.byId("dateTitle").setText(this.oDate);
-       if (!this.oModel.getProperty("/vendorList")) {
-        param = {
-         "USRID" : this.oLoginDetails.USRID.toString()
-        };
-        sap.ui.medApp.global.util.loadVendorFILTERData(param);
-        oView.setModel(this.oModel);
+       sap.ui.medApp.global.busyDialog.open();
+       _this.oDate = oEvent.getParameter("arguments").date;
+       oView.byId("dateTitle").setText(_this.oDate);
+       var fnSuccess = function(oData) {
+        oView.setModel(_this.oModel);
+        _this.oEntities = oView.byId("entitySelect");
+        var oSeletedItem = _this.oEntities.getSelectedItem();
+        if (!oSeletedItem) {
+         _this.oEntities.setSelectedItem(_this.oEntities.getFirstItem());
+         oSeletedItem = _this.oEntities.getFirstItem();
+        }
+        var sPath = oSeletedItem.getBindingContext().sPath;
+        _this._getVendorRules(sPath);
+        oView.setModel(_this.oModel);
+        sap.ui.medApp.global.busyDialog.close();
        }
-       this.oEntities = oView.byId("entitySelect");
-       var oSeletedItem = this.oEntities.getSelectedItem();
-       if (!oSeletedItem) {
-        this.oEntities.setSelectedItem(this.oEntities.getFirstItem());
-        oSeletedItem = this.oEntities.getFirstItem();
-       }
-       var sPath = oSeletedItem.getBindingContext().sPath;
-       this._getVendorRules(sPath);
-       this._bindBookings(this);
-
+       param = {
+        "USRID" : _this.oLoginDetails.USRID.toString()
+       };
+       sap.ui.medApp.global.util.loadVendorFILTERData(param, fnSuccess);
       }
-
-      oView.setModel(this.oModel);
      },
-
-     _getVendorBookingHistory : function() {
+     // onRouteMatched
+     // ******************************************
+     _getVendorBookingHistory : function(fnSuccess) {
       var param = [ {
        "key" : "details",
        "value" : {
@@ -51,123 +57,139 @@ sap.ui.core.mvc.Controller
         "BDTIM" : this.oDate
        }
       } ];
-      sap.ui.medApp.global.util.loadVendorBookingHistory(param);
+      sap.ui.medApp.global.util.loadVendorBookingHistory(param, fnSuccess);
      },
-
+     // onRouteMatched
+     // ******************************************
      _getVendorRules : function(sPath) {
-      var oView = this.getView();
+      var _this = this;
+      var oView = _this.getView();
       var param = {
-       "USRID" : this.oLoginDetails.USRID,
-       "RULID" : this.oModel.getProperty(sPath + "/RULID"),
-       "ETYID" : this.oModel.getProperty(sPath + "/ETYID"),
-       "ETCID" : this.oModel.getProperty(sPath + "/ETCID"),
+       "USRID" : _this.oLoginDetails.USRID,
+       "RULID" : _this.oModel.getProperty(sPath + "/RULID"),
+       "ETYID" : _this.oModel.getProperty(sPath + "/ETYID"),
+       "ETCID" : _this.oModel.getProperty(sPath + "/ETCID"),
        "ENTID" : oView.byId("entitySelect").getSelectedKey(),
-       "STDATE" : this.oDate,
-       "ENDATE" : this.oDate
+       "STDATE" : _this.oDate,
+       "ENDATE" : _this.oDate
       };
-      sap.ui.medApp.global.util.loadVendorRules(param);
-     },
+      var fnSuccess = function() {
+       _this._bindBookings(_this);
+      }
 
+      sap.ui.medApp.global.util.loadVendorRules(param, fnSuccess);
+     },
+     // onRouteMatched
+     // ******************************************
      _getUser : function(sPath) {
+      var _this = this;
       var oUserId = this.oModel.getProperty(sPath);
       oUserId = oUserId.USRID;
 
+      var fnSuccess = function() {
+       var patientBookingInfo = {
+        "booking" : _this.oModel.getProperty(sPath),
+        "patient" : _this.oModel.getProperty("/searchUser")
+       };
+       _this.oModel.setProperty("/patientInfo", patientBookingInfo);
+      };
       var param = [ {
        "key" : "details",
        "value" : {
         "USRID" : oUserId
        }
       } ];
-      sap.ui.medApp.global.util.getUsers(param);
-
-      var patientBookingInfo = {
-       "booking" : this.oModel.getProperty(sPath),
-       "patient" : this.oModel.getProperty("/searchUser")
-
-      };
-      this.oModel.setProperty("/patientInfo", patientBookingInfo);
+      sap.ui.medApp.global.util.getUsers(param, fnSuccess);
      },
-
+     // onRouteMatched
+     // ******************************************
      _bindBookings : function(that) {
-
-      that._getVendorBookingHistory();
-      var oVendorRules = that.oModel.getProperty("/vendorRules");
-      var oBookingHistory = that.oModel.getProperty("/bookingHistory");
-      if (oVendorRules[0])
-       if (oVendorRules[0].TimeSlots) {
-        var finalArray = oVendorRules[0].TimeSlots.map(function(item) {
-         var aBookings = [];
-         for (item1 in oBookingHistory) {
-          if (item.START === oBookingHistory[item1].BOSTM) {
-
-           aBookings.push({
-            DSPNM : oBookingHistory[item1].DSPNM,
-            STATS : oBookingHistory[item1].STATS,
-            VLTNAM : oBookingHistory[item1].VLTNAM,
-            URDOB : oBookingHistory[item1].URDOB,
-            URCOD : oBookingHistory[item1].URCOD,
-            VURDOB : oBookingHistory[item1].VURDOB,
-            VURCOD : oBookingHistory[item1].VURCOD,
-            VTRMI : oBookingHistory[item1].VTRMI,
-            ETYID : oBookingHistory[item1].ETYID,
-            BOETM : oBookingHistory[item1].BOETM,
-            VPREFIX : oBookingHistory[item1].VPREFIX,
-            ENTID : oBookingHistory[item1].ENTID,
-            BOSTM : oBookingHistory[item1].BOSTM,
-            VFRNAM : oBookingHistory[item1].VFRNAM,
-            USRID : oBookingHistory[item1].USRID,
-            VTITLE : oBookingHistory[item1].VTITLE,
-            VGENDR : oBookingHistory[item1].VGENDR,
-            CUSID : oBookingHistory[item1].CUSID,
-            LTNAM : oBookingHistory[item1].LTNAM,
-            CUTID : oBookingHistory[item1].CUTID,
-            RTYPE : oBookingHistory[item1].RTYPE,
-            VUSRID : oBookingHistory[item1].VUSRID,
-            BTIMZ : oBookingHistory[item1].BTIMZ,
-            FRNAM : oBookingHistory[item1].FRNAM,
-            VDSPNM : oBookingHistory[item1].VDSPNM,
-            RULID : oBookingHistory[item1].RULID,
-            VSUID : oBookingHistory[item1].VSUID,
-            VUTID : oBookingHistory[item1].VUTID,
-            BDTIM : oBookingHistory[item1].BDTIM,
-            GENDR : oBookingHistory[item1].GENDR,
-            TITLE : oBookingHistory[item1].TITLE,
-            ETCID : oBookingHistory[item1].ETCID
-
-           })
+      var finalArray;
+      var fnSuccess = function() {
+       var oVendorRules = that.oModel.getProperty("/vendorRules");
+       var oBookingHistory = that.oModel.getProperty("/bookingHistory");
+       if (oVendorRules[0])
+        if (oVendorRules[0].TimeSlots) {
+         finalArray = oVendorRules[0].TimeSlots.map(function(item) {
+          var aBookings = [];
+          for (item1 in oBookingHistory) {
+           if (item.START === oBookingHistory[item1].BOSTM) {
+            aBookings.push({
+             DSPNM : oBookingHistory[item1].DSPNM,
+             STATS : oBookingHistory[item1].STATS,
+             VLTNAM : oBookingHistory[item1].VLTNAM,
+             URDOB : oBookingHistory[item1].URDOB,
+             URCOD : oBookingHistory[item1].URCOD,
+             VURDOB : oBookingHistory[item1].VURDOB,
+             VURCOD : oBookingHistory[item1].VURCOD,
+             VTRMI : oBookingHistory[item1].VTRMI,
+             ETYID : oBookingHistory[item1].ETYID,
+             BOETM : oBookingHistory[item1].BOETM,
+             VPREFIX : oBookingHistory[item1].VPREFIX,
+             ENTID : oBookingHistory[item1].ENTID,
+             BOSTM : oBookingHistory[item1].BOSTM,
+             VFRNAM : oBookingHistory[item1].VFRNAM,
+             USRID : oBookingHistory[item1].USRID,
+             VTITLE : oBookingHistory[item1].VTITLE,
+             VGENDR : oBookingHistory[item1].VGENDR,
+             CUSID : oBookingHistory[item1].CUSID,
+             LTNAM : oBookingHistory[item1].LTNAM,
+             CUTID : oBookingHistory[item1].CUTID,
+             RTYPE : oBookingHistory[item1].RTYPE,
+             VUSRID : oBookingHistory[item1].VUSRID,
+             BTIMZ : oBookingHistory[item1].BTIMZ,
+             FRNAM : oBookingHistory[item1].FRNAM,
+             VDSPNM : oBookingHistory[item1].VDSPNM,
+             RULID : oBookingHistory[item1].RULID,
+             VSUID : oBookingHistory[item1].VSUID,
+             VUTID : oBookingHistory[item1].VUTID,
+             BDTIM : oBookingHistory[item1].BDTIM,
+             GENDR : oBookingHistory[item1].GENDR,
+             TITLE : oBookingHistory[item1].TITLE,
+             ETCID : oBookingHistory[item1].ETCID,
+             USRNM : oBookingHistory[item1].USRNM
+            })
+           }
           }
-
-         }
-         return {
-          START : item.START,
-          END : item.END,
-          BOOKINGS : aBookings
-         };
-
-        });
-        if (finalArray.length) {
-         that.oModel.setProperty("/vendorRulesB", finalArray);
-         that.oModel.refresh(true);
+          return {
+           START : item.START,
+           END : item.END,
+           BOOKINGS : aBookings
+          };
+         });
         }
-
+       if (finalArray) {
+        if (finalArray.length)
+         that.oModel.setProperty("/vendorRulesB", finalArray);
+        else
+         that.oModel.setProperty("/vendorRulesB", []);
+       } else {
+        that.oModel.setProperty("/vendorRulesB", []);
        }
+       that.oModel.refresh(true);
+      };
+      that._getVendorBookingHistory(fnSuccess);
      },
-
+     // handleEntityChange
+     // ******************************************
      handleEntityChange : function(oEvent) {
       this._bindBookings(this);
      },
-
+     // navBack
+     // ******************************************
      navBack : function() {
       var bReplace = jQuery.device.is.phone ? false : true;
       sap.ui.core.UIComponent.getRouterFor(this).navTo("bookinghome", {},
         bReplace);
      },
-
+     // handlePatientViewPress
+     // ******************************************
      handlePatientViewPress : function(oEvent) {
       var sPath = oEvent.getSource().getBindingContext().sPath;
       this.openPatientView(oEvent, this.oModel, sPath);
      },
-
+     // openPatientView
+     // ******************************************
      openPatientView : function(oEvent, oModel, sPath) {
       this.createPopover();
       this._getUser(sPath);
@@ -178,7 +200,8 @@ sap.ui.core.mvc.Controller
        this._oPatientView.openBy(oButton);
       });
      },
-
+     // createPopover
+     // ******************************************
      createPopover : function() {
       if (!this._oPatientView) {
        this._oPatientView = sap.ui.xmlfragment(
@@ -186,50 +209,57 @@ sap.ui.core.mvc.Controller
        this.getView().addDependent(this._oPatientView);
       }
      },
-
+     // onExit
+     // ******************************************
      onExit : function() {
       if (this._oPatientView) {
        this._oPatientView.destroy();
       }
      },
-
+     // handleApprovePress
+     // ******************************************
      handleApprovePress : function(oEvent) {
+      sap.ui.medApp.global.busyDialog.open();
       var _this = this;
       var fnSuccess = function(oData) {
+       sap.ui.medApp.global.busyDialog.close();
        sap.m.MessageToast.show("Appointment Accepted");
        _this._bindBookings(_this);
       };
       fnError = function() {
        sap.m.MessageToast.show("Can't accept appointment");
+       sap.ui.medApp.global.busyDialog.close();
       }
       var sPath = oEvent.getSource().getBindingContext().getPath();
       sap.ui.medApp.global.util.acceptBooking(this.oModel.getProperty(sPath),
         this.oLoginDetails.USRNM, fnSuccess, fnError);
      },
-
+     // handleRejectPress
+     // ******************************************
      handleRejectPress : function(oEvent) {
+      sap.ui.medApp.global.busyDialog.open();
       var _this = this;
       var fnSuccess = function(oData) {
+       sap.ui.medApp.global.busyDialog.close();
        sap.m.MessageToast.show("Appointment Cancelled");
        _this._bindBookings(_this);
       };
       fnError = function() {
+       sap.ui.medApp.global.busyDialog.close();
        sap.m.MessageToast.show("Can't cancel appointment");
       }
       var sPath = oEvent.getSource().getBindingContext().getPath();
       sap.ui.medApp.global.util.cancelBooking(this.oModel.getProperty(sPath),
         this.oLoginDetails.USRNM, fnSuccess, fnError);
      },
-
+     // handleAddAppointment
+     // ******************************************
      handleAddAppointment : function(oEvent) {
-
       var _this = this;
       var oItem = oEvent.getSource().getParent();
       _this.oBookingData = _this.oModel.getProperty(oItem.getBindingContext()
         .getPath());
-
       if (!_this.Appointmentdialog) {
-
        _this.Appointmentdialog = new sap.m.Dialog(
          {
           title : "{i18n>BOOK_APPOINTMENT}",
@@ -239,23 +269,20 @@ sap.ui.core.mvc.Controller
             {
              text : "{i18n>SAVE_BUTTON}",
              press : function() {
+              sap.ui.medApp.global.busyDialog.open();
               var sPath, oData, oDate;
               var oUserName = sap.ui.getCore().byId("inputUserName");
               if (oUserName.getShowSuggestion()) {
                sPath = oUserName.getCustomData()[0].getValue();
                oData = _this.oModel.getProperty(sPath);
-
               } else {
                oData = _this._registerNewUser(oUserName.getValue());
               }
-
               var oEntity = _this.getView().byId("entitySelect")
                 .getSelectedItem();
               var entityData = _this.oModel.getProperty(oEntity
                 .getBindingContext().getPath());
-
               if (entityData) {
-
                oDate = _this.oDate;
                oDate = oDate.substring(6, 10) + "/" + oDate.substring(3, 5)
                  + "/" + oDate.substring(0, 2) + " 00:00:00";
@@ -280,16 +307,20 @@ sap.ui.core.mvc.Controller
                 }
                } ];
                var fnSuccess = function(oData) {
+                sap.ui.medApp.global.busyDialog.close();
                 sap.m.MessageToast.show("Appointment Booked");
                 _this._bindBookings(_this);
+               };
+               var fnError = function(oData) {
+                sap.ui.medApp.global.busyDialog.close();
+                sap.m.MessageToast.show("Error occured while booking appointment");
                };
                this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
                  this.oModel);
                this._vendorListServiceFacade.updateParameters(param, fnSuccess,
-                 null, "book");
+                 fnError, "book");
                oUserName.setValue("");
               }
-
               _this.Appointmentdialog.close();
              }
             }),
@@ -305,23 +336,23 @@ sap.ui.core.mvc.Controller
        // to get access to the global model
        _this.getView().addDependent(this.Appointmentdialog);
       }
-
       _this.Appointmentdialog.open();
      },
-
+     // userSuggestHandle
+     // ******************************************
      userSuggestHandle : function(oEvent) {
       var param = [ {
        "key" : "details",
        "value" : {}
       } ];
       sap.ui.medApp.global.util.getAllUsers(param);
-
       oEvent.getSource().bindAggregation("suggestionItems", "/allUsers",
         new sap.ui.core.Item({
          text : "{USRNM}"
         }));
      },
-
+     // userSelectedHandle
+     // ******************************************
      userSelectedHandle : function(oEvent) {
       var oUserName = oEvent.getSource();
       var sPath = oUserName._oList.getSelectedItem()._oItem.getBindingContext()
@@ -331,9 +362,9 @@ sap.ui.core.mvc.Controller
        key : "path",
        value : sPath
       }));
-
      },
-
+     // handleUserSelection
+     // ******************************************
      handleUserSelection : function(oEvent) {
       var selectedButton = oEvent.getSource().getSelectedButton();
       var oUserName = sap.ui.getCore().byId("inputUserName");
@@ -343,9 +374,8 @@ sap.ui.core.mvc.Controller
        oUserName.setShowSuggestion(false);
       }
      },
-
+     // _registerNewUser
+     // ******************************************
      _registerNewUser : function(email) {
-
      }
-
     });

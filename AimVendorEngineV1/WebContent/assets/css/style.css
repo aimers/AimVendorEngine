@@ -1,4 +1,8 @@
 
+.sapUiUfdShellHeadEnd>.sapUiUfdShellIco>img, .sapUiUfdShellHeadBegin>.sapUiUfdShellIco>img{
+margin-top: 0.35rem;
+}
+
 /*Global Properties*/
 .sapUiTheme-sap_bluecrystal {
 	font-size: 14px !important;
@@ -65,19 +69,19 @@
 	border-radius: 4px;
 }
 
-.sapMInputBaseInner:not (.sapMInputBaseReadonlyInner ):not (.sapMInputBaseStateInner
-	):focus, .sapMInputBaseInner:not (.sapMInputBaseReadonlyInner ):not (.sapMInputBaseStateInner
-	):not (.sapMInputBaseDisabledInner ):hover {
+.sapMInputBaseInner:not(.sapMInputBaseReadonlyInner ):not(.sapMInputBaseStateInner
+	):focus, .sapMInputBaseInner:not(.sapMInputBaseReadonlyInner ):not(.sapMInputBaseStateInner
+	):not(.sapMInputBaseDisabledInner ):hover {
 	border-color: #4ECDC4 !important;
 }
 
-.sapMInputBaseInner:not (.sapMInputBaseReadonlyInner ):not (.sapMInputBaseStateInner
-	):focus, .sapMInputBaseInner:not (.sapMInputBaseReadonlyInner ):not (.sapMInputBaseStateInner
-	):not (.sapMInputBaseDisabledInner ):hover {
+.sapMInputBaseInner:not(.sapMInputBaseReadonlyInner ):not(.sapMInputBaseStateInner
+	):focus, .sapMInputBaseInner:not(.sapMInputBaseReadonlyInner ):not(.sapMInputBaseStateInner
+	):not(.sapMInputBaseDisabledInner ):hover {
 	border-color: #4ECDC4 !important;
 }
 
-.sapMFocus>.sapMSFF, :not (.sapMSFDisabled )>.sapMSFF:hover {
+.sapMFocus>.sapMSFF, :not(.sapMSFDisabled )>.sapMSFF:hover {
 	border-color: #4ECDC4 !important;
 }
 
@@ -98,6 +102,9 @@
 }
 
 /*list*/
+.sapMLIB.sapMLIBSelected, .sapMLIB.sapMLIBSelected>td{
+	background: #d7e2e2 !important;
+}
 .sap-desktop .sapMLIB:focus{
      outline: none !important; 
 }
@@ -189,14 +196,14 @@ html.sap-desktop .sapMBtn:focus>.sapMFocusable {
 	outline: none !important;
 }
 
-.sapMTB-Info-CTX .sapMFFBtnHoverable .sapMBtnHoverable:not (.sapMBtnActive
-	 ):hover, .sapMTB-Transparent-CTX .sapMBtnHoverable:not (.sapMBtnActive
+.sapMTB-Info-CTX .sapMFFBtnHoverable .sapMBtnHoverable:not(.sapMBtnActive
+	 ):hover, .sapMTB-Transparent-CTX .sapMBtnHoverable:not(.sapMBtnActive
 	 ):hover {
 	background-color: #abc1c4 !important;
 }
 
-.sapMTB-Info-CTX .sapMFFBtnHoverable .sapMBtnHoverable:not (.sapMBtnActive
-	 ):hover, .sapMTB-Transparent-CTX .sapMBtnHoverable:not (.sapMBtnActive
+.sapMTB-Info-CTX .sapMFFBtnHoverable .sapMBtnHoverable:not(.sapMBtnActive
+	 ):hover, .sapMTB-Transparent-CTX .sapMBtnHoverable:not(.sapMBtnActive
 	 ):hover {
 	background-color: #abc1c4 !important;
 }
@@ -266,9 +273,9 @@ html.sap-desktop .sapMBtn:focus>.sapMFocusable {
 	font-size: 1.2rem !important;
 }
 
-.sap-desktop .sapMLIBSelected:not (.sapMLIBActive ):not(.sapMALI ):hover,
+.sap-desktop .sapMLIBSelected:not(.sapMLIBActive ):not(.sapMALI ):hover,
 	.sap-desktop .sapMListUl:not(.sapMListModeDelete ):not(.sapMListModeNone
-	) .sapMLIBSelected:not (.sapMLIBActive ):not (.sapMALI ):hover,
+	) .sapMLIBSelected:not(.sapMLIBActive ):not(.sapMALI ):hover,
 	.sap-desktop .sapMLIBSelected:not(.sapMLIBActive ):not(.sapMALI ):hover>td,
 	.sap-desktop .sapMLIBSelected:not(.sapMLIBActive ):not(.sapMALI ):hover+.sapMListTblSubRow,
 	.sap-desktop .sapMLIBSelected:not(.sapMLIBActive ):not(.sapMALI ) +.sapMListTblSubRow:hover

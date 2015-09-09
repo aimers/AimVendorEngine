@@ -4,12 +4,11 @@
 	<Page id="home" title="{i18n>RULEMASTER_TITLE}" showNavButton="true"
 		navButtonPress="navBack">
 		<content>
-			<List id="ruleList" items="{/vendorRulesDefn/ruleDefinitions}">
+			<List id="ruleList" mode="SingleSelectMaster" items="{/vendorRulesDefn/ruleDefinitions}"
+				select="onRuleItemPress">
 				<headerToolbar>
 					<Toolbar>
-						 
 						<ToolbarSpacer />
-						 
 						<Button icon="sap-icon://filter" press="handleFilterPress" />
 					</Toolbar>
 				</headerToolbar>
@@ -32,7 +31,8 @@
 		<footer>
 			<Bar>
 				<contentRight>
-					<Button icon="sap-icon://add" press="handlePressAddRule" text="Add"></Button>
+					<Button icon="sap-icon://add" press="handlePressAddRule"
+						text="Add"></Button>
 				</contentRight>
 			</Bar>
 		</footer>

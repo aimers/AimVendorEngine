@@ -29,9 +29,7 @@
               extractListVendor = function(oData) {
                 return oData.results;
               };
-              var _fnSuccess = function() {
-              };
-              this._get(sServicePath, sModelPath, undefined, _fnSuccess,
+              this._get(sServicePath, sModelPath, undefined, fnSuccess,
                   fnError, extractListVendor);
             },
             convertParamToString : function(param) {

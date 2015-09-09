@@ -29,10 +29,8 @@
 							<Label text="Prefix" />
 							<Input value="{/vendorsList/0/PRFIX}" />
 							<Label text="DOB" />
-
 							<DatePicker value="{/vendorsList/0/URDOB}" displayFormat="dd-MM-yyyy"
 								valueFormat="yyyy-MM-dd" change ="handleChange"/>
- 
 						</f:content>
 					</f:SimpleForm>
 				</l:content>

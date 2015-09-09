@@ -23,22 +23,22 @@
 
 							<DateTimeInput type="Time"
 								dateValue="{path:'DSTIM', formatter:'sap.ui.medApp.formatter.formatHelper.getRuleTime'}"
-								valueFormat="hh:mm:ss" change="onChangeDSTIMTime"/>
+								valueFormat="hh:mm:ss" change="onChangeDSTIMTime" />
 
 							<Label text="Day End Time" />
 							<DateTimeInput type="Time"
 								dateValue="{path:'DETIM', formatter:'sap.ui.medApp.formatter.formatHelper.getRuleTime'}"
-								valueFormat="hh:mm:ss" change="onChangeDETIMTime"/>
+								valueFormat="hh:mm:ss" change="onChangeDETIMTime" />
 
 							<Label text="Start Time Slot" />
 							<DateTimeInput type="Time"
 								dateValue="{path:'OSTSL', formatter:'sap.ui.medApp.formatter.formatHelper.getRuleTime'}"
-								valueFormat="hh:mm:ss" change="onChangeOSTSLTime"/>
+								valueFormat="hh:mm:ss" change="onChangeOSTSLTime" />
 
 							<Label text="End Time Slot" />
 							<DateTimeInput type="Time"
 								dateValue="{path:'OETSL', formatter:'sap.ui.medApp.formatter.formatHelper.getRuleTime'}"
-								valueFormat="hh:mm:ss" change="onChangeOETSLTime"/>
+								valueFormat="hh:mm:ss" change="onChangeOETSLTime" />
 
 							<Label text="Days" />
 							<MultiComboBox selectionChange="handleDaysSelectionChange"
@@ -69,7 +69,6 @@
 		<footer>
 			<Bar>
 				<contentRight>
-
 					<Button text="Save" icon="sap-icon://save" visible="true"
 						press="handleRuleSave"></Button>
 					<Button text="Cancel" icon="sap-icon://sys-cancel" visible="true"

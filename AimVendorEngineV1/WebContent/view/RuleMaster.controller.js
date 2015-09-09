@@ -1,38 +1,29 @@
 sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
-
+ // onInit
+ // ******************************************
  onInit : function() {
-  this.oUpdateFinishedDeferred = jQuery.Deferred();
-  this.getView().byId("ruleList").attachEventOnce("updateFinished", function() {
-   this.oUpdateFinishedDeferred.resolve();
-  }, this);
   this.oModel = sap.ui.medApp.global.util.getHomeModel();
-  this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
   this.ruleId = "1";
-
   sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
     this.onRouteMatched, this);
-
  },
- // Handler for routing event
+ // onRouteMatched
+ // ******************************************
  onRouteMatched : function(oEvent) {
+  this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
   var rule, aPath;
   var oList = this.getView().byId("ruleList");
   var oArguments = oEvent.getParameter("arguments");
   var sName = oEvent.getParameter("name");
-
-  // Wait for the list to be loaded once
-  jQuery.when(this.oUpdateFinishedDeferred).then(jQuery.proxy(function() {
-   var aItems;
-
-   // On the empty hash select the first item
-   if (sName === "rules") {
-    this._bindViewModel();
+  if (sName === "rules") {
+   this._bindViewModel(sName);
+   if(!oList.getSelectedItem()){
     this._selectFirstRule();
    }
-
-  }, this));
-
+  }
  },
+ // onRouteMatched
+ // ******************************************
  _selectFirstRule : function() {
   if (!sap.ui.Device.system.phone) {
    var oList = this.getView().byId("ruleList");
@@ -42,19 +33,23 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
     this._showRuleDetails(aItems[0]);
    }
   }
-
  },
+ // _showRuleDetails
+ // ******************************************
  _showRuleDetails : function(oSelectedItem) {
   var bReplace = jQuery.device.is.phone ? false : true;
   var aPath = oSelectedItem.getBindingContext().getPath().split("/");
-  var rule = aPath[aPath.length - 1].toString();
+  var Rule = aPath[aPath.length - 1].toString();
   sap.ui.core.UIComponent.getRouterFor(this).navTo("ruledetails", {
    from : "rules",
-   rule : rule
+   rule : Rule
   }, bReplace);
  },
-
- _bindViewModel : function() {
+ // _bindViewModel
+ // ******************************************
+ _bindViewModel : function(callFrom) {
+  sap.ui.medApp.global.busyDialog.open();
+  var _this = this;
   var oView = this.getView();
   var param = [ {
    "key" : "details",
@@ -64,25 +59,38 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
     "UTYID" : this.oLoginDetails.UTYID
    }
   } ];
-  sap.ui.medApp.global.util.loadVendorRulesDef(param);
-  oView.setModel(this.oModel);
- },
+  var fnSuccess = function() {
+   sap.ui.medApp.global.busyDialog.close();
+   oView.setModel(_this.oModel);
+   if (callFrom === "rules") {
+    _this._selectFirstRule();
+   } else {
+    _this._showRuleDetails(oView.byId("ruleList").getSelectedItem());
+   }
 
+  };
+  sap.ui.medApp.global.util.loadVendorRulesDef(param, fnSuccess);
+ },
+ // handlePressAddRule
+ // ******************************************
  handlePressAddRule : function() {
   var bReplace = jQuery.device.is.phone ? false : true;
   sap.ui.core.UIComponent.getRouterFor(this).navTo("addrule", {}, bReplace);
  },
-
+ // onRuleItemPress
+ // ******************************************
  onRuleItemPress : function(oEvent) {
-  var oSelectedItem = oEvent.getSource();
+  var oSelectedItem = oEvent.getParameter("listItem") || oEvent.getSource();
   this._showRuleDetails(oSelectedItem);
  },
-
+ // navBack
+ // ******************************************
  navBack : function() {
   var bReplace = jQuery.device.is.phone ? false : true;
   sap.ui.core.UIComponent.getRouterFor(this).navTo("home", {}, bReplace);
  },
-
+ // handleFilterPress
+ // ******************************************
  handleFilterPress : function(oEvent) {
   var oController = this;
   if (!this.oFilters) {
@@ -100,11 +108,10 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
     }), ]
    });
   }
-
   this.oFilters.openBy(oEvent.oSource);
-
  },
-
+ // _filterRules
+ // ******************************************
  _filterRules : function(oEvent) {
   var label = this.getView().byId("lblRuleTyp");
   var ruleid;

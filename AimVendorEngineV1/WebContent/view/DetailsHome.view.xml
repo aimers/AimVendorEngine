@@ -3,10 +3,9 @@
 	class="medicalBackgroundImage" xmlns="sap.m">
 	<Page id="detailshome" showHeader="true">
 		<content>
-
 		</content>
 		<footer>
-		  <Bar></Bar>
+			<Bar></Bar>
 		</footer>
 	</Page>
 </mvc:View>
