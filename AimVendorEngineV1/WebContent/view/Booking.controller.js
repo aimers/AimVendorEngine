@@ -167,6 +167,7 @@ sap.ui.core.mvc.Controller
         that.oModel.setProperty("/vendorRulesB", []);
        }
        that.oModel.refresh(true);
+       sap.ui.medApp.global.busyDialog.close();
       };
       that._getVendorBookingHistory(fnSuccess);
      },
@@ -267,68 +268,147 @@ sap.ui.core.mvc.Controller
             this),
           beginButton : new sap.m.Button(
             {
+             id : "btnSaveBooking",
+             enabled : false,
              text : "{i18n>SAVE_BUTTON}",
              press : function() {
-              sap.ui.medApp.global.busyDialog.open();
               var sPath, oData, oDate;
               var oUserName = sap.ui.getCore().byId("inputUserName");
-              if (oUserName.getShowSuggestion()) {
-               sPath = oUserName.getCustomData()[0].getValue();
-               oData = _this.oModel.getProperty(sPath);
+              if (!_this.validateEmail(oUserName.getValue())) {
+               sap.ui.getCore().byId("MessageBox").setVisible(true);
+               sap.ui.getCore().byId("MessageBox").setText(
+                 "Enter valid email address");
               } else {
-               oData = _this._registerNewUser(oUserName.getValue());
-              }
-              var oEntity = _this.getView().byId("entitySelect")
-                .getSelectedItem();
-              var entityData = _this.oModel.getProperty(oEntity
-                .getBindingContext().getPath());
-              if (entityData) {
-               oDate = _this.oDate;
-               oDate = oDate.substring(6, 10) + "/" + oDate.substring(3, 5)
-                 + "/" + oDate.substring(0, 2) + " 00:00:00";
-               var param = [ {
-                "key" : "details",
-                "value" : {
-                 "VSUID" : _this.oLoginDetails.USRID.toString(),
-                 "VUTID" : "2",
-                 "CUSID" : oData.USRID.toString(),
-                 "CUTID" : "3",// oData.UTYID.toString(),
-                 "CUEML" : oData.USRNM.toString(),
-                 "ETYID" : entityData.ETYID.toString(),
-                 "ETCID" : entityData.ETCID.toString(),
-                 "ENTID" : entityData.ENTID.toString(),
-                 "RULID" : entityData.RULID.toString(),
-                 "VSEML" : _this.oLoginDetails.USRNM,
-                 "BDTIM" : oDate,
-                 "BTIMZ" : "IST",
-                 "BOSTM" : _this.oBookingData.START.toString(),
-                 "BOETM" : _this.oBookingData.END.toString(),
-                 "RTYPE" : "1"
+               sap.ui.getCore().byId("MessageBox").setVisible(false);
+               sap.ui.getCore().byId("MessageBox").setText("");
+               sap.ui.medApp.global.busyDialog.open();
+               if (oUserName.getShowSuggestion()) {
+                sPath = oUserName.getCustomData()[0].getValue();
+                oData = _this.oModel.getProperty(sPath);
+
+                var oEntity = _this.getView().byId("entitySelect")
+                  .getSelectedItem();
+                var entityData = _this.oModel.getProperty(oEntity
+                  .getBindingContext().getPath());
+                if (entityData) {
+                 oDate = _this.oDate;
+                 oDate = oDate.substring(6, 10) + "/" + oDate.substring(3, 5)
+                   + "/" + oDate.substring(0, 2) + " 00:00:00";
+                 var param = [ {
+                  "key" : "details",
+                  "value" : {
+                   "VSUID" : _this.oLoginDetails.USRID.toString(),
+                   "VUTID" : "2",
+                   "CUSID" : oData.USRID.toString(),
+                   "CUTID" : "3",// oData.UTYID.toString(),
+                   "CUEML" : oData.USRNM.toString(),
+                   "ETYID" : entityData.ETYID.toString(),
+                   "ETCID" : entityData.ETCID.toString(),
+                   "ENTID" : entityData.ENTID.toString(),
+                   "RULID" : entityData.RULID.toString(),
+                   "VSEML" : _this.oLoginDetails.USRNM,
+                   "BDTIM" : oDate,
+                   "BTIMZ" : "IST",
+                   "BOSTM" : _this.oBookingData.START.toString(),
+                   "BOETM" : _this.oBookingData.END.toString(),
+                   "RTYPE" : "1"
+                  }
+                 } ];
+
+                 var fnSuccess = function(oData) {
+                  sap.m.MessageToast.show("Appointment Booked");
+                  _this._bindBookings(_this);
+                 };
+                 var fnError = function(oData) {
+                  sap.ui.medApp.global.busyDialog.close();
+                  sap.m.MessageToast
+                    .show("Error occured while booking appointment");
+                 };
+
+                 this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
+                   this.oModel);
+                 this._vendorListServiceFacade.updateParameters(param,
+                   fnSuccess, fnError, "book");
+                 oUserName.setValue("");
+                 _this.Appointmentdialog.close();
                 }
-               } ];
-               var fnSuccess = function(oData) {
-                sap.ui.medApp.global.busyDialog.close();
-                sap.m.MessageToast.show("Appointment Booked");
-                _this._bindBookings(_this);
-               };
-               var fnError = function(oData) {
-                sap.ui.medApp.global.busyDialog.close();
-                sap.m.MessageToast.show("Error occured while booking appointment");
-               };
-               this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
-                 this.oModel);
-               this._vendorListServiceFacade.updateParameters(param, fnSuccess,
-                 fnError, "book");
-               oUserName.setValue("");
+               } else {
+
+                var param = [ {
+                 "key" : "details",
+                 "value" : {
+                  "USRNM" : oUserName.getValue(),
+                  "UTYID" : "2",
+                  "PRFIX" : "",
+                  "TITLE" : "",
+                  "FRNAM" : "",
+                  "LTNAM" : "",
+                  "URDOB" : "1900/01/01",
+                  "GENDR" : "2",
+                  "DSPNM" : ""
+                 }
+                } ];
+                var fnSuccess = function(oData) {
+                 oData = oData.results;
+
+                 var oEntity = _this.getView().byId("entitySelect")
+                   .getSelectedItem();
+                 var entityData = _this.oModel.getProperty(oEntity
+                   .getBindingContext().getPath());
+                 if (entityData) {
+                  oDate = _this.oDate;
+                  oDate = oDate.substring(6, 10) + "/" + oDate.substring(3, 5)
+                    + "/" + oDate.substring(0, 2) + " 00:00:00";
+                  var param = [ {
+                   "key" : "details",
+                   "value" : {
+                    "VSUID" : _this.oLoginDetails.USRID.toString(),
+                    "VUTID" : "2",
+                    "CUSID" : oData.USRID.toString(),
+                    "CUTID" : "3",// oData.UTYID.toString(),
+                    "CUEML" : oData.USRNM.toString(),
+                    "ETYID" : entityData.ETYID.toString(),
+                    "ETCID" : entityData.ETCID.toString(),
+                    "ENTID" : entityData.ENTID.toString(),
+                    "RULID" : entityData.RULID.toString(),
+                    "VSEML" : _this.oLoginDetails.USRNM,
+                    "BDTIM" : oDate,
+                    "BTIMZ" : "IST",
+                    "BOSTM" : _this.oBookingData.START.toString(),
+                    "BOETM" : _this.oBookingData.END.toString(),
+                    "RTYPE" : "1"
+                   }
+                  } ];
+
+                  var fnSuccess = function(oData) {
+                   sap.m.MessageToast.show("Appointment Booked");
+                   _this._bindBookings(_this);
+                  };
+                  var fnError = function(oData) {
+                   sap.ui.medApp.global.busyDialog.close();
+                   sap.m.MessageToast
+                     .show("Error occured while booking appointment");
+                  };
+
+                  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
+                    this.oModel);
+                  this._vendorListServiceFacade.updateParameters(param,
+                    fnSuccess, fnError, "book");
+                  oUserName.setValue("");
+                  _this.Appointmentdialog.close();
+                 }
+                };
+                sap.ui.medApp.global.util.getRegisterData(param, fnSuccess);
+               }
               }
-              _this.Appointmentdialog.close();
              }
             }),
           endButton : new sap.m.Button({
            text : "{i18n>CANCEL_BUTTON}",
            press : function() {
-            var oUserName = sap.ui.getCore().byId("inputUserName");
-            oUserName.setValue("");
+            sap.ui.getCore().byId("inputUserName").setValue("");
+            sap.ui.getCore().byId("MessageBox").setVisible(false);
+            sap.ui.getCore().byId("MessageBox").setText("");
             _this.Appointmentdialog.close();
            }
           })
@@ -341,20 +421,27 @@ sap.ui.core.mvc.Controller
      // userSuggestHandle
      // ******************************************
      userSuggestHandle : function(oEvent) {
+      var source = oEvent.getSource();
       var param = [ {
        "key" : "details",
        "value" : {}
       } ];
-      sap.ui.medApp.global.util.getAllUsers(param);
-      oEvent.getSource().bindAggregation("suggestionItems", "/allUsers",
-        new sap.ui.core.Item({
-         text : "{USRNM}"
-        }));
+      var fnSuccess = function() {
+       source.bindAggregation("suggestionItems", "/allUsers",
+         new sap.ui.core.Item({
+          text : "{USRNM}"
+         }));
+       sap.ui.medApp.global.busyDialog.close();
+      }
+      sap.ui.medApp.global.busyDialog.open();
+      sap.ui.medApp.global.util.getAllUsers(param, fnSuccess);
+
      },
      // userSelectedHandle
      // ******************************************
      userSelectedHandle : function(oEvent) {
       var oUserName = oEvent.getSource();
+      var oSave = sap.ui.getCore().byId("btnSaveBooking");
       var sPath = oUserName._oList.getSelectedItem()._oItem.getBindingContext()
         .getPath();
       oUserName.removeAllCustomData();
@@ -362,20 +449,26 @@ sap.ui.core.mvc.Controller
        key : "path",
        value : sPath
       }));
+      oSave.setEnabled(true);
      },
      // handleUserSelection
      // ******************************************
      handleUserSelection : function(oEvent) {
       var selectedButton = oEvent.getSource().getSelectedButton();
       var oUserName = sap.ui.getCore().byId("inputUserName");
+      var oSave = sap.ui.getCore().byId("btnSaveBooking");
+      oUserName.setValue("");
       if (selectedButton === "sbExisting") {
        oUserName.setShowSuggestion(true);
+       oSave.setEnabled(false);
       } else {
        oUserName.setShowSuggestion(false);
+       oSave.setEnabled(true);
       }
      },
-     // _registerNewUser
-     // ******************************************
-     _registerNewUser : function(email) {
-     }
+
+     validateEmail : function(email) {
+      var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+      return re.test(email);
+     },
     });

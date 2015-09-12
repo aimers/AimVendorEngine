@@ -387,3 +387,7 @@ svg.sapMBusySvg {
 	background-attachment: fixed;
 	background-position:  center ;
 }
+
+.errormessage{
+	color: #ff0000 !important;
+}

@@ -16,10 +16,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
   var oArguments = oEvent.getParameter("arguments");
   var sName = oEvent.getParameter("name");
   if (sName === "rules") {
-   this._bindViewModel(sName);
-   if(!oList.getSelectedItem()){
-    this._selectFirstRule();
-   }
+   this._bindViewModel();
   }
  },
  // onRouteMatched
@@ -47,10 +44,11 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
  },
  // _bindViewModel
  // ******************************************
- _bindViewModel : function(callFrom) {
+ _bindViewModel : function() {
   sap.ui.medApp.global.busyDialog.open();
   var _this = this;
   var oView = this.getView();
+  var oList = oView.byId("ruleList");
   var param = [ {
    "key" : "details",
    "value" : {
@@ -62,10 +60,12 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
   var fnSuccess = function() {
    sap.ui.medApp.global.busyDialog.close();
    oView.setModel(_this.oModel);
-   if (callFrom === "rules") {
+   if (!oList.getSelectedItem()) {
     _this._selectFirstRule();
    } else {
-    _this._showRuleDetails(oView.byId("ruleList").getSelectedItem());
+    if (!sap.ui.Device.system.phone) {
+     _this._showRuleDetails(oList.getSelectedItem());
+    }
    }
 
   };
@@ -75,7 +75,9 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
  // ******************************************
  handlePressAddRule : function() {
   var bReplace = jQuery.device.is.phone ? false : true;
-  sap.ui.core.UIComponent.getRouterFor(this).navTo("addrule", {}, bReplace);
+  sap.ui.core.UIComponent.getRouterFor(this).myNavToWithoutHash(
+    "sap.ui.medApp.view.AddRule", "XML", false, null);
+  // .navTo("addrule", {}, bReplace);
  },
  // onRuleItemPress
  // ******************************************

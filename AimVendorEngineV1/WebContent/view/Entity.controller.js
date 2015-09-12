@@ -16,21 +16,23 @@ sap.ui.core.mvc.Controller
       _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
       var sName = oEvent.getParameter("name");
       if (sName === "speciality") {
-       var fnSuccess = function() {
-        _this._bindVendorEntities();
-        _this._toggleSaveButton();
-        sap.ui.medApp.global.util.loadListCategory();
-        sap.ui.medApp.global.busyDialog.close();
-       };
-       var param = [ {
-        "key" : "INTENT",
-        "value" : "1"
-       }, {
-        "key" : "UID",
-        "value" : this.oLoginDetails.USRID.toString()
-       } ];
-       sap.ui.medApp.global.busyDialog.open();
-       sap.ui.medApp.global.util.loadVendorCategory(param, fnSuccess);
+       if (!_this.oModel.getProperty("/vendorsCategory")) {
+        var fnSuccess = function() {
+         _this._bindVendorEntities();
+         _this._toggleSaveButton();
+         sap.ui.medApp.global.util.loadListCategory();
+         sap.ui.medApp.global.busyDialog.close();
+        };
+        var param = [ {
+         "key" : "INTENT",
+         "value" : "1"
+        }, {
+         "key" : "UID",
+         "value" : this.oLoginDetails.USRID.toString()
+        } ];
+        sap.ui.medApp.global.busyDialog.open();
+        sap.ui.medApp.global.util.loadVendorCategory(param, fnSuccess);
+       }
       }
      },
      // _toggleSaveButton

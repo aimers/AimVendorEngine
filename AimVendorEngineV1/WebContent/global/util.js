@@ -224,7 +224,7 @@ sap.ui.medApp.global.util = { // Get Home Model
  getAllUsers : function(param, fnSuccess) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
-  this._vendorListServiceFacade.getRecords(null, null, "/allUsers",
+  this._vendorListServiceFacade.getRecords(fnSuccess, null, "/allUsers",
     "getAllUsers", param);
  },
  // Create Rule

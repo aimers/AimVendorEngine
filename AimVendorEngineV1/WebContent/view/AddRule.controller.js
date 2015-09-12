@@ -180,7 +180,7 @@ sap.ui.core.mvc.Controller
       var oDstim = oView.byId("dtiDstim");
       var oDescr = oView.byId("ipDescr");
       var invalidInputs = false;
-      //Days
+      // Days
       if (!regxRequired.test(this.oModel.getProperty("/newRule/DAYS")
         .toString())) {
        invalidInputs = true;
@@ -188,7 +188,7 @@ sap.ui.core.mvc.Controller
       } else {
        oDays.setValueState(sap.ui.core.ValueState.None);
       }
-      //OETLS
+      // OETLS
       if (!regxRequired.test(this.oModel.getProperty("/newRule/OETSL")
         .toString())) {
        invalidInputs = true;
@@ -196,7 +196,7 @@ sap.ui.core.mvc.Controller
       } else {
        oOestl.setValueState(sap.ui.core.ValueState.None);
       }
-      //OSTSL
+      // OSTSL
       if (!regxRequired.test(this.oModel.getProperty("/newRule/OSTSL")
         .toString())) {
        invalidInputs = true;
@@ -204,7 +204,7 @@ sap.ui.core.mvc.Controller
       } else {
        oOstsl.setValueState(sap.ui.core.ValueState.None);
       }
-      //DETIM
+      // DETIM
       if (!regxRequired.test(this.oModel.getProperty("/newRule/DETIM")
         .toString())) {
        invalidInputs = true;
@@ -212,7 +212,7 @@ sap.ui.core.mvc.Controller
       } else {
        oDetim.setValueState(sap.ui.core.ValueState.None);
       }
-      //DSTIM
+      // DSTIM
       if (!regxRequired.test(this.oModel.getProperty("/newRule/DSTIM")
         .toString())) {
        invalidInputs = true;
@@ -220,7 +220,7 @@ sap.ui.core.mvc.Controller
       } else {
        oDstim.setValueState(sap.ui.core.ValueState.None);
       }
-      //DESCR
+      // DESCR
       if (!regxRequired.test(this.oModel.getProperty("/newRule/DESCR")
         .toString())) {
        invalidInputs = true;
