@@ -348,6 +348,8 @@ private Object getBookingHistory(HashMap myInfo, ConnectionManager dbcon) {
 			query1 = query1+ " and `BDTIM` = STR_TO_DATE('"+detailsJSON.get("BDTIM")+"', '%d-%m-%Y')  ";	
 		}
 		
+		query1 = query1 + " and `vtrmt`.`ACTIV` = '1'";
+		
 		System.out.println(query1);
 		rs =dbcon.stm.executeQuery(query1);
 		return Convertor.convertToJSON(rs);
