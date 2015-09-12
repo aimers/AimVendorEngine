@@ -62,7 +62,6 @@ private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
 				}
 			}
 			
-			
 			String query = "delete `vtrdt`"
 					+ " where "
 					+ " `VTRID` = '"+detailsJSON.get("VTRID")+ "'  ";
