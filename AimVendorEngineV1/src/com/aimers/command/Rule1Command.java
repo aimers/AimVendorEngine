@@ -39,10 +39,52 @@ public class Rule1Command extends aimCommand {
 			return cancelBooking(myInfo, dbcon);
 		}else if(aimAction.equals("acceptBooking")){
 			return acceptBooking(myInfo, dbcon);
+		}else if(aimAction.equals("deleteRule")){
+			return deleteRule(myInfo, dbcon);
 		}
 		
 		return new JSONObject();
 
+	}
+
+	private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
+		
+		
+		ResultSet rs=null;
+		try{
+			String details 	=  myInfo.get("details")+"";
+			JSONObject detailsJSON 	= new JSONObject(details);
+			
+			if(dbcon == null){
+				try{
+					dbcon.Connect("MYSQL");
+				}
+				catch(Exception ex){
+					System.out.println(""+ex);
+				}
+			}
+			
+			
+			String query = "delete `vtrdt`"
+					+ " where "
+					+ " `VTRID` = '"+detailsJSON.get("VTRID")+ "'  ";
+					
+			System.out.println(query);
+			int rowCount=dbcon.stm.executeUpdate(query);
+			if(rowCount > 0){
+				return detailsJSON;
+			}else{
+				//TODO: Consider Raising Error
+				return new JSONObject(details);
+			}
+			
+			
+
+		}
+		catch(Exception ex){
+			System.out.println("Error from Rule 1 delete Command "+ex +"==dbcon=="+dbcon);
+			return null;
+		}
 	}
 
 	private Object cancelBooking(HashMap myInfo, ConnectionManager dbcon) {
@@ -227,9 +269,7 @@ public class Rule1Command extends aimCommand {
 			detailsJSON.put("CRTBY", detailsJSON.get("USRID"));
 			detailsJSON.put("CHNDT", dateFormat.format(date)+"");
 			detailsJSON.put("CHNBY", detailsJSON.get("USRID"));
-			if(!detailsJSON.has("UERPW")){
-				detailsJSON.put("UERPW", detailsJSON.get("USRID").hashCode()+"");
-			}
+			
 			String query = "UPDATE `vtrdt`"
 					+ " SET  "
 					+ " `ENTID` = '"+detailsJSON.get("ENTID")+ "', " 

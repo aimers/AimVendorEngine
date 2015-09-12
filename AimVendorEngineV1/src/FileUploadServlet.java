@@ -39,15 +39,11 @@ public class FileUploadServlet extends HttpServlet {
         String applicationPath = request.getServletContext().getRealPath("");
         // constructs path of the directory to save uploaded file
         ////home/saath/public_html/bookingdemodocs
-
-        //String uploadFilePath = "/home/saath/jvm/apache-tomcat-7.0.57/domains/bookingdemo.aimersinfosoft.com/bookingdemodocs";
+        String uploadFilePath = "/home/saath/jvm/apache-tomcat-7.0.57/domains/bookingdemo.aimersinfosoft.com/bookingdemodocs";
         String displayPath = "http://bookingdemo.aimersinfosoft.com/bookingdemodocs";
         //"/home/saath/public_html/bookingdemodocs";
         
         //"/Users";//
-
-        String uploadFilePath = "/Users/i313586/Dev/files";//"/home/saath/jvm/apache-tomcat-7.0.57/domains/bookingdemo.aimersinfosoft.com/bookingdemodocs";//"/home/saath/public_html/bookingdemodocs";
-
         String delFileName = "";
         //"/Users/i039198/Documents/Projects/BOOKING/UPLOAD";
         //File.createTempFile("upload-", ".bin");;//applicationPath + File.separator + UPLOAD_DIR;
