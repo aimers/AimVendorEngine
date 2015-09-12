@@ -68,6 +68,11 @@
 		</content>
 		<footer>
 			<Bar>
+
+				<contentLeft>
+					<Button text="Delete" icon="sap-icon://delete" visible="true"
+						press="handleRuleDelete"></Button>
+				</contentLeft>
 				<contentRight>
 					<Button text="Save" icon="sap-icon://save" visible="true"
 						press="handleRuleSave"></Button>

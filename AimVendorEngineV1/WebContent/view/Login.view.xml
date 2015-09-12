@@ -18,7 +18,7 @@
 							</Input>
 							<Label />
 							<Button text="Login"  type="Emphasized" press="handleLogin" />
-							<Button text="Sign Up" press="handleRegister">
+							<Button text="Sign Up" press="signupPress">
 								<layoutData>
 									<l:GridData span="L2 M4 S6" />
 								</layoutData>

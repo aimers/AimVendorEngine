@@ -5,7 +5,7 @@
 		navButtonPress="navBack">
 		<content>
 			<List id="ruleList" mode="SingleSelectMaster" items="{/vendorRulesDefn/ruleDefinitions}"
-				select="onRuleItemPress">
+				select="onRuleItemPress" >
 				<headerToolbar>
 					<Toolbar>
 						<ToolbarSpacer />

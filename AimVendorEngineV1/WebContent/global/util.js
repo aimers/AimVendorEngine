@@ -6,6 +6,7 @@ sap.ui.medApp.global.util = { // Get Home Model
   if (!this._mainModel) {
    var _this = this;
    this._mainModel = new sap.ui.model.json.JSONModel();
+   this._mainModel.setDefaultBindingMode("TwoWay");
    if (sessionStorage.medAppUID != undefined
      && sessionStorage.medAppPWD != undefined) {
     var param = [ {
@@ -119,7 +120,7 @@ sap.ui.medApp.global.util = { // Get Home Model
    "value" : "1"
   }, {
    "key" : "filters",
-   "value" : '{"USRID" = ' + paramValue.USRID + '}'
+   "value" : "{'USRID' = " + paramValue.USRID + "}"
   } ];
   this._vendorListServiceFacade.getRecords(fnSuccess, null, "/vendorsList",
     "getVendorData", param);
@@ -229,10 +230,10 @@ sap.ui.medApp.global.util = { // Get Home Model
  },
  // Create Rule
  // ******************************************
- createRule : function(param, fnSuccess) {
+ createRule : function(param, fnSuccess, fnError) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
-  this._vendorListServiceFacade.updateParameters(param, fnSuccess, null,
+  this._vendorListServiceFacade.updateParameters(param, fnSuccess, fnError,
     "createRule");
  },
  // Update Rule
@@ -246,9 +247,9 @@ sap.ui.medApp.global.util = { // Get Home Model
  // Update Vendor Details
  // ******************************************
  updateUserDetails : function(fnSuccess) {
-  this._mainModel.setProperty("/vendorsList/0/Entities", this._mainModel
-    .getProperty("/vendorsCategory"))
+
   var userData = this._mainModel.getProperty("/vendorsList/0");
+
   param = [ {
    "key" : "details",
    "value" : userData
@@ -342,5 +343,11 @@ sap.ui.medApp.global.util = { // Get Home Model
    enctype : 'multipart/form-data',
    error : fnError
   })
+ },
+ deleteRule : function(param, fnSuccess, fnError) {
+  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
+    this._mainModel);
+  this._vendorListServiceFacade.getRecords(fnSuccess, fnError, null,
+    "deleteRule", param);
  }
 }

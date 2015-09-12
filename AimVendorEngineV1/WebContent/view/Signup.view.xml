@@ -3,71 +3,38 @@
 	xmlns="sap.m" controllerName="sap.ui.medApp.view.Signup" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="Login" showHeader="false">
 		<content>
-			<l:Grid defaultSpan="L6 M6 S12" width="100%" position="Center" class="sapUiSmallMarginTop">
-				<l:content>
-					<f:SimpleForm id="frmUserSignup" minWidth="1024"
+			<VBox width="100%" alignItems="Center">
+				<l:Grid defaultSpan="L12 M12 S12" width="auto">
+					<f:SimpleForm id="SimpleFormChange354" minWidth="300"
 						maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
-						title="SignUp with User" labelSpanL="4" labelSpanM="4" emptySpanL="0"
-						emptySpanM="0" columnsL="2" columnsM="2">
+						title="Sign Up" labelSpanL="3" labelSpanM="3" emptySpanL="4"
+						emptySpanM="4" columnsL="1" columnsM="1" class="editableForm">
 						<f:content>
-							 
-
-							<Input id="username" placeholder="enter email as username">
-								<layoutData>
-									<l:GridData span="L12 M12 S12" />
-								</layoutData>
+							<Text id="MessageBox" class="errormessage" visible="false" />
+							<Text class="greenTitle" text="All fields are mandatory." />
+							<Text class="greenTitle" text="Kindly check your email account for system generated password." />
+							<Label text="First Name" />
+							<Input  id="fname" valueStateText="First name is required" />
+							<Label text="Last Name" />
+							<Input  id="lname" valueStateText="Last name is required"/>
+							<Label text="Username" />
+							<Input  id="usrNme" placeholder="email as username" valueStateText="Username is required"/>
+							<!-- <Label text="Password" />
+							<Input  id="pswd" type="Password" valueStateText="Password is required. It should match with Confirm Password.">
 							</Input>
-
-							<Input id="password" type="Password" placeholder="enter password">
-								<layoutData>
-									<l:GridData span="L12 M12 S12" />
-								</layoutData>
-							</Input>
-
-							<Input id="cpassword" type="Password" placeholder="confirm password">
-								<layoutData>
-									<l:GridData span="L12 M12 S12" />
-								</layoutData>
-							</Input>
-
-
-							<Button text="Register" press="handleRegister" type="Emphasized">
-								<layoutData>
-									<l:GridData span="L6 M6 S6" />
-								</layoutData>
-							</Button>
-							<Button text="Cancel" press="handleCancel"  >
-								<layoutData>
-									<l:GridData span="L6 M6 S6" />
-								</layoutData>
-							</Button>
-
+							<Label text="Confirm Password" />
+							<Input  id="cpswd" type="Password" valueStateText="Confirm Password is required. It should match with Password.">
+							</Input> -->
+							<Label text="Speciality" />
+							<Select id="entitySelect" items="{path: '/allCategory'}">
+								<core:Item key="{ENTID}" text="{DESCR}" />
+							</Select>
+							<Button text="Sign Up" type="Emphasized" press="handleRegister" />
+							<Button text="Cancel" press="handleCancel" />
 						</f:content>
 					</f:SimpleForm>
-					<f:SimpleForm id="frmSocialSignup" minWidth="1024"
-						maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
-						title="Social SignUp" labelSpanL="4" labelSpanM="4" emptySpanL="0"
-						emptySpanM="0" columnsL="2" columnsM="2">
-						<f:content>
-							<Button text="Facebook" class="facebookBtn">
-								<layoutData>
-									<l:GridData span="L12 M12 S12" />
-								</layoutData>
-							</Button>
-							<Button text="Google+" class="googlePlusBtn">
-								<layoutData>
-									<l:GridData span="L12 M12 S12" />
-								</layoutData>
-							</Button>
-							<Button text="Twitter" class="twitterBtn">
-								<layoutData>
-									<l:GridData span="L12 M12 S12" />
-								</layoutData>
-							</Button>
-						</f:content>
-					</f:SimpleForm>
-				</l:content>
-			</l:Grid>
+				</l:Grid>
+			</VBox>
 		</content>
 	</Page>
 </mvc:View>

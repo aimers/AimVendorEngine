@@ -28,6 +28,10 @@ sap.ui.core.mvc.Controller
        _this.oDate = oEvent.getParameter("arguments").date;
        oView.byId("dateTitle").setText(_this.oDate);
        var fnSuccess = function(oData) {
+        if (!_this.oModel.getProperty("/vendorsList").length) {
+         _this.oModel.setProperty("/vendorsList/0", _this.oModel
+           .getProperty("/LoggedUser"));
+        }
         oView.setModel(_this.oModel);
         _this.oEntities = oView.byId("entitySelect");
         var oSeletedItem = _this.oEntities.getSelectedItem();
@@ -35,8 +39,10 @@ sap.ui.core.mvc.Controller
          _this.oEntities.setSelectedItem(_this.oEntities.getFirstItem());
          oSeletedItem = _this.oEntities.getFirstItem();
         }
-        var sPath = oSeletedItem.getBindingContext().sPath;
-        _this._getVendorRules(sPath);
+        if (oSeletedItem) {
+         var sPath = oSeletedItem.getBindingContext().sPath;
+         _this._getVendorRules(sPath);
+        }
         oView.setModel(_this.oModel);
         sap.ui.medApp.global.busyDialog.close();
        }

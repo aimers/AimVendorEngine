@@ -1,13 +1,33 @@
 sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Home",
   {
- // onInit
- // ******************************************
+   // onInit
+   // ******************************************
    onInit : function() {
+    var _this = this;
     this.oModel = sap.ui.medApp.global.util.getHomeModel();
     sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
       this.onRouteMatched, this);
     if (!this.oModel.getProperty("/vendorList")) {
      var fnSuccess = function() {
+      if (!_this.oModel.getProperty("/vendorsList").length) {
+       _this.oModel.setProperty("/vendorsList/0", _this.oModel
+         .getProperty("/LoggedUser"));
+       _this.oModel.setProperty("/vendorsList/0/Address", [ {
+        CTYID : "",
+        CTYNM : "",
+        LATIT : "",
+        LNDMK : "",
+        LOCLT : "0",
+        LONGT : "0",
+        PINCD : "",
+        PRIMR : true,
+        STREET : "",
+        USRID : _this.oModel.getProperty("/LoggedUser/USRID")
+       } ]);
+       _this.oModel.setProperty("/vendorsList/0/Characteristics", []);
+       _this.oModel.setProperty("/vendorsList/0/Entities", []);
+       _this.oModel.setProperty("/vendorsList/0/Rules", []);
+      }
       sap.ui.medApp.global.busyDialog.close();
      };
      param = {

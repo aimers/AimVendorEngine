@@ -127,7 +127,7 @@ sap.ui.core.mvc.Controller
               "REGXT" : "img",
               "SRTXT" : "Image",
               "USRID" : _this.oLoginDetails.USRID,
-              "VALUE" : response.relativePath + "/" + response.fileName
+              "VALUE" : response.relativePath
              });
 
              _this.oModel.refresh(true);

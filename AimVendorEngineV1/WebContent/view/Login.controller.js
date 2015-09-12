@@ -50,6 +50,9 @@ sap.ui
         sessionStorage.setItem("medAppPWD", oData.results.UERPW);
         _this.oModel.setProperty("/LoggedUser", oData.results);
         var fnSuccess1 = function() {
+         if(!_this.oModel.getProperty("/vendorsList").length){
+          _this.oModel.setProperty("/vendorsList/0",_this.oModel.getProperty("/LoggedUser"));
+         }
          sap.ui.medApp.global.busyDialog.close();
         };
         param = {
@@ -62,6 +65,10 @@ sap.ui
 
       sap.ui.medApp.global.busyDialog.open();
       sap.ui.medApp.global.util.getLoginData(param, fnSuccess);
+     },
+     
+     signupPress : function(oEvent){
+      this._oRouter.navTo('signup');
      },
      // handleRegister
      // ******************************************

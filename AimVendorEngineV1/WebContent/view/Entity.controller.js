@@ -77,6 +77,8 @@ sap.ui.core.mvc.Controller
        var newData = this.oModel.getProperty(aContexts[0].getPath());
        aData.push(newData);
        this.oModel.refresh(true);
+       this.oModel.setProperty("/vendorsList/0/Entities", this.oModel
+         .getProperty("/vendorsCategory"));
        this._toggleSaveButton();
       }
       oEvent.getSource().getBinding("items").filter([]);

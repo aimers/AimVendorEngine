@@ -13,6 +13,9 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
   _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
   if (oEvent.getParameter("name") === "profile") {
    var fnSuccess = function() {
+    if(!_this.oModel.getProperty("/vendorsList").length){
+     _this.oModel.setProperty("/vendorsList/0",_this.oModel.getProperty("/LoggedUser"));
+    }
     sap.ui.medApp.global.busyDialog.close();
     _this._selectItem();
    };

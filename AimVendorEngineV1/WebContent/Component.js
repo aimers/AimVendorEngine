@@ -19,6 +19,18 @@ sap.ui.core.UIComponent.extend("sap.ui.medApp.Component", {
     view : "Login",
     targetAggregation : "pages",
     targetControl : "idAppControl"
+   },{
+    pattern : "signup",
+    name : "signup",
+    view : "Signup",
+    targetAggregation : "pages",
+    targetControl : "idAppControl"
+   },{
+    pattern : "forgetpassword",
+    name : "forgetpassword",
+    view : "ForgetPassword",
+    targetAggregation : "pages",
+    targetControl : "idAppControl"
    }, {
     pattern : "home",
     name : "home",

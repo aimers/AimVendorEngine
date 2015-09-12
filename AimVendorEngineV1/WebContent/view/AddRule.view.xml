@@ -18,31 +18,30 @@
 								<core:Item key="{ENTID}" text="{DESCR}" />
 							</Select>
 							<Label text="Rule Name" />
-							<Input id="ipDescr" valueState="{/valueState}"
+							<Input id="ipDescr" 
 								valueStateText="Description is required" value="{/newRule/DESCR}" />
 							<Label text="Day Start Time" />
 
 							<DateTimeInput type="Time" id="dtiDstim"
-								valueState="{/valueState}" change="onChangeDSTIMTime"
+								 change="onChangeDSTIMTime"
 								valueStateText="Day start time is required" />
 
 							<Label text="Day End Time" />
 							<DateTimeInput type="Time" id="dtiDetim"
-								valueState="{/valueState}" change="onChangeDETIMTime"
+								 change="onChangeDETIMTime"
 								valueStateText="Day end time is required" />
 
 							<Label text="Start Time Slot" />
 							<DateTimeInput type="Time" id="dtiOstsl"
-								valueState="{/valueState}" change="onChangeOSTSLTime"
+								 change="onChangeOSTSLTime"
 								valueStateText="Time slot start time is required" />
 
 							<Label text="End Time Slot" />
 							<DateTimeInput type="Time" id="dtiOestl"
-								valueState="{/valueState}" change="onChangeOETSLTime"
+								 change="onChangeOETSLTime"
 								valueStateText="Time slot end time is required" />
 							<Label text="Days" />
-							<MultiComboBox id="daysCombo" selectionFinish="handleDaysSelectionFinish"
-								valueState="{/valueState}">
+							<MultiComboBox id="daysCombo" selectionFinish="handleDaysSelectionFinish" valueStateText="Day(s) is required">
 								<core:Item key="1" text="Monday" />
 								<core:Item key="2" text="Tuesday" />
 								<core:Item key="3" text="Wednesday" />

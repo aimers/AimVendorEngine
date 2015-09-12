@@ -17,6 +17,10 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleDetails", {
      + oEvent.getParameter("arguments").rule;
    oView.setModel(this.oModel);
    oView.byId("rulesForm").bindElement(this.sRulePath);
+
+   this.RuleId = this.oModel.getProperty(this.sRulePath).RULID;
+   this.VtrId = this.oModel.getProperty(this.sRulePath).VTRID;
+
    if (!this.oModel.getProperty("/vendorsCategory")) {
     var fnSuccess = function() {
      sap.ui.medApp.global.busyDialog.close();
@@ -128,6 +132,27 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleDetails", {
   var time = oSource.getDateValue();
   this.oModel.setProperty(oSource.getBindingContext().getPath() + "/DSTIM",
     time.toString().substring(24, 16));
+ },
+ handleRuleDelete : function(oEvent) {
+  var _this = this;
+  var param = [ {
+   "key" : "details",
+   "value" : {
+    "RULID" : this.RuleId.toString(),
+    "VTRID" : this.VtrId.toString()
+   }
+  } ];
+  var fnSuccess = function(oData) {
+   sap.ui.medApp.global.busyDialog.close();
+   sap.m.MessageToast.show("Rule Deleted");
+   var bReplace = jQuery.device.is.phone ? false : true;
+   sap.ui.core.UIComponent.getRouterFor(_this).navTo("rules", {}, bReplace);
+  };
+  var fnError = function(oData) {
+   sap.ui.medApp.global.busyDialog.close();
+   sap.m.MessageToast.show("Error occured while deleting rule");
+  };
+  sap.ui.medApp.global.util.deleteRule(param, fnSuccess, fnError);
  }
 
 });

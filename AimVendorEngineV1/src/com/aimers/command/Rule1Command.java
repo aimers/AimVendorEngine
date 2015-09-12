@@ -64,7 +64,7 @@ public class Rule1Command extends aimCommand {
 				}
 			}
 			
-			String query = "delete `vtrdt`"
+			String query = "delete from `vtrdt`"
 					+ " where "
 					+ " `VTRID` = '"+detailsJSON.get("VTRID")+ "'  ";
 					
