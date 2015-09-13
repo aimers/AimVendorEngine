@@ -42,10 +42,12 @@ public class Rule2Command extends aimCommand {
 		}else if(aimAction.equals("deleteRule")){
 			return deleteRule(myInfo, dbcon);
 		}
+		
 		return new JSONObject();
 
 	}
-private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
+
+	private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
 		
 		
 		ResultSet rs=null;
@@ -62,14 +64,25 @@ private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
 				}
 			}
 			
-			String query = "delete `vtrdt`"
+			String query = "delete from `vtrdt`"
 					+ " where "
 					+ " `VTRID` = '"+detailsJSON.get("VTRID")+ "'  ";
 					
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
 			if(rowCount > 0){
-				return detailsJSON;
+				query = "delete from `vrumt`"
+						+ " where "
+						+ " `VRMID` = '"+detailsJSON.get("VRMID")+ "'  ";
+						
+				System.out.println(query);
+				rowCount=dbcon.stm.executeUpdate(query);
+				if(rowCount > 0){
+					return detailsJSON;
+				}else{
+					//TODO: Consider Raising Error
+					return new JSONObject(details);
+				}
 			}else{
 				//TODO: Consider Raising Error
 				return new JSONObject(details);
@@ -83,6 +96,7 @@ private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
 			return null;
 		}
 	}
+
 	private Object cancelBooking(HashMap myInfo, ConnectionManager dbcon) {
 		try{
 			myInfo.put("details",  checkUserAuth(myInfo, dbcon));
@@ -265,9 +279,6 @@ private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
 			detailsJSON.put("CRTBY", detailsJSON.get("USRID"));
 			detailsJSON.put("CHNDT", dateFormat.format(date)+"");
 			detailsJSON.put("CHNBY", detailsJSON.get("USRID"));
-			if(!detailsJSON.has("UERPW")){
-				detailsJSON.put("UERPW", detailsJSON.get("USRID").hashCode()+"");
-			}
 			String query = "UPDATE `vtrdt`"
 					+ " SET  "
 					+ " `ENTID` = '"+detailsJSON.get("ENTID")+ "', " 
@@ -295,7 +306,31 @@ private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
 			if(rowCount > 0){
-				return detailsJSON;
+				query = "UPDATE `vrumt`"
+						+ " SET  "
+						+ " `ENTID` = '"+detailsJSON.get("ENTID")+ "', " 
+						+ " `ETCID` ='"+detailsJSON.get("ETCID")+ "', "
+						+ " `ETYID` = '"+detailsJSON.get("ETYID")+ "', "
+						+ " `RULID` = '"+detailsJSON.get("RULID")+ "' ,"
+						+ " `ACTIV` = '"+detailsJSON.get("ACTIV")+ "', "
+						+ " `CRTDT` = '"+detailsJSON.get("CRTDT")+ "', "
+						+ " `CRTBY` = '"+detailsJSON.get("CRTBY")+ "', "
+						+ " `CHNDT` = '"+detailsJSON.get("CHNDT")+ "', "
+						+ " `CHNBY` = '"+detailsJSON.get("CHNBY")+ "' "
+						+ " where "
+						+ " `USRID` = '"+detailsJSON.get("USRID")+ "' and"
+						+ " `UTYID` = '"+detailsJSON.get("UTYID")+ "' and "
+						+ " `VRMID` = '"+detailsJSON.get("VRMID")+ "'  ";
+						
+				System.out.println(query);
+				rowCount=dbcon.stm.executeUpdate(query);
+				if(rowCount > 0){
+					return detailsJSON;
+				}else{
+					//TODO: Consider Raising Error
+					return new JSONObject(details);
+				}
+				
 			}else{
 				//TODO: Consider Raising Error
 				return new JSONObject(details);
@@ -318,7 +353,7 @@ private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
 			JSONObject detailsJSON 	= new JSONObject(details);
 			ResultSet rs=null;
 			
-			String query = "SELECT `vtrdt`.`VTRID`, `vtrdt`.`UTYID`, `vtrdt`.`USRID`, "
+			String query = "SELECT `vrumt`.`VRMID`, `vtrdt`.`VTRID`, `vtrdt`.`UTYID`, `vtrdt`.`USRID`, "
 					+ " `vtrdt`.`ENTID`, `vtrdt`.`ETCID`, `vtrdt`.`ETYID`, "
 					+ " `vtrdt`.`RULID`, `vtrdt`.`DSTIM`, `vtrdt`.`DETIM`, `vtrdt`.`TIMZN`, "
 					+ " `vtrdt`.`OSTSL`, `vtrdt`.`OETSL`, `vtrdt`.`RECUR`, `vtrdt`.`DAYS`, "
@@ -326,9 +361,11 @@ private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
 					//+ " `vtrdt`.`ACTIV`, "
 					//+ " `vtrdt`.`CRTDT`, `vtrdt`.`CRTBY`, `vtrdt`.`CHNDT`, `vtrdt`.`CHNBY` "
 					+ " FROM `vtrdt` "
-					+ " where UTYID = '"+detailsJSON.get("UTYID")+"' and "
-							+ " USRID = '"+detailsJSON.get("USRID")+"' and "
-							+ " RULID = '"+detailsJSON.get("RULID")+"' ";
+					+"left outer join `vrumt` on "
+					+" `vtrdt`.`USRID` = `vrumt`.`USRID` and `vtrdt`.`ENTID` = `vrumt`.`ENTID`"
+					+ " where `vtrdt`.UTYID = '"+detailsJSON.get("UTYID")+"' and "
+							+ " `vtrdt`.USRID = '"+detailsJSON.get("USRID")+"' and "
+							+ " `vtrdt`.RULID = '"+detailsJSON.get("RULID")+"' ";
 
 			if(dbcon == null){
 				try{
@@ -394,7 +431,7 @@ private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
 			String vtrid = getNewRuleEntryID(dbcon);
 			detailsJSON.put("VTRID", vtrid);
 			detailsJSON.put("ACTIV", 1+"");
-			detailsJSON.put("STATS", "2");//MANUAL APPROVAL :: Change to Enum
+			detailsJSON.put("STATS", "2");//Manual APPROVAL :: Change to Enum
 			detailsJSON.put("CRTDT", dateFormat.format(date)+"");
 			detailsJSON.put("CHNBY", detailsJSON.get("USRID"));
 			detailsJSON.put("CRTBY", detailsJSON.get("USRID"));
@@ -439,7 +476,38 @@ private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
 			if(rowCount > 0){
-				return detailsJSON;
+				
+				query = "INSERT INTO `bookingdb`.`vrumt`( `RULID`,`CRTDT`, `CRTBY`, `ETYID`, "
+						+ " `ETCID`, `ENTID`, `UTYID`, `USRID`, `ACTIV`, `CHNDT`, `CHNBY`) "
+						+ "VALUES "
+						+ " ("
+						+ "'"+detailsJSON.get("RULID")+ "',"
+						+ "'"+detailsJSON.get("CRTDT")+ "',"
+						+ "'"+detailsJSON.get("CRTBY")+ "',"		
+						
+						+ "'"+detailsJSON.get("ETYID")+ "'," 
+						+ "'"+detailsJSON.get("ETCID")+ "'," 
+						+ "'"+detailsJSON.get("ENTID")+ "'," 
+						
+						
+
+						+ "'"+detailsJSON.get("UTYID")+ "',"
+						+ "'"+detailsJSON.get("USRID")+ "',"
+						
+						
+						+ "'"+detailsJSON.get("ACTIV")+ "',"
+						
+						+ "'"+detailsJSON.get("CHNDT")+ "',"
+						+ "'"+detailsJSON.get("CHNBY")+ "')";
+						
+				System.out.println(query);
+				rowCount=dbcon.stm.executeUpdate(query);
+				if(rowCount > 0){
+					return detailsJSON;
+				}else{
+					//TODO: Consider Raising Error
+					return new JSONObject(details);
+				}
 			}else{
 				//TODO: Consider Raising Error
 				return new JSONObject(details);
@@ -595,7 +663,7 @@ private Object deleteRule(HashMap myInfo, ConnectionManager dbcon) {
 					recipients[0] = detailsJSON.get("CUEML")+"";
 					recipients[1] = detailsJSON.get("VSEML")+"";
 					String from = "uxdevsupport@aimersinfosoft.com";
-					String subject = "Booking Confirmed";
+					String subject = "Booing Confirmed";
 					sendEmail.postMail(recipients, subject, message, from);
 				}catch(Exception ex){
 					System.out.println("Error sending email :"+ex.getMessage());
