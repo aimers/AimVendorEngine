@@ -64,18 +64,18 @@ public class Rule1Command extends aimCommand {
 				}
 			}
 			
-			String query = "delete from `vtrdt`"
+			String query = "delete from `vrumt`"
 					+ " where "
-					+ " `VTRID` = '"+detailsJSON.get("VTRID")+ "'  ";
+					+ " `VRMID` = '"+detailsJSON.get("VRMID")+ "' and ENTID not in ( select ENTID from `vtrdt`  "
+							+ " where `VTRID` = '"+detailsJSON.get("VTRID")+ "'  "
+									+ ") ";
 					
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
-			if(rowCount > 0){
-				query = "delete from `vrumt`"
+			//if(rowCount > 0){
+				query = "delete from `vtrdt`"
 						+ " where "
-						+ " `VRMID` = '"+detailsJSON.get("VRMID")+ "' and ENTID not in ( select ENTID from `vtrdt` where ENTID in  "
-								+ " ( select ENTID from `vrumt` where  `VRMID` = '"+detailsJSON.get("VRMID")+ "'  )"
-										+ ") ";
+						+ " `VTRID` = '"+detailsJSON.get("VTRID")+ "'  ";
 						
 				System.out.println(query);
 				rowCount=dbcon.stm.executeUpdate(query);
@@ -85,10 +85,10 @@ public class Rule1Command extends aimCommand {
 					//TODO: Consider Raising Error
 					return new JSONObject(details);
 				}
-			}else{
-				//TODO: Consider Raising Error
-				return new JSONObject(details);
-			}
+//			}else{
+//				//TODO: Consider Raising Error
+//				return new JSONObject(details);
+//			}
 			
 			
 
@@ -478,32 +478,46 @@ public class Rule1Command extends aimCommand {
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
 			if(rowCount > 0){
-				
-				query = "INSERT INTO `bookingdb`.`vrumt`( `RULID`,`CRTDT`, `CRTBY`, `ETYID`, "
-						+ " `ETCID`, `ENTID`, `UTYID`, `USRID`, `ACTIV`, `CHNDT`, `CHNBY`) "
-						+ "VALUES "
-						+ " ("
-						+ "'"+detailsJSON.get("RULID")+ "',"
-						+ "'"+detailsJSON.get("CRTDT")+ "',"
-						+ "'"+detailsJSON.get("CRTBY")+ "',"		
-						
-						+ "'"+detailsJSON.get("ETYID")+ "'," 
-						+ "'"+detailsJSON.get("ETCID")+ "'," 
-						+ "'"+detailsJSON.get("ENTID")+ "'," 
-						
-						
-
-						+ "'"+detailsJSON.get("UTYID")+ "',"
-						+ "'"+detailsJSON.get("USRID")+ "',"
-						
-						
-						+ "'"+detailsJSON.get("ACTIV")+ "',"
-						
-						+ "'"+detailsJSON.get("CHNDT")+ "',"
-						+ "'"+detailsJSON.get("CHNBY")+ "')";
+				query = "UPDATE `vrumt`"
+						+ " SET  "
+						+ " `CHNDT` = '"+detailsJSON.get("CHNDT")+ "', "
+						+ " `CHNBY` = '"+detailsJSON.get("CHNBY")+ "' "
+						+ " where "
+						+ " `USRID` = '"+detailsJSON.get("USRID")+ "' and"
+						+ " `UTYID` = '"+detailsJSON.get("UTYID")+ "' and "
+						+ " `ENTID` = '"+detailsJSON.get("ENTID")+ "' and "
+						+ " `ETCID` ='"+detailsJSON.get("ETCID")+ "' and"
+						+ " `ETYID` = '"+detailsJSON.get("ETYID")+ "' ";
 						
 				System.out.println(query);
 				rowCount=dbcon.stm.executeUpdate(query);
+				if(rowCount<=0){
+					query = "INSERT INTO `bookingdb`.`vrumt`( `RULID`,`CRTDT`, `CRTBY`, `ETYID`, "
+							+ " `ETCID`, `ENTID`, `UTYID`, `USRID`, `ACTIV`, `CHNDT`, `CHNBY`) "
+							+ "VALUES "
+							+ " ("
+							+ "'"+detailsJSON.get("RULID")+ "',"
+							+ "'"+detailsJSON.get("CRTDT")+ "',"
+							+ "'"+detailsJSON.get("CRTBY")+ "',"		
+							
+							+ "'"+detailsJSON.get("ETYID")+ "'," 
+							+ "'"+detailsJSON.get("ETCID")+ "'," 
+							+ "'"+detailsJSON.get("ENTID")+ "'," 
+							
+							
+	
+							+ "'"+detailsJSON.get("UTYID")+ "',"
+							+ "'"+detailsJSON.get("USRID")+ "',"
+							
+							
+							+ "'"+detailsJSON.get("ACTIV")+ "',"
+							
+							+ "'"+detailsJSON.get("CHNDT")+ "',"
+							+ "'"+detailsJSON.get("CHNBY")+ "')";
+							
+					System.out.println(query);
+					rowCount=dbcon.stm.executeUpdate(query);
+				}
 				if(rowCount > 0){
 					return detailsJSON;
 				}else{
