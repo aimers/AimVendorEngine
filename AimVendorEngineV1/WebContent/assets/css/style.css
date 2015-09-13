@@ -12,6 +12,10 @@ margin-top: 0.35rem;
 	background-image: none !important;
 }
 
+.sapMPageBgSolid{
+	background:none !important;
+}
+
 .sapMShellGlobalInnerBackground, .sapUiBodyBackground, .sapUiBody,
 	.sapUiUfdShellBackground, .sapUshellShellBackground,
 	.sapMGlobalBackgroundColor, .sapUiUfdShellCurtain {
@@ -116,6 +120,11 @@ margin-top: 0.35rem;
 	background: #4ECDC4 !important;
 }
 /*Button*/
+
+.sapMComboBoxBasePressed .sapMComboBoxBaseArrow, .sap-desktop .sapMComboBoxBasePressed .sapMComboBoxBaseArrow:hover{
+	
+    background: #4ECDC4 !important;
+}
 .sapMBtnTransparent{
 	color:#4ECDC4 !important;
 }

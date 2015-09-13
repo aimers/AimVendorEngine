@@ -72,7 +72,7 @@ sap.ui.core.mvc.Controller
       var oView = _this.getView();
       var param = {
        "USRID" : _this.oLoginDetails.USRID,
-       "RULID" : _this.oModel.getProperty(sPath + "/RULID"),//Now hard coded in query as RULID in (1,2,3)
+       "RULID" : '"1","2"',//Now hard coded in query as RULID in (1,2,3)
        "ETYID" : _this.oModel.getProperty(sPath + "/ETYID"),
        "ETCID" : _this.oModel.getProperty(sPath + "/ETCID"),
        "ENTID" : oView.byId("entitySelect").getSelectedKey(),

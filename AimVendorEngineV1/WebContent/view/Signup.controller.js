@@ -59,6 +59,7 @@ sap.ui
         if (!oData.results.USRID) {
          _this.oView.byId("MessageBox").setVisible(true);
          _this.oView.byId("MessageBox").setText("User cannot be registered");
+         sap.ui.medApp.global.busyDialog.close();
         } else {
          _this.oView.byId("MessageBox").setVisible(false);
          sessionStorage.setItem("medAppUID", oData.results.USRID);
