@@ -315,6 +315,7 @@ public class VendorCommand extends aimCommand {
 				" `vtrdt`.`DESCR` "+
 				" FROM `vtrdt` where `vtrdt`.`USRID` = \""+userid+"\" and ";
 			if(rulid.contains(",")){
+				rulid = rulid.replaceAll("'", "");
 				query = query + " `vtrdt`.`RULID` in ( "+rulid+" ) and";
 			}else{
 				query = query + " `vtrdt`.`RULID` = \""+rulid+"\" and ";
