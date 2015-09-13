@@ -9,21 +9,19 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleDetails", {
  // onRouteMatched
  // ******************************************
  onRouteMatched : function(oEvent) {
-  this.oModel = sap.ui.medApp.global.util.getHomeModel();
-  this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
   var oView = this.getView();
+  this.oModel = sap.ui.medApp.global.util.getHomeModel();
+  oView.setModel(this.oModel);
+  this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
+
   if (oEvent.getParameter("name") === "ruledetails") {
    this.sRulePath = "/vendorRulesDefn/ruleDefinitions/"
      + oEvent.getParameter("arguments").rule;
    oView.setModel(this.oModel);
    oView.byId("rulesForm").bindElement(this.sRulePath);
-
    this.RuleId = this.oModel.getProperty(this.sRulePath).RULID;
    this.VtrId = this.oModel.getProperty(this.sRulePath).VTRID;
    this.VrmId = this.oModel.getProperty(this.sRulePath).VRMID;
-   
-   
-
    if (!this.oModel.getProperty("/vendorsCategory")) {
     var fnSuccess = function() {
      sap.ui.medApp.global.busyDialog.close();

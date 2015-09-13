@@ -72,7 +72,93 @@
      this._executeAjax(sServicePath, fnSuccess, fnError, "GET", oPayload,
        sModelDataFileName);
     },
+    
+    _sendS : function(sServicePath, fnSuccess, fnError, oData,
+      sModelDataFileName) {
+     var oPayload = {};
+     this._executeAjaxS(sServicePath, fnSuccess, fnError, "GET", oPayload,
+       sModelDataFileName);
+    },
 
+    
+    _executeAjaxS : function(sServicePath, fnSuccess, fnError, sRequetstType,
+      oPayload, bNoAbort, fnBeforeSend) {
+     var oAjax, that;
+     // abort the pending service if required.
+     if (!bNoAbort) {
+      this.cancelPendingRequestForServicePath(sServicePath);
+     }
+
+     var sMyRequestType = sRequetstType || "GET";
+
+     // Check if payload was set and change it to a string values
+     var sPayload = "";
+     if (oPayload !== null) {
+      sPayload = JSON.stringify(oPayload);
+     }
+
+     $.sap.log.debug("Requesting service path '" + sServicePath + "'");
+     var sAjaxUrl = sServicePath;
+     that = this;
+     $.sap.log.info("the request type is " + sRequetstType
+       + " and json payload is" + sPayload);
+     this._mRequestsByServicePathCache[sServicePath] = oAjax = $.ajax({// store
+      // ajax
+      // request in
+      // request cache.
+      type : sMyRequestType,
+      contentType : "application/json",
+      url : sAjaxUrl,
+      data : sPayload,
+      dataType : "json",
+      beforeSend : fnBeforeSend,
+      async : false,
+      success : function(oData, textStatus, jqXHR) {
+       $.sap.log.debug("Success: The server send the following response: "
+         + JSON.stringify(oData));
+
+       // Call nested function
+       if (fnSuccess) {
+        fnSuccess(oData);
+       }
+
+       // Reset request cache
+       that._mRequestsByServicePathCache[sServicePath] = null;
+      },
+      error : function(XMLHttpRequest, textStatus, errorThrown) {
+       if (textStatus == 'abort') {
+        // The request has been aborted, probably by the facade because a
+        // new
+        // request to the same URL has been triggered, so we
+        // don't need to do anything.
+        $.sap.log.debug("Request to service path '" + sServicePath
+          + "' aborted");
+       } else {
+        $.sap.log.fatal("Error: The following problem occurred: " + textStatus,
+          XMLHttpRequest.responseText + "," + XMLHttpRequest.status + ","
+            + XMLHttpRequest.statusText);
+
+        // Call nested function
+        if (fnError) {
+         fnError(XMLHttpRequest, textStatus, errorThrown);
+        }
+       }
+
+       // Reset request cache
+       that._mRequestsByServicePathCache[sServicePath] = null;
+      }
+
+     }, this);
+
+     if (sAjaxUrl !== undefined) {
+      $.sap.log.debug("Request send to URL: " + sAjaxUrl);
+     }
+
+     return oAjax;
+    },
+    
+    
+    
     _executeAjax : function(sServicePath, fnSuccess, fnError, sRequetstType,
       oPayload, bNoAbort, fnBeforeSend) {
      var oAjax, that;

@@ -3,13 +3,15 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.PersonalInfo", {
  // onInit
  // ******************************************
  onInit : function() {
-  this.oModel = sap.ui.medApp.global.util.getHomeModel();
+
   sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
     this.onRouteMatched, this);
  },
  // onRouteMatched
  // ******************************************
  onRouteMatched : function(oEvent) {
+  this.oModel = sap.ui.medApp.global.util.getHomeModel();
+  this.getView().setModel(this.oModel);
   this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
  },
  // handleSave

@@ -2,7 +2,8 @@ jQuery.sap.declare("sap.ui.medApp.global.util");
 jQuery.sap.require("sap.ui.medApp.service.vendorListServiceFacade");
 sap.ui.medApp.global.util = { // Get Home Model
  // ******************************************
- getHomeModel : function(_oRouter) {
+ getHomeModel : function() {
+  
   if (!this._mainModel) {
    var _this = this;
    this._mainModel = new sap.ui.model.json.JSONModel();
@@ -31,7 +32,7 @@ sap.ui.medApp.global.util = { // Get Home Model
   var bool;
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
-  this._vendorListServiceFacade.updateParameters(param, fnSuccess, null,
+  this._vendorListServiceFacade.updateParametersS(param, fnSuccess, null,
     "loginUser");
  },
  // Get Main Model
@@ -349,5 +350,8 @@ sap.ui.medApp.global.util = { // Get Home Model
     this._mainModel);
   this._vendorListServiceFacade.getRecords(fnSuccess, fnError, null,
     "deleteRule", param);
+ },
+ resetModel:function(){
+  this._mainModel = undefined;
  }
 }

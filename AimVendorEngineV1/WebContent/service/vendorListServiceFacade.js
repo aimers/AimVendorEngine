@@ -65,6 +65,22 @@
               this._send(sServicePath, fnSuccess, fnError, [ {} ],
                   sModelDataFileName);
             },
+            updateParametersS : function(param, fnSuccess, fnError, fnPath) {
+             // Set service path
+             var sServicePath;
+             var paramString = this.convertParamToString(param);
+             if (medApp.global.config.applicationMode) {
+               sServicePath = encodeURI(medApp.global.config.endPoint.vendorData
+                   + fnPath + "&" + paramString);
+             } else {
+               return false;
+             }
+
+             // Set test data file name
+             var sModelDataFileName = "userDetail.json";
+             this._sendS(sServicePath, fnSuccess, fnError, [ {} ],
+                 sModelDataFileName);
+           },
             getThirdPartyData : function(param, fnSuccess, fnError, fnPath) {
               var sServicePath;
               sServicePath = encodeURI(fnPath);

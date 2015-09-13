@@ -15,6 +15,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
   var oList = this.getView().byId("ruleList");
   var oArguments = oEvent.getParameter("arguments");
   var sName = oEvent.getParameter("name");
+
   if (sName === "rules") {
    this._bindViewModel();
    this._selectFirstRule();
@@ -25,11 +26,14 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
  _selectFirstRule : function() {
   if (!sap.ui.Device.system.phone) {
    var oList = this.getView().byId("ruleList");
-   var aItems = oList.getItems();
-   if ((aItems.length && !oList.getSelectedItem()) || aItems.length === 1) {
-    oList.setSelectedItem(aItems[0]);
-    this._showRuleDetails(aItems[0]);
+   if (oList) {
+    var aItems = oList.getItems();
+    if ((aItems.length && !oList.getSelectedItem()) || aItems.length === 1) {
+     oList.setSelectedItem(aItems[0]);
+     this._showRuleDetails(aItems[0]);
+    }
    }
+
   }
  },
  // _showRuleDetails

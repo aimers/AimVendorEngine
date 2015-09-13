@@ -3,8 +3,7 @@ sap.ui
     "sap.ui.medApp.view.Signup",
     {
      onInit : function() {
-      this.oModel = sap.ui.medApp.global.util.getHomeModel();
-      sap.ui.medApp.global.util.loadListCategory();
+
       this.oView = this.getView();
       sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
         this.onRouteMatched, this);
@@ -12,19 +11,30 @@ sap.ui
      },
 
      onRouteMatched : function(oEvent) {
-      var oFname = this.oView.byId("fname");
-      var oLname = this.oView.byId("lname");
-      var oUsrNm = this.oView.byId("usrNme");
-      // var oPswd = this.oView.byId("pswd");
-      // var oCpwd = this.oView.byId("cpswd");
-      var oSpeciality = this.oView.byId("entitySelect");
+      if (oEvent.getParameter("name") === "signup") {
+       if (sap.ui.medApp.global.util._mainModel) {
+        this.oModel = sap.ui.medApp.global.util._mainModel;
+       } else {
+        sap.ui.medApp.global.util._mainModel = new sap.ui.model.json.JSONModel();
+        this.oModel = sap.ui.medApp.global.util._mainModel;
+       }
+       this.getView().setModel(this.oModel);
+       sap.ui.medApp.global.util.loadListCategory();
+       var oFname = this.oView.byId("fname");
+       var oLname = this.oView.byId("lname");
+       var oUsrNm = this.oView.byId("usrNme");
+       // var oPswd = this.oView.byId("pswd");
+       // var oCpwd = this.oView.byId("cpswd");
+       var oSpeciality = this.oView.byId("entitySelect");
 
-      oFname.setValueState(sap.ui.core.ValueState.None);
-      oLname.setValueState(sap.ui.core.ValueState.None);
-      oUsrNm.setValueState(sap.ui.core.ValueState.None);
-      // oPswd.setValueState(sap.ui.core.ValueState.None);
-      // oCpwd.setValueState(sap.ui.core.ValueState.None);
-      oSpeciality.setSelectedItem(oSpeciality.getFirstItem());
+       oFname.setValueState(sap.ui.core.ValueState.None);
+       oLname.setValueState(sap.ui.core.ValueState.None);
+       oUsrNm.setValueState(sap.ui.core.ValueState.None);
+       // oPswd.setValueState(sap.ui.core.ValueState.None);
+       // oCpwd.setValueState(sap.ui.core.ValueState.None);
+       oSpeciality.setSelectedItem(oSpeciality.getFirstItem());
+      }
+
      },
      onExit : function() {
 
@@ -65,11 +75,8 @@ sap.ui
          sessionStorage.setItem("medAppUID", oData.results.USRID);
          sessionStorage.setItem("medAppPWD", oData.results.UERPW);
          _this.oModel.setProperty("/LoggedUser", oData.results);
-
          _this.oModel.setProperty("/vendorsList", []);
-         _this.oModel.setProperty("/vendorsList/0", _this.oModel
-           .getProperty("/LoggedUser"));
-
+         _this.oModel.setProperty("/vendorsList/0", oData.results);
          _this.oModel.setProperty("/vendorsList/0/Address", [ {
           CTYID : "",
           CTYNM : "",
@@ -95,7 +102,9 @@ sap.ui
            .toString().trim());
          _this.oModel.setProperty("/vendorsList/0/LTNAM", oLname.getValue()
            .toString().trim());
-
+         _this.oModel.setProperty("/vendorsList/0/DSPNM", oFname.getValue()
+           .toString().trim()
+           + " " + oLname.getValue().toString().trim());
          var fnSuccess = function(oData) {
           sap.ui.medApp.global.busyDialog.close();
           _this._oRouter.navTo('home');

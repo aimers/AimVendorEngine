@@ -61,7 +61,7 @@ sap.ui.controller("sap.ui.medApp.view.App", {
     oHeadEndItems[item].setVisible(false);
    }
   }
-  if (bIsHomeRoute) {
+  if (bShowHederItems) {
    if (!sessionStorage.medAppUID) {
     this._naveToLogin();
     return false;
@@ -124,6 +124,9 @@ sap.ui.controller("sap.ui.medApp.view.App", {
   sessionStorage.removeItem("medAppUID");
   sessionStorage.removeItem("medAppPWD");
   this.oModel.setProperty("/LoggedUser", []);
+  //sap.ui.medApp.global.util.resetModel();
+
+  
   var bReplace = jQuery.device.is.phone ? false : true;
   this._oRouter.navTo('login');
  }

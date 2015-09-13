@@ -5,13 +5,15 @@ sap.ui.core.mvc.Controller
      // onInit
      // ******************************************
      onInit : function() {
-      this.oModel = sap.ui.medApp.global.util.getMainModel();
+     
       sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
         this.onRouteMatched, this);
      },
      // onRouteMatched
      // ******************************************
      onRouteMatched : function(oEvent) {
+      this.oModel = sap.ui.medApp.global.util.getMainModel();
+      this.getView().setModel(this.oModel);
       var _this = this;
       _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
       var sName = oEvent.getParameter("name");

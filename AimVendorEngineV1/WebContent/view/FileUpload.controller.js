@@ -6,7 +6,7 @@ sap.ui.core.mvc.Controller
      // onInit
      // ******************************************
      onInit : function() {
-      this.oModel = sap.ui.medApp.global.util.getHomeModel();
+
       sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
         this.onRouteMatched, this);
       this.oHtml = new sap.ui.core.HTML();
@@ -16,6 +16,8 @@ sap.ui.core.mvc.Controller
      // onRouteMatched
      // ******************************************
      onRouteMatched : function(oEvent) {
+      this.oModel = sap.ui.medApp.global.util.getMainModel();
+      this.getView().setModel(this.oModel);
       this.oLoginDetails = this.oModel.getProperty("/LoggedUser");
       var sName = oEvent.getParameter("name");
       if (sName = "images") {

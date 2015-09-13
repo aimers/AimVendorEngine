@@ -7,23 +7,26 @@ sap.ui
      onInit : function() {
       // getting Router
       this._oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-      this.router = sap.ui.core.UIComponent.getRouterFor(this);
       this.oView = this.getView();
-      if (sap.ui.medApp.global.util._mainModel) {
-       this.oModel = sap.ui.medApp.global.util._mainModel;
-      } else {
-       this.oModel = new sap.ui.model.json.JSONModel();
-      }
-      this.getView().setModel(this.oModel);
       this._oRouter.attachRoutePatternMatched(this._handleRouteMatched, this);
      },
      // _handleRouteMatched
      // ******************************************
-     _handleRouteMatched : function(evt) {
-      // if (sessionStorage.medAppUID) {
-      // this._oRouter.navTo('home');
-      // }
-      this.parameter = evt.getParameter("arguments");
+     _handleRouteMatched : function(oEvent) {
+      var sName = oEvent.getParameter("name");
+      if (sName === "login") {
+       if (sap.ui.medApp.global.util._mainModel) {
+        this.oModel = sap.ui.medApp.global.util._mainModel;
+       } else {
+        this.oModel = new sap.ui.model.json.JSONModel();
+       }
+       this.getView().setModel(this.oModel);
+       if (sessionStorage.medAppUID) {
+        sap.ui.medApp.global.util.getMainModel();
+        this._oRouter.navTo('home');
+       }
+      }
+
      },
      // handleLogin
      // ******************************************
@@ -50,24 +53,21 @@ sap.ui
         sessionStorage.setItem("medAppPWD", oData.results.UERPW);
         _this.oModel.setProperty("/LoggedUser", oData.results);
         var fnSuccess1 = function() {
-         if(!_this.oModel.getProperty("/vendorsList").length){
-          _this.oModel.setProperty("/vendorsList/0",_this.oModel.getProperty("/LoggedUser"));
-         }
          sap.ui.medApp.global.busyDialog.close();
+         _this._oRouter.navTo('home');
         };
         param = {
          "USRID" : _this.oModel.getProperty("/LoggedUser/USRID")
         };
         sap.ui.medApp.global.util.loadVendorFILTERData(param, fnSuccess1);
-        _this._oRouter.navTo('home');
        }
       };
 
       sap.ui.medApp.global.busyDialog.open();
       sap.ui.medApp.global.util.getLoginData(param, fnSuccess);
      },
-     
-     signupPress : function(oEvent){
+
+     signupPress : function(oEvent) {
       this._oRouter.navTo('signup');
      },
      // handleRegister

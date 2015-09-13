@@ -2,50 +2,35 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
  // onInit
  // ******************************************
  onInit : function() {
-  this.oModel = sap.ui.medApp.global.util.getHomeModel();
   sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
     this.onRouteMatched, this);
  },
  // onRouteMatched
  // ******************************************
  onRouteMatched : function(oEvent) {
+  this.oModel = sap.ui.medApp.global.util.getHomeModel();
+  this.getView().setModel(this.oModel);
   var _this = this;
   _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
   if (oEvent.getParameter("name") === "profile") {
-   var fnSuccess = function() {
-    if(!_this.oModel.getProperty("/vendorsList").length){
-     _this.oModel.setProperty("/vendorsList/0",_this.oModel.getProperty("/LoggedUser"));
-    }
-    
-    if (!_this.oModel.getProperty("/vendorsCategory")) {
-     var fnSuccess1 = function(oData) {
-      _this.oModel.setProperty("/vendorsList/0/Entities", _this.oModel
-        .getProperty("/vendorsCategory"));
-      sap.ui.medApp.global.busyDialog.close();
-     };
-     var param = [ {
-      "key" : "INTENT",
-      "value" : "1"
-     }, {
-      "key" : "UID",
-      "value" : _this.oLoginDetails.USRID.toString()
-     } ];
-     sap.ui.medApp.global.busyDialog.open();
-     sap.ui.medApp.global.util.loadVendorCategory(param, fnSuccess1);
-    }
-    sap.ui.medApp.global.busyDialog.close();
-    _this._selectItem();
-   };
-   sap.ui.medApp.global.busyDialog.open();
-   if (!_this.oModel.getProperty("/vendorsList")) {
-    param = {
-     "USRID" : _this.oLoginDetails.USRID
+   if (!_this.oModel.getProperty("/vendorsCategory")) {
+    var fnSuccess1 = function(oData) {
+     sap.ui.medApp.global.busyDialog.close();
+     _this._selectItem();
     };
-    sap.ui.medApp.global.util.loadVendorFILTERData(param, fnSuccess);
+    var param = [ {
+     "key" : "INTENT",
+     "value" : "1"
+    }, {
+     "key" : "UID",
+     "value" : _this.oLoginDetails.USRID.toString()
+    } ];
+    sap.ui.medApp.global.busyDialog.open();
+    sap.ui.medApp.global.util.loadVendorCategory(param, fnSuccess1);
    } else {
-    sap.ui.medApp.global.busyDialog.close();
     _this._selectItem();
    }
+
   }
  },
  // _selectItem
@@ -68,7 +53,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
      this._showSpeciality();
     } else if (oSelectedKey === "images") {
      this._showImages();
-    }else if (oSelectedKey === "changepwd") {
+    } else if (oSelectedKey === "changepwd") {
      this._showChangePassword();
     }
    }
@@ -90,7 +75,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
    this._showSpeciality();
   } else if (oSelectedKey === "images") {
    this._showImages();
-  }else if (oSelectedKey === "changepwd") {
+  } else if (oSelectedKey === "changepwd") {
    this._showChangePassword();
   }
  },
@@ -125,7 +110,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
  _showImages : function() {
   var bReplace = jQuery.device.is.phone ? false : true;
   sap.ui.core.UIComponent.getRouterFor(this).navTo("images", {}, bReplace);
- }, 
+ },
  // _showChangePassword
  // ******************************************
  _showChangePassword : function() {
