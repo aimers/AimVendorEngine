@@ -14,12 +14,27 @@ sap.ui.core.mvc.Controller
      // ******************************************
      onRouteMatched : function(oEvent) {
       var oView = this.getView();
-      oView.byId("daysCombo").setValueState(sap.ui.core.ValueState.None);
-      oView.byId("dtiOestl").setValueState(sap.ui.core.ValueState.None);
-      oView.byId("dtiOstsl").setValueState(sap.ui.core.ValueState.None);
-      oView.byId("dtiDetim").setValueState(sap.ui.core.ValueState.None);
-      oView.byId("dtiDstim").setValueState(sap.ui.core.ValueState.None);
-      oView.byId("ipDescr").setValueState(sap.ui.core.ValueState.None);
+      var oDays = oView.byId("daysCombo");
+      var oOestl = oView.byId("dtiOestl");
+      var oOstsl = oView.byId("dtiOstsl");
+      var oDetim = oView.byId("dtiDetim");
+      var oDstim = oView.byId("dtiDstim");
+      var oDescr = oView.byId("ipDescr");
+
+      oDays.setValueState(sap.ui.core.ValueState.None);
+      oOstsl.setValueState(sap.ui.core.ValueState.None);
+      oOestl.setValueState(sap.ui.core.ValueState.None);
+      oDetim.setValueState(sap.ui.core.ValueState.None);
+      oDstim.setValueState(sap.ui.core.ValueState.None);
+      oDescr.setValueState(sap.ui.core.ValueState.None);
+
+      oDays.setSelectedKeys([]);
+      oOstsl.setValue("");
+      oOestl.setValue("");
+      oDetim.setValue("");
+      oDstim.setValue("");
+      oDescr.setValue("");
+
       var _this = this;
       _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
       if (oEvent.getParameter("name") === "addrule") {
