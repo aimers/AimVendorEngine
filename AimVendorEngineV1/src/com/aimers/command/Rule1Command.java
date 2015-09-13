@@ -73,7 +73,9 @@ public class Rule1Command extends aimCommand {
 			if(rowCount > 0){
 				query = "delete from `vrumt`"
 						+ " where "
-						+ " `VRMID` = '"+detailsJSON.get("VRMID")+ "'  ";
+						+ " `VRMID` = '"+detailsJSON.get("VRMID")+ "' and ENTID not in ( select ENTID from `vtrdt` where ENTID in  "
+								+ " ( select ENTID from `vrumt` where  `VRMID` = '"+detailsJSON.get("VRMID")+ "'  )"
+										+ ") ";
 						
 				System.out.println(query);
 				rowCount=dbcon.stm.executeUpdate(query);
