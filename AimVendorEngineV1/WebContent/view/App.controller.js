@@ -35,7 +35,7 @@ sap.ui.controller("sap.ui.medApp.view.App", {
   var scope = oEvent.getParameter("config").name;
   var showHeaderItemsRoutes = [ "home", "bookinghome", "bookings",
     "detailshome", "speciality", "profile", "characteristics", "personalinfo",
-    "address", "rules", "ruledetails", "addrule", "images" ];
+    "address", "rules", "ruledetails", "addrule", "images", "changepwd" ];
   var fullWidthRoutes = [ "login", "signup", "forgetpassword" ];
   var bIsFullWidthRoute = (jQuery.inArray(scope, fullWidthRoutes) >= 0);
   var bShowHederItems = (jQuery.inArray(scope, showHeaderItemsRoutes) >= 0);

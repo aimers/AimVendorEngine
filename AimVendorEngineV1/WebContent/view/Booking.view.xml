@@ -22,7 +22,7 @@
 						<Title id="dateTitle" level="H2" />
 						<ToolbarSpacer></ToolbarSpacer>
 						<Select change="handleEntityChange" id="entitySelect"
-							items="{path: '/vendorsList/0/Rules',sorter:{path:'ENTID'}}">
+							items="{ path: '/vendorsCategory',sorter:{path:'ENTID'}}">
 							<c:Item key="{ENTID}" text="{DESCR}" />
 						</Select>
 					</Toolbar>
@@ -34,9 +34,7 @@
 							<l:Grid defaultSpan="L12 M12 S12" class="bookingGrid"
 								content="{path: 'BOOKINGS'}">
 								<l:content>
-									<Button
-										text="{TITLE} {FRNAM} {LTNAM} - {USRNM}"
-										press="handlePatientViewPress"
+									<Button text="{TITLE} {FRNAM} {LTNAM} - {USRNM}" press="handlePatientViewPress"
 										type="{path: 'STATS', formatter:'sap.ui.medApp.formatter.formatHelper.getButtonType'}"
 										width="100%" />
 								</l:content>

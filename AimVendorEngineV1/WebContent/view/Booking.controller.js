@@ -19,40 +19,40 @@ sap.ui.core.mvc.Controller
      // onRouteMatched
      // ******************************************
      onRouteMatched : function(oEvent) {
-      var _this = this;
-      _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
-      _this.AddAppointmentUser = "";
-      var oView = _this.getView();
-      if (oEvent.getParameter("name") === "bookings") {
-       sap.ui.medApp.global.busyDialog.open();
+
+      var sName = oEvent.getParameter("name");
+      if (sName === "bookings") {
+       var _this = this;
        _this.oDate = oEvent.getParameter("arguments").date;
-       oView.byId("dateTitle").setText(_this.oDate);
-       var fnSuccess = function(oData) {
-        if (!_this.oModel.getProperty("/vendorsList").length) {
-         _this.oModel.setProperty("/vendorsList/0", _this.oModel
-           .getProperty("/LoggedUser"));
-        }
-        oView.setModel(_this.oModel);
+       var oView = _this.getView();
+       _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
+       var fnSuccess = function() {
+        _this.getView().setModel(_this.oModel);
+        _this.AddAppointmentUser = "";
+
+        oView.byId("dateTitle").setText(_this.oDate);
         _this.oEntities = oView.byId("entitySelect");
         var oSeletedItem = _this.oEntities.getSelectedItem();
         if (!oSeletedItem) {
          _this.oEntities.setSelectedItem(_this.oEntities.getFirstItem());
          oSeletedItem = _this.oEntities.getFirstItem();
         }
-        if (oSeletedItem) {
-         var sPath = oSeletedItem.getBindingContext().sPath;
-         _this._getVendorRules(sPath);
-        }
+        var sPath = oSeletedItem.getBindingContext().sPath;
+        _this._getVendorRules(sPath);
         oView.setModel(_this.oModel);
-        sap.ui.medApp.global.busyDialog.close();
        }
-       param = {
-        "USRID" : _this.oLoginDetails.USRID.toString()
-       };
-       sap.ui.medApp.global.util.loadVendorFILTERData(param, fnSuccess);
+       var param = [ {
+        "key" : "INTENT",
+        "value" : "1"
+       }, {
+        "key" : "UID",
+        "value" : _this.oLoginDetails.USRID.toString()
+       } ];
+       sap.ui.medApp.global.util.loadVendorCategory(param, fnSuccess);
       }
+
      },
-     // onRouteMatched
+     // _getVendorBookingHistory
      // ******************************************
      _getVendorBookingHistory : function(fnSuccess) {
       var param = [ {
@@ -65,14 +65,14 @@ sap.ui.core.mvc.Controller
       } ];
       sap.ui.medApp.global.util.loadVendorBookingHistory(param, fnSuccess);
      },
-     // onRouteMatched
+     // _getVendorRules
      // ******************************************
      _getVendorRules : function(sPath) {
       var _this = this;
       var oView = _this.getView();
       var param = {
        "USRID" : _this.oLoginDetails.USRID,
-       "RULID" : _this.oModel.getProperty(sPath + "/RULID"),
+       "RULID" : _this.oModel.getProperty(sPath + "/RULID"),//Now hard coded in query as RULID in (1,2,3)
        "ETYID" : _this.oModel.getProperty(sPath + "/ETYID"),
        "ETCID" : _this.oModel.getProperty(sPath + "/ETCID"),
        "ENTID" : oView.byId("entitySelect").getSelectedKey(),
@@ -160,6 +160,7 @@ sap.ui.core.mvc.Controller
           return {
            START : item.START,
            END : item.END,
+           RULID: item.RULID,
            BOOKINGS : aBookings
           };
          });
@@ -311,7 +312,7 @@ sap.ui.core.mvc.Controller
                    "ETYID" : entityData.ETYID.toString(),
                    "ETCID" : entityData.ETCID.toString(),
                    "ENTID" : entityData.ENTID.toString(),
-                   "RULID" : entityData.RULID.toString(),
+                   "RULID" : _this.oBookingData.RULID.toString(),
                    "VSEML" : _this.oLoginDetails.USRNM,
                    "BDTIM" : oDate,
                    "BTIMZ" : "IST",
@@ -376,7 +377,7 @@ sap.ui.core.mvc.Controller
                     "ETYID" : entityData.ETYID.toString(),
                     "ETCID" : entityData.ETCID.toString(),
                     "ENTID" : entityData.ENTID.toString(),
-                    "RULID" : entityData.RULID.toString(),
+                    "RULID" : _this.oBookingData.RULID.toString(),
                     "VSEML" : _this.oLoginDetails.USRNM,
                     "BDTIM" : oDate,
                     "BTIMZ" : "IST",

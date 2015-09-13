@@ -112,6 +112,7 @@ public class Convertor {
 							JSONObject slot = new JSONObject();
 							
 							slot.put("START", timeformat.format(startTime));
+							slot.put("RULID",  rule.get("RULID"));
 							
 							long newTime = startTime.getTime() + milDiffSlot;
 							startTime.setTime(newTime);

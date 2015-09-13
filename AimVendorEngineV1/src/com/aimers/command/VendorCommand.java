@@ -314,7 +314,8 @@ public class VendorCommand extends aimCommand {
 				" `vtrdt`.`DAYS`, "+
 				" `vtrdt`.`DESCR` "+
 				" FROM `vtrdt` where `vtrdt`.`USRID` = \""+userid+"\" and "
-				+ " `vtrdt`.`RULID` = \""+rulid+"\" and "
+				//+ " `vtrdt`.`RULID` = \""+rulid+"\" and "
+				+ " `vtrdt`.`RULID` in ('1','2','3') and "
 				+ " `vtrdt`.`ETYID` = \""+etyid+"\" ";
 
 		if(!etcid.equals("null")){
@@ -358,6 +359,7 @@ public class VendorCommand extends aimCommand {
 			for(int rIndex=0;rIndex<timeSlots.length();rIndex++){
 				JSONObject record = ((JSONObject) timeSlots.get(rIndex));
 				record.put("BookingExists", false);
+				
 				JSONArray timeSlotsArray = 	(JSONArray) record.get("TimeSlots");
 				for(int tIndex=0;tIndex<timeSlotsArray.length();tIndex++){
 					JSONObject tSlot = ((JSONObject) timeSlotsArray.get(tIndex));

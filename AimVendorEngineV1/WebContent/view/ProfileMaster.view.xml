@@ -10,6 +10,7 @@
 				<core:Item key="address" text="Address" />
 				<core:Item key="speciality" text="Specialities" />
 				<core:Item key="images" text="Images" />
+				<core:Item key="changepwd" text="Change Password" />
 			</SelectList>
 		</content>
 		<footer>

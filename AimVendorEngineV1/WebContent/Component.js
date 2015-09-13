@@ -100,6 +100,13 @@ sap.ui.core.UIComponent.extend("sap.ui.medApp.Component", {
      viewLevel : 1,
      targetAggregation : "detailPages",
      targetControl : "idSplitAppControl"
+    },{
+     pattern : "profile/changepwd",
+     name : "changepwd",
+     view : "ChangePassword",
+     viewLevel : 1,
+     targetAggregation : "detailPages",
+     targetControl : "idSplitAppControl"
     } ]
    }, {
     pattern : "rules/:ruleid:",
@@ -122,12 +129,6 @@ sap.ui.core.UIComponent.extend("sap.ui.medApp.Component", {
      targetAggregation : "detailPages",
      targetControl : "idSplitAppControl"
     } ]
-   }, {
-    pattern : "signup",
-    name : "_Signup",
-    view : "Signup",
-    targetAggregation : "pages",
-    targetControl : "idAppControl"
    } ]
   }
  },

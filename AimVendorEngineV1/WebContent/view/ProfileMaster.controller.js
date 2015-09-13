@@ -51,6 +51,8 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
      this._showSpeciality();
     } else if (oSelectedKey === "images") {
      this._showImages();
+    }else if (oSelectedKey === "changepwd") {
+     this._showChangePassword();
     }
    }
 
@@ -71,6 +73,8 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
    this._showSpeciality();
   } else if (oSelectedKey === "images") {
    this._showImages();
+  }else if (oSelectedKey === "changepwd") {
+   this._showChangePassword();
   }
  },
  // _showPersonalInfo
@@ -104,6 +108,12 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
  _showImages : function() {
   var bReplace = jQuery.device.is.phone ? false : true;
   sap.ui.core.UIComponent.getRouterFor(this).navTo("images", {}, bReplace);
+ }, 
+ // _showChangePassword
+ // ******************************************
+ _showChangePassword : function() {
+  var bReplace = jQuery.device.is.phone ? false : true;
+  sap.ui.core.UIComponent.getRouterFor(this).navTo("changepwd", {}, bReplace);
  },
  // navBack
  // ******************************************
