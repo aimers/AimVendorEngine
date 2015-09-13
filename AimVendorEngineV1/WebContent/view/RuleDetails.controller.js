@@ -20,6 +20,9 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleDetails", {
 
    this.RuleId = this.oModel.getProperty(this.sRulePath).RULID;
    this.VtrId = this.oModel.getProperty(this.sRulePath).VTRID;
+   this.VrmId = this.oModel.getProperty(this.sRulePath).VRMID;
+   
+   
 
    if (!this.oModel.getProperty("/vendorsCategory")) {
     var fnSuccess = function() {
@@ -88,7 +91,8 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleDetails", {
     "ENTID" : data.ENTID.toString(),
     "USRID" : data.USRID.toString(),
     "ETCID" : data.ETCID.toString(),
-    "DESCR" : data.DESCR.toString()
+    "DESCR" : data.DESCR.toString(),
+    "VRMID" : this.VrmId
    }
   } ];
   var fnSuccess = function(oData) {
@@ -139,7 +143,8 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleDetails", {
    "key" : "details",
    "value" : {
     "RULID" : this.RuleId.toString(),
-    "VTRID" : this.VtrId.toString()
+    "VTRID" : this.VtrId.toString(),
+    "VRMID" : this.VrmId.toString()
    }
   } ];
   var fnSuccess = function(oData) {
