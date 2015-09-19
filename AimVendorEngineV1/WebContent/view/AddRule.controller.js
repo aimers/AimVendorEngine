@@ -55,8 +55,9 @@ sap.ui.core.mvc.Controller
         "DESCR" : ""
        };
        _this.oModel.setProperty("/newRule", oData);
-       _this.oModel.setProperty("/newRule/RULID", _this.getView().byId(
-         "ruleType").getSelectedKey());
+       // _this.oModel.setProperty("/newRule/RULID", _this.getView().byId(
+       // "ruleType").getSelectedKey());
+       _this.oModel.setProperty("/newRule/RULID", "1");
        var fnSuccess = function() {
         _this.getView().setModel(_this.oModel);
         _this._onEntitySelection(_this.getView().byId("entitySelect")
@@ -177,6 +178,11 @@ sap.ui.core.mvc.Controller
          + "/ETCID"));
       }
      },
+     // handleDaysSelectionChange
+     // ******************************************
+     handleDaysSelectionChange : function(oEvent) {
+
+     },
      // handleDaysSelectionFinish
      // ******************************************
      handleDaysSelectionFinish : function(oEvent) {
@@ -198,9 +204,7 @@ sap.ui.core.mvc.Controller
            && RuleDefn[r].ENTID == oSelectedItem.getKey()) {
           bMatch = true;
           oTxt = oSelectedItem.getText();
-          var arr = new Array();
-          arr.push(temp[t]);
-          oSource.removeSelectedKeys(arr);
+          oSource.removeSelectedKeys([temp[t]]);
           break;
          }
         }

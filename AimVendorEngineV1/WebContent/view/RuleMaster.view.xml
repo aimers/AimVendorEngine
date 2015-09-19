@@ -9,12 +9,12 @@
 				<headerToolbar>
 					<Toolbar>
 						<ToolbarSpacer />
-						<Button icon="sap-icon://filter" press="handleFilterPress" />
+						<Button visible="false" icon="sap-icon://filter" press="handleFilterPress" />
 					</Toolbar>
 				</headerToolbar>
 				<infoToolbar>
 					<Toolbar active="true" press="handleInfobarPress">
-						<Label id="lblRuleTyp" text="Auto Approval" />
+						<Label id="lblRuleTyp" text="List of Rules" />
 					</Toolbar>
 				</infoToolbar>
 				<items>

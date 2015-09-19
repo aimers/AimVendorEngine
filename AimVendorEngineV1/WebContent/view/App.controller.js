@@ -19,6 +19,7 @@ sap.ui.controller("sap.ui.medApp.view.App", {
   this.oLoadingDialog = sap.ui.getCore().byId("loadingDialog");
   bus.subscribe("nav", "back", this.navHandler, this);
   jQuery(".loader").remove();
+  $("#medApp--myShell-header-hdr-end").css("display", "none");
  },
  // navHandler
  // ******************************************
@@ -123,10 +124,9 @@ sap.ui.controller("sap.ui.medApp.view.App", {
  logout : function(evt) {
   sessionStorage.removeItem("medAppUID");
   sessionStorage.removeItem("medAppPWD");
-  this.oModel.setProperty("/LoggedUser", []);
-  //sap.ui.medApp.global.util.resetModel();
-
-  
+  this.oModel.setData([]);
+  // sap.ui.medApp.global.util.resetModel();
+  $("#medApp--myShell-header-hdr-end").css("display", "none");
   var bReplace = jQuery.device.is.phone ? false : true;
   this._oRouter.navTo('login');
  }

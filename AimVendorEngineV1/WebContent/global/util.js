@@ -126,6 +126,7 @@ sap.ui.medApp.global.util = { // Get Home Model
   this._vendorListServiceFacade.getRecords(fnSuccess, null, "/vendorsList",
     "getVendorData", param);
  },
+
  // Handle Booking
  // ******************************************
  handleBooking : function(oEvent, oRouter) {

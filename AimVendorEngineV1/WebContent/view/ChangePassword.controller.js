@@ -27,7 +27,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ChangePassword",
        .toString());
      var fnSuccess = function(oData) {
       sap.ui.medApp.global.busyDialog.close();
-      sap.m.MessageToast.show("Password changed");
+      sap.m.MessageToast.show("User information saved");
      };
      sap.ui.medApp.global.busyDialog.open();
      sap.ui.medApp.global.util.updateUserDetails(fnSuccess);

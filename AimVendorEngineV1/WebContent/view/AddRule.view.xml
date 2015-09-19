@@ -13,35 +13,32 @@
 						<f:content>
 							<core:Title text="Rule Details"></core:Title>
 							<Label text="Speciality" />
-							<Select id="entitySelect" items="{ path: '/vendorsCategory'}" change="onEntitySelect"
-								selectedKey="{ENTID}">
+							<Select id="entitySelect" items="{ path: '/vendorsCategory'}"
+								change="onEntitySelect" selectedKey="{ENTID}">
 								<core:Item key="{ENTID}" text="{DESCR}" />
 							</Select>
 							<Label text="Rule Name" />
-							<Input id="ipDescr" 
-								valueStateText="Description is required" value="{/newRule/DESCR}" />
+							<Input id="ipDescr" valueStateText="Description is required"
+								value="{/newRule/DESCR}" />
 							<Label text="Day Start Time" />
 
-							<DateTimeInput type="Time" id="dtiDstim"
-								 change="onChangeDSTIMTime"
+							<DateTimeInput type="Time" id="dtiDstim" change="onChangeDSTIMTime"
 								valueStateText="Day start time is required" />
 
 							<Label text="Day End Time" />
-							<DateTimeInput type="Time" id="dtiDetim"
-								 change="onChangeDETIMTime"
+							<DateTimeInput type="Time" id="dtiDetim" change="onChangeDETIMTime"
 								valueStateText="Day end time is required" />
 
 							<Label text="Start Time Slot" />
-							<DateTimeInput type="Time" id="dtiOstsl"
-								 change="onChangeOSTSLTime"
+							<DateTimeInput type="Time" id="dtiOstsl" change="onChangeOSTSLTime"
 								valueStateText="Time slot start time is required" />
 
 							<Label text="End Time Slot" />
-							<DateTimeInput type="Time" id="dtiOestl"
-								 change="onChangeOETSLTime"
+							<DateTimeInput type="Time" id="dtiOestl" change="onChangeOETSLTime"
 								valueStateText="Time slot end time is required" />
 							<Label text="Days" />
-							<MultiComboBox id="daysCombo" selectionFinish="handleDaysSelectionFinish" valueStateText="Day(s) is required">
+							<MultiComboBox id="daysCombo" selectionChange="handleSelectionChange"
+								selectionFinish="handleDaysSelectionFinish" valueStateText="Day(s) is required">
 								<core:Item key="1" text="Monday" />
 								<core:Item key="2" text="Tuesday" />
 								<core:Item key="3" text="Wednesday" />
@@ -50,12 +47,9 @@
 								<core:Item key="6" text="Saturday" />
 								<core:Item key="7" text="Sunday" />
 							</MultiComboBox>
-							<Label text="Rule Type" />
-							<Select id="ruleType" change="handleRuleTypeSelection">
-								<core:Item key="1" text="Auto Approval" />
-								<core:Item key="2" text="Manual Approval" />
-								<core:Item key="3" text="Receieve Call" />
-							</Select>
+							<!-- <Label text="Rule Type" /> <Select id="ruleType" change="handleRuleTypeSelection"> 
+								<core:Item key="1" text="Auto Approval" /> <core:Item key="2" text="Manual 
+								Approval" /> <core:Item key="3" text="Receieve Call" /> </Select> -->
 						</f:content>
 					</f:SimpleForm>
 				</l:content>

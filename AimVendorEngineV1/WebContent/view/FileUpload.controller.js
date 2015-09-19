@@ -110,7 +110,7 @@ sap.ui.core.mvc.Controller
            } else {
             _this.fnSuccess = function(oData) {
              sap.ui.medApp.global.busyDialog.close();
-             sap.m.MessageToast.show("Images saved");
+             sap.m.MessageToast.show("User information saved");
 
             };
 

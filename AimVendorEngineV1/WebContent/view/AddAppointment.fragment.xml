@@ -7,18 +7,38 @@
 				labelSpanM="4" emptySpanL="1" emptySpanM="1" columnsL="1" columnsM="1">
 				<f:content>
 					<core:Title text="Add Appointment"></core:Title>
-					<Text id="MessageBox"  visible="false" class="errormessage"/>
+					<Text id="MessageBox" visible="false" class="errormessage" />
 					<Label text="User" />
-					<SegmentedButton selectedButton="sbExisting"
-						select="handleUserSelection">
+					<SegmentedButton id="userSelectButton"
+						selectedButton="sbExisting" select="handleUserSelection">
 						<Button text="Existing User" id="sbExisting" />
 						<Button id="sbNew" text="New User" />
 					</SegmentedButton>
-					<Label text="Username" />
-					<Input id="inputUserName" type="Text" placeholder="Enter username"
-						showSuggestion="true" suggest="userSuggestHandle"
-						suggestionItemSelected="userSelectedHandle">
-					</Input>
+					<VBox id="extUser">
+						<Label text="Username *" />
+						<Input id="inputExtMobile" type="Text" placeholder="Mobile as username"
+							showSuggestion="true" suggest="userSuggestHandle"
+							suggestionItemSelected="userSelectedHandle">
+						</Input>
+					</VBox>
+					<VBox id="newUser" visible="false">
+						<Label text="First Name *" />
+						<Input id="inputFname"></Input>
+						<Label text="Last Name *" />
+						<Input id="inputLname"></Input>
+						<Label text="Username *" />
+						<Select enabled="false">
+							<core:Item text="+91"></core:Item>
+							<layoutData>
+								<l:GridData span="L4 M4 S4" />
+							</layoutData>
+						</Select>
+						<Input id="inputUserName" placeholder="Mobile as username">
+							<layoutData>
+								<l:GridData span="L8 M8 S8" />
+							</layoutData>
+						</Input>
+					</VBox>
 				</f:content>
 			</f:SimpleForm>
 		</l:content>

@@ -19,38 +19,40 @@ sap.ui.core.mvc.Controller
      // onRouteMatched
      // ******************************************
      onRouteMatched : function(oEvent) {
-
       var sName = oEvent.getParameter("name");
       if (sName === "bookings") {
-       var _this = this;
-       _this.oDate = oEvent.getParameter("arguments").date;
-       var oView = _this.getView();
-       _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
-       var fnSuccess = function() {
-        _this.getView().setModel(_this.oModel);
-        _this.AddAppointmentUser = "";
-
-        oView.byId("dateTitle").setText(_this.oDate);
-        _this.oEntities = oView.byId("entitySelect");
-        var oSeletedItem = _this.oEntities.getSelectedItem();
-        if (!oSeletedItem) {
-         _this.oEntities.setSelectedItem(_this.oEntities.getFirstItem());
-         oSeletedItem = _this.oEntities.getFirstItem();
-        }
-        var sPath = oSeletedItem.getBindingContext().sPath;
-        _this._getVendorRules(sPath);
-        oView.setModel(_this.oModel);
-       }
-       var param = [ {
-        "key" : "INTENT",
-        "value" : "1"
-       }, {
-        "key" : "UID",
-        "value" : _this.oLoginDetails.USRID.toString()
-       } ];
-       sap.ui.medApp.global.util.loadVendorCategory(param, fnSuccess);
+       this.oDate = oEvent.getParameter("arguments").date;
+       this._showBookings();
       }
-
+     },
+     // onRouteMatched
+     // ******************************************
+     _showBookings : function() {
+      var _this = this;
+      var oView = _this.getView();
+      _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
+      var fnSuccess = function() {
+       _this.getView().setModel(_this.oModel);
+       _this.AddAppointmentUser = "";
+       oView.byId("dateTitle").setText(_this.oDate);
+       _this.oEntities = oView.byId("entitySelect");
+       var oSeletedItem = _this.oEntities.getSelectedItem();
+       if (!oSeletedItem) {
+        _this.oEntities.setSelectedItem(_this.oEntities.getFirstItem());
+        oSeletedItem = _this.oEntities.getFirstItem();
+       }
+       var sPath = oSeletedItem.getBindingContext().sPath;
+       _this._getVendorRules(sPath);
+       oView.setModel(_this.oModel);
+      }
+      var param = [ {
+       "key" : "INTENT",
+       "value" : "1"
+      }, {
+       "key" : "UID",
+       "value" : _this.oLoginDetails.USRID.toString()
+      } ];
+      sap.ui.medApp.global.util.loadVendorCategory(param, fnSuccess);
      },
      // _getVendorBookingHistory
      // ******************************************
@@ -72,7 +74,7 @@ sap.ui.core.mvc.Controller
       var oView = _this.getView();
       var param = {
        "USRID" : _this.oLoginDetails.USRID,
-       "RULID" : '"1","2"',//Now hard coded in query as RULID in (1,2,3)
+       "RULID" : '"1","2"',// Now hard coded in query as RULID in (1,2,3)
        "ETYID" : _this.oModel.getProperty(sPath + "/ETYID"),
        "ETCID" : _this.oModel.getProperty(sPath + "/ETCID"),
        "ENTID" : oView.byId("entitySelect").getSelectedKey(),
@@ -85,7 +87,7 @@ sap.ui.core.mvc.Controller
 
       sap.ui.medApp.global.util.loadVendorRules(param, fnSuccess);
      },
-     // onRouteMatched
+     // _getUser
      // ******************************************
      _getUser : function(sPath) {
       var _this = this;
@@ -107,7 +109,7 @@ sap.ui.core.mvc.Controller
       } ];
       sap.ui.medApp.global.util.getUsers(param, fnSuccess);
      },
-     // onRouteMatched
+     // _bindBookings
      // ******************************************
      _bindBookings : function(that) {
       var finalArray;
@@ -116,6 +118,7 @@ sap.ui.core.mvc.Controller
        var oBookingHistory = that.oModel.getProperty("/bookingHistory");
        if (oVendorRules[0])
         if (oVendorRules[0].TimeSlots) {
+         sap.ui.medApp.global.busyDialog.open();
          finalArray = oVendorRules[0].TimeSlots.map(function(item) {
           var aBookings = [];
           for (item1 in oBookingHistory) {
@@ -160,7 +163,7 @@ sap.ui.core.mvc.Controller
           return {
            START : item.START,
            END : item.END,
-           RULID: item.RULID,
+           RULID : item.RULID,
            BOOKINGS : aBookings
           };
          });
@@ -173,15 +176,15 @@ sap.ui.core.mvc.Controller
        } else {
         that.oModel.setProperty("/vendorRulesB", []);
        }
-       that.oModel.refresh(true);
        sap.ui.medApp.global.busyDialog.close();
+       that.oModel.refresh(true);
       };
       that._getVendorBookingHistory(fnSuccess);
      },
      // handleEntityChange
      // ******************************************
      handleEntityChange : function(oEvent) {
-      this._bindBookings(this);
+      this._showBookings();
      },
      // navBack
      // ******************************************
@@ -249,7 +252,7 @@ sap.ui.core.mvc.Controller
       var _this = this;
       var fnSuccess = function(oData) {
        sap.ui.medApp.global.busyDialog.close();
-       sap.m.MessageToast.show("Appointment Cancelled");
+       sap.m.MessageToast.show("Appointment Rejected");
        _this._bindBookings(_this);
       };
       fnError = function() {
@@ -280,19 +283,20 @@ sap.ui.core.mvc.Controller
              text : "{i18n>SAVE_BUTTON}",
              press : function() {
               var sPath, oData, oDate;
-              var oUserName = sap.ui.getCore().byId("inputUserName");
-              if (!_this.validateEmail(oUserName.getValue())) {
-               sap.ui.getCore().byId("MessageBox").setVisible(true);
-               sap.ui.getCore().byId("MessageBox").setText(
-                 "Enter valid email address");
-              } else {
-               sap.ui.getCore().byId("MessageBox").setVisible(false);
-               sap.ui.getCore().byId("MessageBox").setText("");
-               sap.ui.medApp.global.busyDialog.open();
-               if (oUserName.getShowSuggestion()) {
-                sPath = oUserName.getCustomData()[0].getValue();
-                oData = _this.oModel.getProperty(sPath);
+              var oUserSelection = sap.ui.getCore().byId("userSelectButton");
+              // Existing User
+              if (oUserSelection.getSelectedButton() === "sbExisting") {
 
+               if (!_this.validateExistingUser()) {
+                sap.ui.getCore().byId("MessageBox").setVisible(true);
+                sap.ui.getCore().byId("MessageBox").setText("Invalid Username");
+               } else {
+                sap.ui.medApp.global.busyDialog.open();
+                sap.ui.getCore().byId("MessageBox").setVisible(false);
+                sap.ui.getCore().byId("MessageBox").setText("");
+                var oMobile = sap.ui.getCore().byId("inputExtMobile");
+                sPath = oMobile.getCustomData()[0].getValue();
+                oData = _this.oModel.getProperty(sPath);
                 var oEntity = _this.getView().byId("entitySelect")
                   .getSelectedItem();
                 var entityData = _this.oModel.getProperty(oEntity
@@ -323,8 +327,9 @@ sap.ui.core.mvc.Controller
                  } ];
 
                  var fnSuccess = function(oData) {
-                  sap.m.MessageToast.show("Appointment Booked");
+                  _this.resetExistingUser();
                   _this._bindBookings(_this);
+                  sap.m.MessageToast.show("Appointment Booked");
                  };
                  var fnError = function(oData) {
                   sap.ui.medApp.global.busyDialog.close();
@@ -336,20 +341,33 @@ sap.ui.core.mvc.Controller
                    this.oModel);
                  this._vendorListServiceFacade.updateParameters(param,
                    fnSuccess, fnError, "book");
-                 oUserName.setValue("");
                  _this.Appointmentdialog.close();
                 }
-               } else {
+               }
 
+               // New User
+              } else {
+
+               if (!_this.validateNewUser()) {
+                sap.ui.getCore().byId("MessageBox").setVisible(true);
+                sap.ui.getCore().byId("MessageBox").setText(
+                  "Invalid values found");
+               } else {
+                sap.ui.medApp.global.busyDialog.open();
+                sap.ui.getCore().byId("MessageBox").setVisible(false);
+                sap.ui.getCore().byId("MessageBox").setText("");
+                var oFname = sap.ui.getCore().byId("inputFname");
+                var oLname = sap.ui.getCore().byId("inputLname");
+                var oMobile = sap.ui.getCore().byId("inputUserName");
                 var param = [ {
                  "key" : "details",
                  "value" : {
-                  "USRNM" : oUserName.getValue(),
+                  "USRNM" : oMobile.getValue().toString(),
                   "UTYID" : "2",
                   "PRFIX" : "",
                   "TITLE" : "",
-                  "FRNAM" : "",
-                  "LTNAM" : "",
+                  "FRNAM" : oFname.getValue().toString(),
+                  "LTNAM" : oLname.getValue().toString(),
                   "URDOB" : "1900/01/01",
                   "GENDR" : "2",
                   "DSPNM" : ""
@@ -357,7 +375,6 @@ sap.ui.core.mvc.Controller
                 } ];
                 var fnSuccess = function(oData) {
                  oData = oData.results;
-
                  var oEntity = _this.getView().byId("entitySelect")
                    .getSelectedItem();
                  var entityData = _this.oModel.getProperty(oEntity
@@ -388,8 +405,10 @@ sap.ui.core.mvc.Controller
                   } ];
 
                   var fnSuccess = function(oData) {
-                   sap.m.MessageToast.show("Appointment Booked");
+
                    _this._bindBookings(_this);
+                   _this.resetNewUser();
+                   sap.m.MessageToast.show("Appointment Booked");
                   };
                   var fnError = function(oData) {
                    sap.ui.medApp.global.busyDialog.close();
@@ -401,19 +420,21 @@ sap.ui.core.mvc.Controller
                     this.oModel);
                   this._vendorListServiceFacade.updateParameters(param,
                     fnSuccess, fnError, "book");
-                  oUserName.setValue("");
                   _this.Appointmentdialog.close();
                  }
                 };
                 sap.ui.medApp.global.util.getRegisterData(param, fnSuccess);
                }
+
               }
+
              }
             }),
           endButton : new sap.m.Button({
            text : "{i18n>CANCEL_BUTTON}",
-           press : function() {
-            sap.ui.getCore().byId("inputUserName").setValue("");
+           press : function(oEvent) {
+            _this.resetExistingUser();
+            _this.resetNewUser();
             sap.ui.getCore().byId("MessageBox").setVisible(false);
             sap.ui.getCore().byId("MessageBox").setText("");
             _this.Appointmentdialog.close();
@@ -428,10 +449,15 @@ sap.ui.core.mvc.Controller
      // userSuggestHandle
      // ******************************************
      userSuggestHandle : function(oEvent) {
+      var _this = this;
       var source = oEvent.getSource();
+      var oMobile = sap.ui.getCore().byId("inputExtMobile");
+
       var param = [ {
        "key" : "details",
-       "value" : {}
+       "value" : {
+        "USRNM" : oMobile.getValue().toString()
+       }
       } ];
       var fnSuccess = function() {
        source.bindAggregation("suggestionItems", "/allUsers",
@@ -439,6 +465,9 @@ sap.ui.core.mvc.Controller
           text : "{USRNM}"
          }));
        sap.ui.medApp.global.busyDialog.close();
+
+       sap.ui.getCore().byId("btnSaveBooking").setEnabled(false);
+
       }
       sap.ui.medApp.global.busyDialog.open();
       sap.ui.medApp.global.util.getAllUsers(param, fnSuccess);
@@ -447,12 +476,12 @@ sap.ui.core.mvc.Controller
      // userSelectedHandle
      // ******************************************
      userSelectedHandle : function(oEvent) {
-      var oUserName = oEvent.getSource();
+      var oMobile = oEvent.getSource();
       var oSave = sap.ui.getCore().byId("btnSaveBooking");
-      var sPath = oUserName._oList.getSelectedItem()._oItem.getBindingContext()
+      var sPath = oMobile._oList.getSelectedItem()._oItem.getBindingContext()
         .getPath();
-      oUserName.removeAllCustomData();
-      oUserName.addCustomData(new sap.ui.core.CustomData({
+      oMobile.removeAllCustomData();
+      oMobile.addCustomData(new sap.ui.core.CustomData({
        key : "path",
        value : sPath
       }));
@@ -462,20 +491,89 @@ sap.ui.core.mvc.Controller
      // ******************************************
      handleUserSelection : function(oEvent) {
       var selectedButton = oEvent.getSource().getSelectedButton();
-      var oUserName = sap.ui.getCore().byId("inputUserName");
-      var oSave = sap.ui.getCore().byId("btnSaveBooking");
-      oUserName.setValue("");
+      var extUser = sap.ui.getCore().byId("extUser");
+      var newUser = sap.ui.getCore().byId("newUser");
       if (selectedButton === "sbExisting") {
-       oUserName.setShowSuggestion(true);
-       oSave.setEnabled(false);
+       this.resetExistingUser();
+       extUser.setVisible(true);
+       newUser.setVisible(false);
       } else {
-       oUserName.setShowSuggestion(false);
-       oSave.setEnabled(true);
+       this.resetNewUser();
+       extUser.setVisible(false);
+       newUser.setVisible(true);
       }
      },
 
-     validateEmail : function(email) {
-      var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-      return re.test(email);
+     resetExistingUser : function() {
+      var oSave = sap.ui.getCore().byId("btnSaveBooking");
+      var oMobile = sap.ui.getCore().byId("inputExtMobile");
+      oMobile.setValue("");
+      oMobile.setValueState(sap.ui.core.ValueState.None);
+      oSave.setEnabled(false);
      },
+
+     resetNewUser : function() {
+      var oSave = sap.ui.getCore().byId("btnSaveBooking");
+      var oFname = sap.ui.getCore().byId("inputFname");
+      var oLname = sap.ui.getCore().byId("inputLname");
+      var oMobile = sap.ui.getCore().byId("inputUserName");
+      oFname.setValue("");
+      oLname.setValue("");
+      oMobile.setValue("");
+      oFname.setValueState(sap.ui.core.ValueState.None);
+      oLname.setValueState(sap.ui.core.ValueState.None);
+      oMobile.setValueState(sap.ui.core.ValueState.None);
+      oSave.setEnabled(true);
+     },
+
+     validateExistingUser : function() {
+      var oMobile = sap.ui.getCore().byId("inputExtMobile");
+      var re = /^[0-9]{10}$/;
+      if (re.test(oMobile.getValue())) {
+       oMobile.setValueState(sap.ui.core.ValueState.None);
+
+       return true;
+      } else {
+       oMobile.setValueState(sap.ui.core.ValueState.Error);
+       return false;
+      }
+     },
+
+     validateNewUser : function() {
+      var regxRequired = /([^\s])/;
+      var regxEmail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+      var regxMobile = /^[0-9]{10}$/;
+      var oSave = sap.ui.getCore().byId("btnSaveBooking");
+      var oFname = sap.ui.getCore().byId("inputFname");
+      var oLname = sap.ui.getCore().byId("inputLname");
+      var oMobile = sap.ui.getCore().byId("inputUserName");
+      var invalidInputs = 0;
+
+      if (regxRequired.test(oFname.getValue())) {
+       oFname.setValueState(sap.ui.core.ValueState.None);
+      } else {
+       oFname.setValueState(sap.ui.core.ValueState.Error);
+       invalidInputs++;
+      }
+
+      if (regxRequired.test(oLname.getValue())) {
+       oLname.setValueState(sap.ui.core.ValueState.None);
+      } else {
+       oLname.setValueState(sap.ui.core.ValueState.Error);
+       invalidInputs++;
+      }
+
+      if (regxMobile.test(oMobile.getValue())) {
+       oMobile.setValueState(sap.ui.core.ValueState.None);
+      } else {
+       oMobile.setValueState(sap.ui.core.ValueState.Error);
+       invalidInputs++;
+      }
+
+      if (invalidInputs) {
+       return false;
+      } else {
+       return true;
+      }
+     }
     });

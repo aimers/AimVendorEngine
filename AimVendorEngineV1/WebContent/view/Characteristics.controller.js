@@ -117,7 +117,7 @@ sap.ui.core.mvc.Controller
           // _this.getView().byId("idCharTable")
           _this.oModel.refresh(true);
           _this._toggleSaveButton();
-          sap.m.MessageToast.show("Characteristics Added");
+          sap.m.MessageToast.show("User information saved");
           _this._oCharDialog.close();
          }
         }),

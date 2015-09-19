@@ -52,12 +52,12 @@
 								<core:Item key="6" text="Saturday" />
 								<core:Item key="7" text="Sunday" />
 							</MultiComboBox>
-							<Label text="Rule Type" />
+							<!-- <Label text="Rule Type" />
 							<Select id="ruleType" selectedKey="{RULID}">
 								<core:Item key="1" text="Auto Approval" />
 								<core:Item key="2" text="Manual Approval" />
 								<core:Item key="3" text="Receieve Call" />
-							</Select>
+							</Select> -->
 							<!-- <core:Title text="Activation Details"></core:Title> <Label text="Activation 
 								Date" /> <Input value="{}" /> <Label text="Valid From" /> <Input value="{}" 
 								/> <Label text="Valid To" /> <Input value="{}" /> -->
@@ -71,7 +71,7 @@
 
 				<contentLeft>
 					<Button text="Delete" icon="sap-icon://delete" visible="true"
-						press="handleRuleDelete"></Button>
+						press="handleRuleDeleteConfirmation"></Button>
 				</contentLeft>
 				<contentRight>
 					<Button text="Save" icon="sap-icon://save" visible="true"

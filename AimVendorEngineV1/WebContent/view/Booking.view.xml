@@ -31,12 +31,17 @@
 					<ColumnListItem>
 						<cells>
 							<Text text="{START}" />
+
 							<l:Grid defaultSpan="L12 M12 S12" class="bookingGrid"
 								content="{path: 'BOOKINGS'}">
 								<l:content>
 									<Button text="{TITLE} {FRNAM} {LTNAM} - {USRNM}" press="handlePatientViewPress"
 										type="{path: 'STATS', formatter:'sap.ui.medApp.formatter.formatHelper.getButtonType'}"
-										width="100%" />
+										width="100%">
+										<layoutData>
+											<l:GridData span="L12 M12 S12" />
+										</layoutData>
+									</Button>
 								</l:content>
 							</l:Grid>
 							<Button icon="sap-icon://add" press="handleAddAppointment"

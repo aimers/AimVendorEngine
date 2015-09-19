@@ -19,7 +19,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.PersonalInfo", {
  handleSave : function() {
   var fnSuccess = function(oData) {
    sap.ui.medApp.global.busyDialog.close();
-   sap.m.MessageToast.show("Personal details saved");
+   sap.m.MessageToast.show("User information saved");
   };
   sap.ui.medApp.global.busyDialog.open();
   sap.ui.medApp.global.util.updateUserDetails(fnSuccess);

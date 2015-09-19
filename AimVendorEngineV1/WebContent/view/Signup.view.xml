@@ -5,42 +5,67 @@
 		<content>
 			<VBox width="100%" alignItems="Center">
 				<l:Grid defaultSpan="L12 M12 S12" width="auto">
-					<f:SimpleForm id="SimpleFormChange354" minWidth="300"
-						maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
-						title="Sign Up" columnsL="1" columnsM="1" class="editableForm">
+					<f:SimpleForm minWidth="400" maxContainerCols="1"
+						editable="true" layout="ResponsiveGridLayout" title="Sign Up"
+						columnsL="1" columnsM="1" class="editableForm">
 						<f:content>
-							<Text id="MessageBox" class="errormessage" visible="false">
+							<Text id="MessageBox" class="errormessage">
 								<layoutData>
 									<l:GridData span="L12 M12 S12" />
 								</layoutData>
 							</Text>
-							<Text class="greenTitle" text="All fields are mandatory.">
+							<Label text="First Name *" />
+							<Input id="fname" valueStateText="First name is required">
 								<layoutData>
 									<l:GridData span="L12 M12 S12" />
 								</layoutData>
-							</Text>
-							<Text class="greenTitle"
-								text="Kindly check your email account for system generated password.">
+							</Input>
+							<Label text="Last Name *" />
+							<Input id="lname" valueStateText="Last name is required">
 								<layoutData>
 									<l:GridData span="L12 M12 S12" />
 								</layoutData>
-							</Text>
-							<Label text="First Name" />
-							<Input id="fname" valueStateText="First name is required" />
-							<Label text="Last Name" />
-							<Input id="lname" valueStateText="Last name is required" />
-							<Label text="Username" />
-							<Input id="usrNme" placeholder="email as username"
-								valueStateText="Username is required" />
-							<!-- <Label text="Password" /> <Input id="pswd" type="Password" valueStateText="Password 
-								is required. It should match with Confirm Password."> </Input> <Label text="Confirm 
-								Password" /> <Input id="cpswd" type="Password" valueStateText="Confirm Password 
-								is required. It should match with Password."> </Input> -->
-							<Label text="Speciality" />
+							</Input>
+							<Label text="Email" />
+							<Input id="usrNme" valueStateText="Invalid email id">
+								<layoutData>
+									<l:GridData span="L12 M12 S12" />
+								</layoutData>
+							</Input>
+							<Label text="Mobile *" />
+							<Select enabled="false">
+								<core:Item text="+91"></core:Item>
+								<layoutData>
+									<l:GridData span="L3 M3 S3" />
+								</layoutData>
+							</Select>
+							<Input id="usrNme1" placeholder="Mobile as username"
+								valueStateText="Invalid username">
+								<layoutData>
+									<l:GridData span="L9 M9 S9" />
+								</layoutData>
+							</Input>
+							<Label text="Password *" />
+							<Input type="Password" id="pswd" valueStateText="Invalid Password">
+								<layoutData>
+									<l:GridData span="L12 M12 S12" />
+								</layoutData>
+							</Input>
+							<Label text="Confirm Password *" />
+							<Input type="Password" id="cpswd" valueStateText="Invalid Confirm Password">
+								<layoutData>
+									<l:GridData span="L12 M12 S12" />
+								</layoutData>
+							</Input>
+							<Label text="Speciality *" />
 							<Select id="entitySelect" items="{path: '/allCategory'}">
 								<core:Item key="{ENTID}" text="{DESCR}" />
+								<layoutData>
+									<l:GridData span="L12 M12 S12" />
+								</layoutData>
 							</Select>
-							<Button class="sapUiMediumMarginTop" text="Sign Up" type="Emphasized" press="handleRegister">
+							<Button class="sapUiMediumMarginTop" text="Sign Up" type="Emphasized"
+								press="handleRegister">
 								<layoutData>
 									<l:GridData span="L12 M12 S12" />
 								</layoutData>

@@ -23,15 +23,17 @@ sap.ui
        var oFname = this.oView.byId("fname");
        var oLname = this.oView.byId("lname");
        var oUsrNm = this.oView.byId("usrNme");
-       // var oPswd = this.oView.byId("pswd");
-       // var oCpwd = this.oView.byId("cpswd");
+       var oUsrNm1 = this.oView.byId("usrNme1");
+       var oPswd = this.oView.byId("pswd");
+       var oCpwd = this.oView.byId("cpswd");
        var oSpeciality = this.oView.byId("entitySelect");
 
        oFname.setValueState(sap.ui.core.ValueState.None);
        oLname.setValueState(sap.ui.core.ValueState.None);
        oUsrNm.setValueState(sap.ui.core.ValueState.None);
-       // oPswd.setValueState(sap.ui.core.ValueState.None);
-       // oCpwd.setValueState(sap.ui.core.ValueState.None);
+       oUsrNm1.setValueState(sap.ui.core.ValueState.None);
+       oPswd.setValueState(sap.ui.core.ValueState.None);
+       oCpwd.setValueState(sap.ui.core.ValueState.None);
        oSpeciality.setSelectedItem(oSpeciality.getFirstItem());
       }
 
@@ -48,13 +50,15 @@ sap.ui
        var oFname = _this.oView.byId("fname");
        var oLname = _this.oView.byId("lname");
        var oUsrNm = _this.oView.byId("usrNme");
-       // var oPswd = _this.oView.byId("pswd");
-       // var oCpwd = _this.oView.byId("cpswd");
+       var mobile = _this.oView.byId("usrNme1").getValue();
+       var oPswd = _this.oView.byId("pswd");
+       var oCpwd = _this.oView.byId("cpswd");
        var oSpeciality = _this.oView.byId("entitySelect");
        var param = [ {
         "key" : "details",
         "value" : {
-         "USRNM" : username,
+         "USRNM" : mobile.toString(),
+         "UERPW" : oPswd.getValue().toString(),
          "UTYID" : "2",
          "PRFIX" : "",
          "TITLE" : "",
@@ -67,11 +71,11 @@ sap.ui
        } ];
        var fnSuccess = function(oData) {
         if (!oData.results.USRID) {
-         _this.oView.byId("MessageBox").setVisible(true);
+
          _this.oView.byId("MessageBox").setText("User cannot be registered");
          sap.ui.medApp.global.busyDialog.close();
         } else {
-         _this.oView.byId("MessageBox").setVisible(false);
+         _this.oView.byId("MessageBox").setText("");
          sessionStorage.setItem("medAppUID", oData.results.USRID);
          sessionStorage.setItem("medAppPWD", oData.results.UERPW);
          _this.oModel.setProperty("/LoggedUser", oData.results);
@@ -89,7 +93,25 @@ sap.ui
           STREET : "",
           USRID : oData.results.USRID
          } ]);
-         _this.oModel.setProperty("/vendorsList/0/Characteristics", []);
+         _this.oModel.setProperty("/vendorsList/0/Characteristics", [ {
+          "CHRID" : "4",
+          "DESCR" : "Personal Email",
+          "LNTXT" : "Personal Email",
+          "MDTEXT" : "Personal Email",
+          "REGXT" : "email",
+          "SRTXT" : "Personal Email",
+          "USRID" : _this.oModel.getProperty("/LoggedUser/USRID"),
+          "VALUE" : username.toString()
+         }, {
+          "CHRID" : "7",
+          "DESCR" : "Mobile",
+          "LNTXT" : "Mobile",
+          "MDTEXT" : "Mobile",
+          "REGXT" : "mobile",
+          "SRTXT" : "Mobile",
+          "USRID" : _this.oModel.getProperty("/LoggedUser/USRID"),
+          "VALUE" : mobile.toString()
+         } ]);
 
          var sPath = oSpeciality.getSelectedItem().getBindingContext().sPath;
 
@@ -126,12 +148,14 @@ sap.ui
      _validateInputs : function() {
       var regxRequired = /([^\s])/;
       var email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+      var mobile = /^[0-9]{10}$/;
       var oView = this.getView();
       var oFname = oView.byId("fname");
       var oLname = oView.byId("lname");
       var oUsrNm = oView.byId("usrNme");
-      // var oPswd = oView.byId("pswd");
-      // var oCpwd = oView.byId("cpswd");
+      var oUsrNm1 = oView.byId("usrNme1");
+      var oPswd = oView.byId("pswd");
+      var oCpwd = oView.byId("cpswd");
       var invalidInputs = false;
       // FirstName
       if (!regxRequired.test(oFname.getValue().toString())) {
@@ -148,47 +172,62 @@ sap.ui
        oLname.setValueState(sap.ui.core.ValueState.None);
       }
 
+      // if (!oUsrNm1.getValue()) {
+      // User Name
+      // if (!regxRequired.test(oUsrNm.getValue().toString())) {
+      // invalidInputs = true;
+      // oUsrNm.setValueState(sap.ui.core.ValueState.Error);
+      // } else {
+      // oUsrNm.setValueState(sap.ui.core.ValueState.None);
+      //      }
+      // } else {
+      // oUsrNm.setValueState(sap.ui.core.ValueState.None);
+      // }
+
       if (oUsrNm.getValue()) {
        // User Name
-       if (!regxRequired.test(oUsrNm.getValue().toString())) {
+       if (!email.test(oUsrNm.getValue().toString())) {
         invalidInputs = true;
         oUsrNm.setValueState(sap.ui.core.ValueState.Error);
        } else {
         oUsrNm.setValueState(sap.ui.core.ValueState.None);
        }
       }
-      // User Name
-      if (!email.test(oUsrNm.getValue().toString())) {
+      // if (!oUsrNm.getValue()) {
+      if (!mobile.test(oUsrNm1.getValue().toString())) {
        invalidInputs = true;
-       oUsrNm.setValueState(sap.ui.core.ValueState.Error);
+       oUsrNm1.setValueState(sap.ui.core.ValueState.Error);
       } else {
-       oUsrNm.setValueState(sap.ui.core.ValueState.None);
+       oUsrNm1.setValueState(sap.ui.core.ValueState.None);
       }
+      // } else {
+      // oUsrNm1.setValueState(sap.ui.core.ValueState.None);
+      // }
       // Password
-      // if (!regxRequired.test(oPswd.getValue().toString())) {
-      // invalidInputs = true;
-      // oPswd.setValueState(sap.ui.core.ValueState.Error);
-      // } else {
-      // oPswd.setValueState(sap.ui.core.ValueState.None);
-      // }
-      // // Confirm password
-      // if (!regxRequired.test(oCpwd.getValue().toString())) {
-      // invalidInputs = true;
-      // oCpwd.setValueState(sap.ui.core.ValueState.Error);
-      // } else {
-      // oCpwd.setValueState(sap.ui.core.ValueState.None);
-      // }
-      // if (oPswd.getValue() && oCpwd.getValue()) {
-      // // Password Match
-      // if (oPswd.getValue().toString() != oCpwd.getValue().toString()) {
-      // invalidInputs = true;
-      // oPswd.setValueState(sap.ui.core.ValueState.Error);
-      // oCpwd.setValueState(sap.ui.core.ValueState.Error);
-      // } else {
-      // oPswd.setValueState(sap.ui.core.ValueState.None);
-      // oCpwd.setValueState(sap.ui.core.ValueState.None);
-      // }
-      // }
+      if (!regxRequired.test(oPswd.getValue().toString())) {
+       invalidInputs = true;
+       oPswd.setValueState(sap.ui.core.ValueState.Error);
+      } else {
+       oPswd.setValueState(sap.ui.core.ValueState.None);
+      }
+      // Confirm password
+      if (!regxRequired.test(oCpwd.getValue().toString())) {
+       invalidInputs = true;
+       oCpwd.setValueState(sap.ui.core.ValueState.Error);
+      } else {
+       oCpwd.setValueState(sap.ui.core.ValueState.None);
+      }
+      if (oPswd.getValue() && oCpwd.getValue()) {
+       // Password Match
+       if (oPswd.getValue().toString() != oCpwd.getValue().toString()) {
+        invalidInputs = true;
+        oPswd.setValueState(sap.ui.core.ValueState.Error);
+        oCpwd.setValueState(sap.ui.core.ValueState.Error);
+       } else {
+        oPswd.setValueState(sap.ui.core.ValueState.None);
+        oCpwd.setValueState(sap.ui.core.ValueState.None);
+       }
+      }
       return !invalidInputs;
      }
     });

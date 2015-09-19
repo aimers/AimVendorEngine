@@ -407,3 +407,7 @@ svg.sapMBusySvg {
 .greenTitle{
 	color: #4ECDC4 !important;
 }
+
+.centerAlign{
+	text-align:center !important;
+}

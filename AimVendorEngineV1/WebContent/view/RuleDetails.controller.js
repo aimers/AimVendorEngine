@@ -47,6 +47,28 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleDetails", {
  // handleDaysSelectionChange
  // ******************************************
  handleDaysSelectionChange : function(oEvent) {
+  var oSource = oEvent.getSource();
+  var changedItem = oEvent.getParameter("changedItem");
+  var isSelected = oEvent.getParameter("selected");
+  if (isSelected) {
+   var RuleDefn = this.oModel.getProperty("/vendorRulesDefn/ruleDefinitions");
+   var bMatch = false;
+   var oSelectedKey = changedItem.getKey().toString();
+   var oSelectedItem = this.getView().byId("entitySelect").getSelectedItem();
+   for (r in RuleDefn) {
+    if (RuleDefn[r].DAYS.toString().match(oSelectedKey) != null
+      && RuleDefn[r].ENTID == oSelectedItem.getKey()) {
+     bMatch = true;
+     oTxt = oSelectedItem.getText();
+     break;
+    }
+   }
+   if (bMatch) {
+    var msg = "Rule for " + oTxt + " already created for selected day";
+    sap.m.MessageToast.show(msg);
+    oSource.removeSelectedKeys([ changedItem.getKey() ]);
+   }
+  }
  },
  // handleDaysSelectionFinish
  // ******************************************
@@ -60,6 +82,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleDetails", {
   }
   this.oModel.setProperty(oSource.getBindingContext().getPath() + "/DAYS",
     selectedKey.toString());
+
  },
  // handleRuleCancel
  // ******************************************
@@ -84,7 +107,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleDetails", {
     "TIMZN" : data.TIMZN.toString(),
     "OETSL" : data.OETSL.toString(),
     "RECUR" : "1",
-    "RULID" : data.RULID.toString(),
+    "RULID" : "1",// data.RULID.toString(),
     "ETYID" : data.ETYID.toString(),
     "ENTID" : data.ENTID.toString(),
     "USRID" : data.USRID.toString(),
@@ -135,6 +158,18 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleDetails", {
   this.oModel.setProperty(oSource.getBindingContext().getPath() + "/DSTIM",
     time.toString().substring(24, 16));
  },
+
+ handleRuleDeleteConfirmation : function(oEvent) {
+  var _this = this;
+  var callback = function(oAction) {
+   if (oAction == sap.m.MessageBox.Action.OK) {
+    _this.handleRuleDelete(oEvent);
+   }
+  };
+  sap.m.MessageBox.confirm("Are you sure you want to delete the rule?",
+    callback);
+ },
+
  handleRuleDelete : function(oEvent) {
   var _this = this;
   var param = [ {

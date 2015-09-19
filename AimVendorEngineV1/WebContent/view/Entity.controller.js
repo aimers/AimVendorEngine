@@ -5,9 +5,9 @@ sap.ui.core.mvc.Controller
      // onInit
      // ******************************************
      onInit : function() {
-     
       sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
         this.onRouteMatched, this);
+      sap.ui.medApp.global.util.loadListCategory();
      },
      // onRouteMatched
      // ******************************************
@@ -18,6 +18,23 @@ sap.ui.core.mvc.Controller
       _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
       var sName = oEvent.getParameter("name");
       if (sName === "speciality") {
+       if (!_this.oModel.getProperty("/vendorsCategory")) {
+        var fnSuccess = function() {
+         _this._bindVendorEntities();
+         _this._toggleSaveButton();
+         sap.ui.medApp.global.busyDialog.close();
+        };
+        var param = [ {
+         "key" : "INTENT",
+         "value" : "1"
+        }, {
+         "key" : "UID",
+         "value" : this.oLoginDetails.USRID.toString()
+        } ];
+        sap.ui.medApp.global.busyDialog.open();
+        sap.ui.medApp.global.util.loadVendorCategory(param, fnSuccess);
+       }
+
        if (!_this.oModel.getProperty("/vendorsCategory")) {
         var fnSuccess = function() {
          _this._bindVendorEntities();
@@ -121,7 +138,7 @@ sap.ui.core.mvc.Controller
      handleSave : function() {
       var fnSuccess = function(oData) {
        sap.ui.medApp.global.busyDialog.close();
-       sap.m.MessageToast.show("Speciality saved");
+       sap.m.MessageToast.show("User information saved");
       };
       sap.ui.medApp.global.busyDialog.open();
       sap.ui.medApp.global.util.updateUserDetails(fnSuccess);

@@ -21,8 +21,7 @@ sap.ui
         this.oModel = new sap.ui.model.json.JSONModel();
        }
        this.getView().setModel(this.oModel);
-       if (sessionStorage.medAppUID) {
-        sap.ui.medApp.global.util.getMainModel();
+       if (this.oModel.getProperty("/LoggedUser")) {
         this._oRouter.navTo('home');
        }
       }
@@ -54,6 +53,7 @@ sap.ui
         _this.oModel.setProperty("/LoggedUser", oData.results);
         var fnSuccess1 = function() {
          sap.ui.medApp.global.busyDialog.close();
+         $("#medApp--myShell-header-hdr-end").css("display", "block");
          _this._oRouter.navTo('home');
         };
         param = {
