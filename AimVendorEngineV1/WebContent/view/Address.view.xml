@@ -6,12 +6,11 @@
 		<content>
 			<l:Grid defaultSpan="L12 M12 S12" width="auto">
 				<l:content>
-					<f:SimpleForm id="addressForm" minWidth="1024"
-						maxContainerCols="1" editable="true" layout="ResponsiveGridLayout"
-						labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0"
+					<f:SimpleForm id="addressForm" maxContainerCols="2"
+						layout="ResponsiveGridLayout" title="Address"
+						labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4"
 						columnsL="1" columnsM="1">
 						<f:content>
-							<core:Title text="Address Details" />
 							<Label text="Street" />
 							<Input value="{/vendorsList/0/Address/0/STREET}" />
 							<Label text="Locality" />

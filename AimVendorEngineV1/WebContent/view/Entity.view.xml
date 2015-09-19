@@ -4,14 +4,13 @@
 	<Page id="entity" title="{i18n>ENTITY_TITLE}" showNavButton="{device>/isPhone}"
 		navButtonPress="navBack">
 		<content>
-			<List id="entityList" items="{/vendorsCategory}" mode="Delete"
+			<List id="entityList" items="{/vendorsCategory}" mode="Delete" inset="true"
 				delete="handleDelete" includeItemInSelection="true">
 				<headerToolbar>
 					<Toolbar>
 						<content>
 							<Title text="{i18n>VENDOR_ENTITY}" level="H2" />
 							<ToolbarSpacer />
-
 						</content>
 					</Toolbar>
 				</headerToolbar>

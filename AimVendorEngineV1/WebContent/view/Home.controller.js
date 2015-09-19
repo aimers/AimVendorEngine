@@ -30,13 +30,20 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Home",
        sap.ui.medApp.global.busyDialog.open();
        sap.ui.medApp.global.util.loadVendorFILTERData(param, fnSuccess);
       }
-      if (!sap.ui.Device.system.phone) {
-       this._showDetailsHome();
-      }
+      // if (!sap.ui.Device.system.phone) {
+      // this._showDetailsHome();
+      // }
      }
     }
    },
 
+   handleAppointmentPress : function(oEvent) {
+    this._showCalendar();
+   },
+
+   handleRulesPress:function(oEvent){
+    this._showRule();
+   },
    // _showDetailsHome
    // ******************************************
    _showDetailsHome : function() {

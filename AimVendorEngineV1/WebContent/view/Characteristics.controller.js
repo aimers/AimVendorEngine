@@ -35,9 +35,9 @@ sap.ui.core.mvc.Controller
         }) ]
        }),
        filters : [ new sap.ui.model.Filter({
-        path : "DESCR",
+        path : "CHRID",
         operator : sap.ui.model.FilterOperator.NE,
-        value1 : "Image"
+        value1 : "8"
        }) ]
       });
      },
@@ -69,7 +69,7 @@ sap.ui.core.mvc.Controller
      handleSave : function() {
       var fnSuccess = function(oData) {
        sap.ui.medApp.global.busyDialog.close();
-       sap.m.MessageToast.show("Characteristics saved");
+       sap.m.MessageToast.show("User information saved");
       };
       sap.ui.medApp.global.busyDialog.open();
       sap.ui.medApp.global.util.updateUserDetails(fnSuccess);

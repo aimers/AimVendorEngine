@@ -3,13 +3,25 @@
 	xmlns="sap.m">
 	<Page id="home" title="{i18n>HOME_TITLE}">
 		<content>
-			<SelectList id="menu" selectionChange="handleSelectionChange">
+			<SelectList id="menu" selectionChange="handleSelectionChange"
+				visible="false">
 				<core:Item key="booking" text="Appointments" />
 				<core:Item key="rules" text="Rules" />
 			</SelectList>
+
+			<TileContainer id="container">
+				<tiles>
+					<StandardTile icon="sap-icon://appointment" type="Monitor"
+						press="handleAppointmentPress" title="Appointments" />
+					<StandardTile icon="sap-icon://documents" type="Monitor"
+						press="handleRulesPress" title="Appointment Booking Rules" />
+				</tiles>
+			</TileContainer>
+
+
 		</content>
 		<footer>
-			 <Bar></Bar>
+			<Bar></Bar>
 		</footer>
 	</Page>
 </mvc:View>

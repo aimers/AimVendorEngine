@@ -8,7 +8,7 @@
 		</u:headItems>
 		<u:user>
 			<u:ShellHeadUserItem visible="false"
-				image="sap-icon://person-placeholder" username="{/vendorsList/0/DSPNM}"
+				image="sap-icon://person-placeholder" username="{/LoggedUser/DSPNM}"
 				press="settingsSelect" />
 		</u:user>
 		<u:content>

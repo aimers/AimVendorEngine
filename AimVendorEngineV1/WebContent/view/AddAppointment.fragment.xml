@@ -8,37 +8,53 @@
 				<f:content>
 					<core:Title text="Add Appointment"></core:Title>
 					<Text id="MessageBox" visible="false" class="errormessage" />
-					<Label text="User" />
+					<Label />
 					<SegmentedButton id="userSelectButton"
 						selectedButton="sbExisting" select="handleUserSelection">
 						<Button text="Existing User" id="sbExisting" />
 						<Button id="sbNew" text="New User" />
 					</SegmentedButton>
-					<VBox id="extUser">
-						<Label text="Username *" />
-						<Input id="inputExtMobile" type="Text" placeholder="Mobile as username"
-							showSuggestion="true" suggest="userSuggestHandle"
-							suggestionItemSelected="userSelectedHandle">
-						</Input>
-					</VBox>
-					<VBox id="newUser" visible="false">
-						<Label text="First Name *" />
-						<Input id="inputFname"></Input>
-						<Label text="Last Name *" />
-						<Input id="inputLname"></Input>
-						<Label text="Username *" />
-						<Select enabled="false">
-							<core:Item text="+91"></core:Item>
-							<layoutData>
-								<l:GridData span="L4 M4 S4" />
-							</layoutData>
-						</Select>
-						<Input id="inputUserName" placeholder="Mobile as username">
-							<layoutData>
-								<l:GridData span="L8 M8 S8" />
-							</layoutData>
-						</Input>
-					</VBox>
+
+					<f:SimpleForm id="extUser" maxContainerCols="2" class="smallMarginForm"
+						layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4"
+						emptySpanL="1" emptySpanM="1" columnsL="1" columnsM="1">
+						<f:content>
+							<Label text="Username *" />
+							<Input id="inputExtMobile" type="Text" placeholder="Mobile as username"
+								showSuggestion="true" suggest="userSuggestHandle"
+								suggestionItemSelected="userSelectedHandle">
+							</Input>
+						</f:content>
+					</f:SimpleForm>
+
+
+					<f:SimpleForm visible="false" id="newUser" class="smallMarginForm"
+						maxContainerCols="2" layout="ResponsiveGridLayout" labelSpanL="4"
+						labelSpanM="4" emptySpanL="1" emptySpanM="1" columnsL="1"
+						columnsM="1">
+						<f:content>
+							<Label text="First Name *" />
+							<Input id="inputFname"></Input>
+							<Label text="Last Name *" />
+							<Input id="inputLname"></Input>
+							<Label text="Username *" />
+							<Select enabled="false">
+								<core:Item text="+91"></core:Item>
+								<layoutData>
+									<l:GridData span="L3 M3 S3" />
+								</layoutData>
+							</Select>
+							<Input id="inputUserName" placeholder="Mobile as username">
+								<layoutData>
+									<l:GridData span="L9 M9 S9" />
+								</layoutData>
+							</Input>
+							<Label text="Password *" />
+							<Input id="inputPassword" type="Text">
+							</Input>
+						</f:content>
+					</f:SimpleForm>
+
 				</f:content>
 			</f:SimpleForm>
 		</l:content>

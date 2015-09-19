@@ -87,8 +87,17 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleDetails", {
  // handleRuleCancel
  // ******************************************
  handleRuleCancel : function(oEvent) {
-  var bReplace = jQuery.device.is.phone ? false : true;
-  sap.ui.core.UIComponent.getRouterFor(this).navTo("rules", {}, bReplace);
+
+  var _this = this;
+  var callback = function(oAction) {
+   if (oAction == sap.m.MessageBox.Action.OK) {
+    var bReplace = jQuery.device.is.phone ? false : true;
+    sap.ui.core.UIComponent.getRouterFor(_this).navTo("rules", {}, bReplace);
+   }
+  };
+  sap.m.MessageBox.confirm(
+    "Unsaved changes will be lost. Do you want to continue?", callback);
+
  },
  // handleRuleSave
  // ******************************************

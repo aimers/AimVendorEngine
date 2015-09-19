@@ -125,8 +125,17 @@ sap.ui.core.mvc.Controller
      // handleRuleCancel
      // ******************************************
      handleRuleCancel : function() {
-      var bReplace = jQuery.device.is.phone ? false : true;
-      sap.ui.core.UIComponent.getRouterFor(this).navTo("rules", {}, bReplace);
+
+      var _this = this;
+      var callback = function(oAction) {
+       if (oAction == sap.m.MessageBox.Action.OK) {
+        var bReplace = jQuery.device.is.phone ? false : true;
+        sap.ui.core.UIComponent.getRouterFor(_this)
+          .navTo("rules", {}, bReplace);
+       }
+      };
+      sap.m.MessageBox.confirm(
+        "Unsaved changes will be lost. Do you want to continue?", callback);
      },
      // onChangeOETSLTime
      // ******************************************
@@ -204,7 +213,7 @@ sap.ui.core.mvc.Controller
            && RuleDefn[r].ENTID == oSelectedItem.getKey()) {
           bMatch = true;
           oTxt = oSelectedItem.getText();
-          oSource.removeSelectedKeys([temp[t]]);
+          oSource.removeSelectedKeys([ temp[t] ]);
           break;
          }
         }

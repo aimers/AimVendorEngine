@@ -279,6 +279,7 @@ sap.ui.core.mvc.Controller
           beginButton : new sap.m.Button(
             {
              id : "btnSaveBooking",
+             icon : "sap-icon://save",
              enabled : false,
              text : "{i18n>SAVE_BUTTON}",
              press : function() {
@@ -359,12 +360,14 @@ sap.ui.core.mvc.Controller
                 var oFname = sap.ui.getCore().byId("inputFname");
                 var oLname = sap.ui.getCore().byId("inputLname");
                 var oMobile = sap.ui.getCore().byId("inputUserName");
+                var oPassword = sap.ui.getCore().byId("inputPassword");
                 var param = [ {
                  "key" : "details",
                  "value" : {
                   "USRNM" : oMobile.getValue().toString(),
-                  "UTYID" : "2",
+                  "UTYID" : "3",
                   "PRFIX" : "",
+                  "UERPW" : oPassword.getValue().toString(),
                   "TITLE" : "",
                   "FRNAM" : oFname.getValue().toString(),
                   "LTNAM" : oLname.getValue().toString(),
@@ -432,6 +435,7 @@ sap.ui.core.mvc.Controller
             }),
           endButton : new sap.m.Button({
            text : "{i18n>CANCEL_BUTTON}",
+           icon : "sap-icon://sys-cancel",
            press : function(oEvent) {
             _this.resetExistingUser();
             _this.resetNewUser();
@@ -517,12 +521,15 @@ sap.ui.core.mvc.Controller
       var oFname = sap.ui.getCore().byId("inputFname");
       var oLname = sap.ui.getCore().byId("inputLname");
       var oMobile = sap.ui.getCore().byId("inputUserName");
+      var oPassword = sap.ui.getCore().byId("inputPassword");
       oFname.setValue("");
       oLname.setValue("");
       oMobile.setValue("");
+      oPassword.setValue("");
       oFname.setValueState(sap.ui.core.ValueState.None);
       oLname.setValueState(sap.ui.core.ValueState.None);
       oMobile.setValueState(sap.ui.core.ValueState.None);
+      oPassword.setValueState(sap.ui.core.ValueState.None);
       oSave.setEnabled(true);
      },
 
@@ -547,6 +554,8 @@ sap.ui.core.mvc.Controller
       var oFname = sap.ui.getCore().byId("inputFname");
       var oLname = sap.ui.getCore().byId("inputLname");
       var oMobile = sap.ui.getCore().byId("inputUserName");
+      var oPassword = sap.ui.getCore().byId("inputPassword");
+
       var invalidInputs = 0;
 
       if (regxRequired.test(oFname.getValue())) {
@@ -569,7 +578,12 @@ sap.ui.core.mvc.Controller
        oMobile.setValueState(sap.ui.core.ValueState.Error);
        invalidInputs++;
       }
-
+      if (regxRequired.test(oPassword.getValue())) {
+       oPassword.setValueState(sap.ui.core.ValueState.None);
+      } else {
+       oPassword.setValueState(sap.ui.core.ValueState.Error);
+       invalidInputs++;
+      }
       if (invalidInputs) {
        return false;
       } else {

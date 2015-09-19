@@ -7,11 +7,10 @@
 			<l:Grid defaultSpan="L12 M12 S12" width="auto">
 				<l:content>
 					<f:SimpleForm id="ProfileForm" minWidth="1024"
-						maxContainerCols="1" editable="true" layout="ResponsiveGridLayout"
-						labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0"
-						columnsL="1" columnsM="1">
+						maxContainerCols="2" editable="false" layout="ResponsiveGridLayout"
+						title="Personal Info" labelSpanL="3" labelSpanM="3" emptySpanL="4"
+						emptySpanM="4" columnsL="1" columnsM="1">
 						<f:content>
-							<core:Title text="Personal Details" />
 							<Label text="User Code" />
 							<Text text="{/vendorsList/0/URCOD}" />
 							<Label text="Title" />
@@ -29,8 +28,8 @@
 							<Label text="Prefix" />
 							<Input value="{/vendorsList/0/PRFIX}" />
 							<Label text="DOB" />
-							<DatePicker value="{/vendorsList/0/URDOB}" displayFormat="dd-MM-yyyy"
-								valueFormat="yyyy-MM-dd" change ="handleChange"/>
+							<DatePicker value="{/vendorsList/0/URDOB}"
+								displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" change="handleChange" />
 						</f:content>
 					</f:SimpleForm>
 				</l:content>
@@ -39,7 +38,8 @@
 		<footer>
 			<Bar>
 				<contentRight>
-					<Button id="btnSave" text="Save" icon="sap-icon://save" press="handleSave"></Button>
+					<Button id="btnSave" text="Save" icon="sap-icon://save"
+						press="handleSave"></Button>
 				</contentRight>
 			</Bar>
 		</footer>

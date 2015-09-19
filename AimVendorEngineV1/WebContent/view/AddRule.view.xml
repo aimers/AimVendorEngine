@@ -6,12 +6,12 @@
 		<content>
 			<l:Grid defaultSpan="L12 M12 S12" width="auto">
 				<l:content>
-					<f:SimpleForm id="rulesForm" minWidth="1024"
-						maxContainerCols="2" layout="ResponsiveGridLayout" labelSpanL="4"
-						labelSpanM="4" emptySpanL="1" emptySpanM="1" columnsL="1"
+					<f:SimpleForm id="rulesForm" maxContainerCols="2"
+						layout="ResponsiveGridLayout" title="Add Rule Details" labelSpanL="3"
+						labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1"
 						columnsM="1">
 						<f:content>
-							<core:Title text="Rule Details"></core:Title>
+
 							<Label text="Speciality" />
 							<Select id="entitySelect" items="{ path: '/vendorsCategory'}"
 								change="onEntitySelect" selectedKey="{ENTID}">

@@ -37,7 +37,7 @@ sap.ui.controller("sap.ui.medApp.view.App", {
   var showHeaderItemsRoutes = [ "home", "bookinghome", "bookings",
     "detailshome", "speciality", "profile", "characteristics", "personalinfo",
     "address", "rules", "ruledetails", "addrule", "images", "changepwd" ];
-  var fullWidthRoutes = [ "login", "signup", "forgetpassword" ];
+  var fullWidthRoutes = [ "login", "signup", "forgetpassword","home" ];
   var bIsFullWidthRoute = (jQuery.inArray(scope, fullWidthRoutes) >= 0);
   var bShowHederItems = (jQuery.inArray(scope, showHeaderItemsRoutes) >= 0);
   var bIsHomeRoute = (scope === "home");

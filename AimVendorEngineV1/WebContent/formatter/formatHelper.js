@@ -19,8 +19,6 @@ sap.ui.medApp.formatter.formatHelper = {
  getButtonType : function(status) {
   var type = "Default";
   if (status == "1") {
-   type = "Accept";
-  } else if (status == "2") {
    type = "Emphasized";
   }
 

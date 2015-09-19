@@ -19,20 +19,13 @@ sap.ui.core.UIComponent.extend("sap.ui.medApp.Component", {
     view : "Login",
     targetAggregation : "pages",
     targetControl : "idAppControl"
-   },
-   {
-    pattern : "",
-    name : "login",
-    view : "Login",
-    targetAggregation : "pages",
-    targetControl : "idAppControl"
-   },{
+   }, {
     pattern : "signup",
     name : "signup",
     view : "Signup",
     targetAggregation : "pages",
     targetControl : "idAppControl"
-   },{
+   }, {
     pattern : "forgetpassword",
     name : "forgetpassword",
     view : "ForgetPassword",
@@ -42,16 +35,16 @@ sap.ui.core.UIComponent.extend("sap.ui.medApp.Component", {
     pattern : "home",
     name : "home",
     view : "Home",
-    targetAggregation : "masterPages",
-    targetControl : "idSplitAppControl",
-    subroutes : [ {
-     pattern : "home/detailshome",
-     name : "detailshome",
-     view : "DetailsHome",
-     viewLevel : 1,
-     targetAggregation : "detailPages",
-     targetControl : "idSplitAppControl"
-    } ]
+    targetAggregation : "pages",
+    targetControl : "idAppControl"
+   // subroutes : [ {
+   // pattern : "home/detailshome",
+   // name : "detailshome",
+   // view : "DetailsHome",
+   // viewLevel : 1,
+   // targetAggregation : "detailPages",
+   // targetControl : "idSplitAppControl"
+   // } ]
    }, {
     pattern : "bookinghome",
     name : "bookinghome",
@@ -100,14 +93,14 @@ sap.ui.core.UIComponent.extend("sap.ui.medApp.Component", {
      viewLevel : 1,
      targetAggregation : "detailPages",
      targetControl : "idSplitAppControl"
-    } ,{
+    }, {
      pattern : "profile/images",
      name : "images",
      view : "FileUpload",
      viewLevel : 1,
      targetAggregation : "detailPages",
      targetControl : "idSplitAppControl"
-    },{
+    }, {
      pattern : "profile/changepwd",
      name : "changepwd",
      view : "ChangePassword",

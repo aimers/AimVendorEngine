@@ -42,9 +42,7 @@ sap.ui
 
      },
      handleRegister : function(oEvent) {
-
       if (this._validateInputs()) {
-
        var _this = this;
        var username = this.oView.byId("usrNme").getValue();
        var oFname = _this.oView.byId("fname");
@@ -111,7 +109,19 @@ sap.ui
           "SRTXT" : "Mobile",
           "USRID" : _this.oModel.getProperty("/LoggedUser/USRID"),
           "VALUE" : mobile.toString()
+         },
+         {
+          "CHRID" : "12",
+          "DESCR" : "Device Registration Id",
+          "LNTXT" : "Device Registration Id",
+          "MDTEXT" : "Device Reg Id",
+          "REGXT" : "regid",
+          "SRTXT" : "Dev Reg Id",
+          "USRID" : _this.oModel.getProperty("/LoggedUser/USRID"),
+          "VALUE" : vEngine.RegisteredId.toString()
          } ]);
+         
+   
 
          var sPath = oSpeciality.getSelectedItem().getBindingContext().sPath;
 

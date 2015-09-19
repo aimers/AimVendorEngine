@@ -13,6 +13,16 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ProfileMaster", {
   var _this = this;
   _this.oLoginDetails = _this.oModel.getProperty("/LoggedUser");
   if (oEvent.getParameter("name") === "profile") {
+   if (!this.oModel.getProperty("/vendorsList")) {
+    var fnSuccess = function() {
+     sap.ui.medApp.global.busyDialog.close();
+    };
+    param = {
+     "USRID" : this.oModel.getProperty("/LoggedUser/USRID")
+    };
+    sap.ui.medApp.global.busyDialog.open();
+    sap.ui.medApp.global.util.loadVendorFILTERData(param, fnSuccess);
+   }
    if (!_this.oModel.getProperty("/vendorsCategory")) {
     var fnSuccess1 = function(oData) {
      sap.ui.medApp.global.busyDialog.close();
