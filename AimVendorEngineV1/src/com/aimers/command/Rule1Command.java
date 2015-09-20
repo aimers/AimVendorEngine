@@ -637,7 +637,7 @@ public class Rule1Command extends aimCommand {
 			String query = "INSERT INTO `vtrmt`"
 					+ "(`VTRMI`, `VSUID`, `VUTID`, `CUSID`, `CUTID`,"
 					+ " `ETYID`, `ETCID`, `ENTID`, `RULID`, `BDTIM`, `BTIMZ`, `BOSTM`, `BOETM`, "
-					+ " `RTYPE`, `STATS`, `ACTIV`, `CRTDT`, `CRTBY`, `CHNDT`, `CHNBY`)"
+					+ " `RTYPE`, `STATS`, `ACTIV`, `CRTDT`, `CRTBY`, `CHNDT`, `CHNBY`, `BTYPE`, `BNOTE`)"
 					+ " VALUES "
 					+ " ("
 					+ "'"+detailsJSON.get("VTRMI")+ "',"
@@ -665,7 +665,9 @@ public class Rule1Command extends aimCommand {
 					+ "'"+detailsJSON.get("CRTDT")+ "',"
 					+ "'"+detailsJSON.get("CRTBY")+ "',"
 					+ "'"+detailsJSON.get("CHNDT")+ "',"
-					+ "'"+detailsJSON.get("CHNBY")+ "')";
+					+ "'"+detailsJSON.get("CHNBY")+ "',"
+					+ "'"+detailsJSON.get("BTYPE")+ "',"
+					+ "'"+detailsJSON.get("BNOTE")+ "')";
 					
 			System.out.println(query);
 			int rowCount=dbcon.stm.executeUpdate(query);
