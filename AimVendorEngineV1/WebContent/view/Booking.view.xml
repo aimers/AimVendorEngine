@@ -31,17 +31,27 @@
 					<ColumnListItem>
 						<cells>
 							<Text text="{START}" />
-
 							<l:Grid defaultSpan="L12 M12 S12" class="bookingGrid"
 								content="{path: 'BOOKINGS'}">
 								<l:content>
-									<Button text="{TITLE} {FRNAM} {LTNAM} - {USRNM}" press="handlePatientViewPress"
-										type="{path: 'STATS', formatter:'sap.ui.medApp.formatter.formatHelper.getButtonType'}"
-										width="100%">
-										<layoutData>
-											<l:GridData span="L12 M12 S12" />
-										</layoutData>
-									</Button>
+
+
+									<Toolbar class="noToolBarBorder">
+										<c:Icon src="sap-icon://flag" class="size1"
+											color="{path: 'BTYPE', formatter:'sap.ui.medApp.formatter.formatHelper.getBookingType'}">
+
+										</c:Icon>
+										<Button press="handleNotifyUser" icon="sap-icon://Netweaver-business-client">
+
+										</Button>
+										<Button text="{TITLE} {FRNAM} {LTNAM}" press="handlePatientViewPress"
+											type="{path: 'VUSRID', formatter:'sap.ui.medApp.formatter.formatHelper.getButtonType'}"
+											width="100%">
+
+										</Button>
+									</Toolbar>
+
+
 								</l:content>
 							</l:Grid>
 							<Button icon="sap-icon://add" press="handleAddAppointment"

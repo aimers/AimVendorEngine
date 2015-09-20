@@ -440,6 +440,14 @@ canvas.sapMSpinCanvas {
 	color: #47c9af !important;
 }
 
-.smallMarginForm .sapUiFormResGrid>div{
+.smallMarginForm .sapUiFormResGrid>div {
 	padding: 1rem 0rem !important;
+}
+
+.size1 {
+	font-size: 1rem !important;
+}
+
+.noToolBarBorder {
+	border-bottom: none !important;
 }

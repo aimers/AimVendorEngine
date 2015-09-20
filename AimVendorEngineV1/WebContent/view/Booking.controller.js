@@ -323,19 +323,27 @@ sap.ui.core.mvc.Controller
                    "BTIMZ" : "IST",
                    "BOSTM" : _this.oBookingData.START.toString(),
                    "BOETM" : _this.oBookingData.END.toString(),
-                   "RTYPE" : "1"
+                   "RTYPE" : "1",
+                   "BTYPE" : "1",
+                   "BNOTE" : ""
                   }
                  } ];
 
                  var fnSuccess = function(oData) {
-                  _this.resetExistingUser();
-                  _this._bindBookings(_this);
-                  sap.m.MessageToast.show("Appointment Booked");
+                  if (oData.results) {
+                   _this.resetExistingUser();
+                   _this._bindBookings(_this);
+                   sap.m.MessageToast.show("Appointment Booked");
+                  } else {
+                   sap.ui.medApp.global.busyDialog.close();
+                   sap.m.MessageToast
+                     .show("An error occured while booking appointment");
+                  }
                  };
                  var fnError = function(oData) {
                   sap.ui.medApp.global.busyDialog.close();
                   sap.m.MessageToast
-                    .show("Error occured while booking appointment");
+                    .show("An error occured while booking appointment");
                  };
 
                  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
@@ -403,7 +411,9 @@ sap.ui.core.mvc.Controller
                     "BTIMZ" : "IST",
                     "BOSTM" : _this.oBookingData.START.toString(),
                     "BOETM" : _this.oBookingData.END.toString(),
-                    "RTYPE" : "1"
+                    "RTYPE" : "1",
+                    "BTYPE" : "1",
+                    "BNOTE" : ""
                    }
                   } ];
 
@@ -589,5 +599,64 @@ sap.ui.core.mvc.Controller
       } else {
        return true;
       }
+     },
+
+     handleNotifyUser : function(oEvent) {
+
+      var oSource = oEvent.getSource();
+      var sPath = oSource.getBindingContext().getPath();
+      var oData = this.oModel.getProperty(sPath);
+
+      var _this = this;
+      if (!_this.notifyDialog) {
+       _this.notifyDialog = new sap.m.Dialog({
+        title : 'Notify',
+        type : 'Message',
+        content : [ new sap.m.TextArea('notifyTA', {
+         width : '100%',
+         placeholder : 'Add note (optional)',
+         value : "Your appointment is scheduled on Date: " + oData.BDTIM
+           + " Time: " + oData.BOSTM + ", with doctor " + oData.VPREFIX + " "
+           + oData.VFRNAM + " " + oData.VLTNAM + "."
+        }) ],
+        beginButton : new sap.m.Button({
+         text : 'Send',
+         press : function() {
+          var sText = sap.ui.getCore().byId('notifyTA').getValue();
+
+          var param = [ {
+           "key" : "details",
+           "value" : {
+            "USRID" : oData.CUSID.toString(),
+            "MESSAGE" : sText.toString()
+           }
+          } ];
+
+          var fnSuccess = function(oData) {
+           sap.m.MessageToast.show("Notification sent");
+           _this.notifyDialog.close();
+          };
+
+          var fnError = function() {
+           sap.m.MessageToast
+             .show('An error occured while sending notification');
+           _this.notifyDialog.close();
+          };
+          sap.ui.medApp.global.util.notifyUser(param, fnSuccess, fnError);
+         }
+        }),
+        endButton : new sap.m.Button({
+         text : 'Cancel',
+         press : function() {
+          _this.notifyDialog.close();
+         }
+        })
+       // ,
+       // afterClose : function() {
+       // dialog.destroy();
+       // }
+       });
+      }
+      _this.notifyDialog.open();
      }
     });

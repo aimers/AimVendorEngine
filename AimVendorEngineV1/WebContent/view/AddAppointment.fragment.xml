@@ -15,9 +15,10 @@
 						<Button id="sbNew" text="New User" />
 					</SegmentedButton>
 
-					<f:SimpleForm id="extUser" maxContainerCols="2" class="smallMarginForm"
-						layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4"
-						emptySpanL="1" emptySpanM="1" columnsL="1" columnsM="1">
+					<f:SimpleForm id="extUser" maxContainerCols="2"
+						class="smallMarginForm" layout="ResponsiveGridLayout" labelSpanL="4"
+						labelSpanM="4" emptySpanL="1" emptySpanM="1" columnsL="1"
+						columnsM="1">
 						<f:content>
 							<Label text="Username *" />
 							<Input id="inputExtMobile" type="Text" placeholder="Mobile as username"
@@ -38,16 +39,9 @@
 							<Label text="Last Name *" />
 							<Input id="inputLname"></Input>
 							<Label text="Username *" />
-							<Select enabled="false">
-								<core:Item text="+91"></core:Item>
-								<layoutData>
-									<l:GridData span="L3 M3 S3" />
-								</layoutData>
-							</Select>
+
 							<Input id="inputUserName" placeholder="Mobile as username">
-								<layoutData>
-									<l:GridData span="L9 M9 S9" />
-								</layoutData>
+
 							</Input>
 							<Label text="Password *" />
 							<Input id="inputPassword" type="Text">

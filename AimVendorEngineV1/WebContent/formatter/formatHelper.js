@@ -16,13 +16,23 @@ sap.ui.medApp.formatter.formatHelper = {
   return visible;
  },
 
- getButtonType : function(status) {
+ getButtonType : function(user) {
   var type = "Default";
-  if (status == "1") {
+  var oModel = sap.ui.medApp.global.util.getMainModel();
+  if (user == oModel.getProperty("/LoggedUser/USRID")) {
+   type = "Accept";
+  } else {
    type = "Emphasized";
   }
-
   return type;
+ },
+
+ getBookingType : function(btype) {
+  var color = "#FFD700";
+  if (btype == 2) {
+   color = "#FF0000";
+  }
+  return color;
  },
 
  getRuleTime : function(time) {

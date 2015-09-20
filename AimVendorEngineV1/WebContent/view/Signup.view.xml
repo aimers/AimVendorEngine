@@ -33,16 +33,10 @@
 								</layoutData>
 							</Input>
 							<Label text="Mobile *" />
-							<Select enabled="false">
-								<core:Item text="+91"></core:Item>
-								<layoutData>
-									<l:GridData span="L3 M3 S3" />
-								</layoutData>
-							</Select>
 							<Input id="usrNme1" placeholder="Mobile as username"
 								valueStateText="Invalid username">
 								<layoutData>
-									<l:GridData span="L9 M9 S9" />
+									<l:GridData span="L12 M12 S12" />
 								</layoutData>
 							</Input>
 							<Label text="Password *" />

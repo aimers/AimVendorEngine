@@ -313,6 +313,16 @@ sap.ui.medApp.global.util = { // Get Home Model
   this._vendorListServiceFacade.getRecords(fnSuccess, null, "/Char",
     "getCharList", param);
  },
+
+ // Notify User
+ // ******************************************
+ notifyUser : function(param, fnSuccess, fnError) {
+  this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
+    this._mainModel);
+  this._vendorListServiceFacade.getRecords(fnSuccess, fnError, null, "notify",
+    param);
+ },
+
  // Get All Cities
  // ******************************************
  getAllCities : function(fnSuccess) {
