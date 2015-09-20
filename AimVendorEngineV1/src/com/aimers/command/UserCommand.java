@@ -317,7 +317,7 @@ private Object getBookingHistory(HashMap myInfo, ConnectionManager dbcon) {
 		String details 	=  myInfo.get("details")+"";
 		JSONObject detailsJSON 	= new JSONObject(details);
 		
-		String query1 = "SELECT `vtrmt`.`VTRMI`, `vtrmt`.`VSUID`, `vtrmt`.`VUTID`, "
+		String query1 = "SELECT `vtrmt`.`VTRMI`, `vtrmt`.`VSUID`, `vtrmt`.`VUTID`, `vtrmt`.`CRTBY`, "
 				+ " `vtrmt`.`CUSID`, `vtrmt`.`CUTID`, "
 				+ " `usrmt`.`USRID`, `uacmt`.`USRNM`, `usrmt`.`URCOD`, `usrmt`.`PRFIX`, `usrmt`.`TITLE`, `usrmt`.`FRNAM`, "
 				+ " `usrmt`.`LTNAM`, `usrmt`.`URDOB`, `usrmt`.`GENDR`, `usrmt`.`DSPNM`, "
