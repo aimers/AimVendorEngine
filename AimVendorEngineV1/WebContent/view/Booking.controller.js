@@ -606,42 +606,50 @@ sap.ui.core.mvc.Controller
       var oSource = oEvent.getSource();
       var sPath = oSource.getBindingContext().getPath();
       var oData = this.oModel.getProperty(sPath);
-
       var _this = this;
+      _this.cusId = oData.CUSID.toString();
       if (!_this.notifyDialog) {
+
+       var oDate = oData.BDTIM.toString().substring(8, 10) + "/"
+         + oData.BDTIM.toString().substring(5, 7) + "/"
+         + oData.BDTIM.toString().substring(0, 4);
+
        _this.notifyDialog = new sap.m.Dialog({
         title : 'Notify',
         type : 'Message',
         content : [ new sap.m.TextArea('notifyTA', {
          width : '100%',
          placeholder : 'Add note (optional)',
-         value : "Your appointment is scheduled on Date: " + oData.BDTIM
-           + " Time: " + oData.BOSTM + ", with doctor " + oData.VPREFIX + " "
-           + oData.VFRNAM + " " + oData.VLTNAM + "."
+         value : "Your appointment with doctor " + oData.VPREFIX + " "
+           + oData.VFRNAM + " " + oData.VLTNAM + " is scheduled on Date: "
+           + oDate + " Time: " + oData.BOSTM
+
         }) ],
         beginButton : new sap.m.Button({
          text : 'Send',
          press : function() {
           var sText = sap.ui.getCore().byId('notifyTA').getValue();
-
           var param = [ {
            "key" : "details",
            "value" : {
-            "USRID" : oData.CUSID.toString(),
+            "USRID" : _this.cusId.toString(),
             "MESSAGE" : sText.toString()
            }
           } ];
 
           var fnSuccess = function(oData) {
+           sap.ui.medApp.global.busyDialog.close();
            sap.m.MessageToast.show("Notification sent");
            _this.notifyDialog.close();
           };
 
           var fnError = function() {
+           sap.ui.medApp.global.busyDialog.close();
            sap.m.MessageToast
              .show('An error occured while sending notification');
            _this.notifyDialog.close();
           };
+          sap.ui.medApp.global.busyDialog.open();
           sap.ui.medApp.global.util.notifyUser(param, fnSuccess, fnError);
          }
         }),
@@ -651,10 +659,6 @@ sap.ui.core.mvc.Controller
           _this.notifyDialog.close();
          }
         })
-       // ,
-       // afterClose : function() {
-       // dialog.destroy();
-       // }
        });
       }
       _this.notifyDialog.open();
