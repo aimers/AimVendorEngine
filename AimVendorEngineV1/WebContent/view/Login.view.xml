@@ -12,7 +12,7 @@
 						<f:content>
 							<Text id="MessageBox" class="messageBox" visible="false" />
 							<Label text="Mobile" />
-							<Input id="usrNme" placeholder="Mobile as username" value="thomas.stewart@aimersinfosoft.com" />
+							<Input id="usrNme" placeholder="Mobile as username" value="9988776655" />
 							<Label text="Password" />
 							<Input id="pswd" type="Password" value="aim@123">
 							</Input>
