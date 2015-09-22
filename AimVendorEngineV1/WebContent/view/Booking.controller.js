@@ -156,7 +156,9 @@ sap.ui.core.mvc.Controller
              GENDR : oBookingHistory[item1].GENDR,
              TITLE : oBookingHistory[item1].TITLE,
              ETCID : oBookingHistory[item1].ETCID,
-             USRNM : oBookingHistory[item1].USRNM
+             USRNM : oBookingHistory[item1].USRNM,
+             BTYPE : oBookingHistory[item1].BTYPE,
+             BNOTE : oBookingHistory[item1].BNOTE
             })
            }
           }
