@@ -7,27 +7,25 @@
 			<l:Grid defaultSpan="L12 M12 S12" width="auto">
 				<l:content>
 					<f:SimpleForm id="addressForm" maxContainerCols="2"
-						layout="ResponsiveGridLayout" title="Address"
-						labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4"
-						columnsL="1" columnsM="1">
+						layout="ResponsiveGridLayout" title="Address" labelSpanL="3"
+						labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1"
+						columnsM="1">
 						<f:content>
 							<Label text="Street" />
-							<Input value="{/vendorsList/0/Address/0/STREET}" />
+							<Input value="{STREET}" />
 							<Label text="Locality" />
-							<Input value="{/vendorsList/0/Address/0/LOCLT}" />
+							<Input value="{LOCLT}" />
 							<Label text="Landmark" />
-							<Input value="{/vendorsList/0/Address/0/LNDMK}" />
+							<Input value="{LNDMK}" />
 							<Label text="City" />
-							<Select id="selCity" selectedKey="{/vendorsList/0/Address/0/CTYID}"
-								items="{path: '/City'}">
+							<Select id="selCity" selectedKey="{CTYID}" items="{path: '/City'}">
 								<core:Item key="{CTYID}" text="{CTYNM}" />
 							</Select>
 							<Label text="Pincode" />
-							<Input value="{/vendorsList/0/Address/0/PINCD}" />
-							<Label text="Latitude" />
-							<Input value="{/vendorsList/0/Address/0/LATIT}" />
-							<Label text="Longitude" />
-							<Input value="{/vendorsList/0/Address/0/LONGT}" />
+							<Input value="{PINCD}" />
+							<!-- <Label text="Latitude" /> <Input value="{/vendorsList/0/Address/0/LATIT}" 
+								/> <Label text="Longitude" /> <Input value="{/vendorsList/0/Address/0/LONGT}" 
+								/> -->
 						</f:content>
 					</f:SimpleForm>
 				</l:content>

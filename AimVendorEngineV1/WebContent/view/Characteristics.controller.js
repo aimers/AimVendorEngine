@@ -68,8 +68,13 @@ sap.ui.core.mvc.Controller
      // ******************************************
      handleSave : function() {
       var fnSuccess = function(oData) {
-       sap.ui.medApp.global.busyDialog.close();
-       sap.m.MessageToast.show("User information saved");
+        if (oData.results) {
+          sap.ui.medApp.global.busyDialog.close();
+          sap.m.MessageToast.show("User information saved");
+        } else {
+          sap.ui.medApp.global.busyDialog.close();
+          sap.m.MessageToast.show("An error occured while updating user information");
+        }
       };
       sap.ui.medApp.global.busyDialog.open();
       sap.ui.medApp.global.util.updateUserDetails(fnSuccess);
