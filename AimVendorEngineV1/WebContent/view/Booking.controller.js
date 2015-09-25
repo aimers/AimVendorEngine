@@ -641,16 +641,14 @@ sap.ui.core.mvc.Controller
             var sPath = oSource.getBindingContext().getPath();
             var oData = this.oModel.getProperty(sPath);
             var _this = this;
+            var oDate = oData.BDTIM.toString().substring(8, 10) + "/"
+            + oData.BDTIM.toString().substring(5, 7) + "/"
+            + oData.BDTIM.toString().substring(0, 4);
             var oMsg = "Your appointment with doctor " + oData.VPREFIX + " "
                 + oData.VFRNAM + " " + oData.VLTNAM + " is scheduled on Date: "
                 + oDate + " Time: " + oData.BOSTM;
             _this.cusId = oData.CUSID.toString();
             if (!_this.notifyDialog) {
-
-              var oDate = oData.BDTIM.toString().substring(8, 10) + "/"
-                  + oData.BDTIM.toString().substring(5, 7) + "/"
-                  + oData.BDTIM.toString().substring(0, 4);
-
               _this.notifyDialog = new sap.m.Dialog({
                 title : 'Notify',
                 type : 'Message',
