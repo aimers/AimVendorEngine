@@ -14,26 +14,27 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Home",
     if (!this.oModel) {
      this.oModel = sap.ui.medApp.global.util.getHomeModel();
     }
-    if (!this.oModel.getProperty("/LoggedUser")) {
-     sap.ui.core.UIComponent.getRouterFor(this).navTo('login');
-    } else {
-     this.getView().byId("menu").clearSelection();
-     if (oEvent.getParameter("name") === "home") {
-      var _this = this;
-      if (!this.oModel.getProperty("/vendorsList")) {
-       var fnSuccess = function() {
-        sap.ui.medApp.global.busyDialog.close();
-       };
-       param = {
-        "USRID" : this.oModel.getProperty("/LoggedUser/USRID")
-       };
-       sap.ui.medApp.global.busyDialog.open();
-       sap.ui.medApp.global.util.loadVendorFILTERData(param, fnSuccess);
-      }
-      // if (!sap.ui.Device.system.phone) {
-      // this._showDetailsHome();
-      // }
+
+    if (oEvent.getParameter("name") === "home") {
+     if (!this.oModel.getProperty("/LoggedUser")) {
+      sap.ui.core.UIComponent.getRouterFor(this).navTo('login');
+      return false;
      }
+     var _this = this;
+     if (!this.oModel.getProperty("/vendorsList")) {
+      var fnSuccess = function() {
+       sap.ui.medApp.global.busyDialog.close();
+      };
+      param = {
+       "USRID" : this.oModel.getProperty("/LoggedUser/USRID")
+      };
+      sap.ui.medApp.global.busyDialog.open();
+      sap.ui.medApp.global.util.loadVendorFILTERData(param, fnSuccess);
+     }
+     // if (!sap.ui.Device.system.phone) {
+     // this._showDetailsHome();
+     // }
+
     }
    },
 
@@ -41,7 +42,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.Home",
     this._showCalendar();
    },
 
-   handleRulesPress:function(oEvent){
+   handleRulesPress : function(oEvent) {
     this._showRule();
    },
    // _showDetailsHome

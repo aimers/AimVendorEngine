@@ -451,3 +451,7 @@ canvas.sapMSpinCanvas {
 .noToolBarBorder {
 	border-bottom: none !important;
 }
+
+.sapUiFormResGrid>div{
+	background: none !important;
+}

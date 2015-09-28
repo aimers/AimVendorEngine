@@ -116,19 +116,19 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.RuleMaster", {
  // _filterRules
  // ******************************************
  _filterRules : function(oEvent) {
-  var label = this.getView().byId("lblRuleTyp");
+  //var label = this.getView().byId("lblRuleTyp");
   var ruleid;
   var source = oEvent.getSource();
   var sourceText = source.getText();
   if (sourceText === "Auto Approval") {
-   label.setText(sourceText);
+   //label.setText(sourceText);
    this.ruleId = "1";
   } else if (sourceText === "Manual Approval") {
    this.ruleId = "2";
-   label.setText(sourceText);
+   //label.setText(sourceText);
   } else if (sourceText === "Receieve Call") {
    this.ruleId = "3";
-   label.setText(sourceText);
+   //label.setText(sourceText);
   }
   this._bindViewModel(this.ruleId);
  }

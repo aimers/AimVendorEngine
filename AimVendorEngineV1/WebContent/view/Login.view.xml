@@ -23,7 +23,7 @@
 									<l:GridData span="L2 M4 S6" />
 								</layoutData>
 							</Button>
-							<Button text="Forgot Password?" class="buttonDesign">
+							<Button text="Forgot Password?" press="handleForgetPassword" class="buttonDesign">
 								<layoutData>
 									<l:GridData span="L4 M4 S6" />
 								</layoutData>

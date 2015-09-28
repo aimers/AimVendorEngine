@@ -39,13 +39,13 @@
 							<Label text="Days" />
 							<MultiComboBox id="daysCombo" selectionChange="handleSelectionChange"
 								selectionFinish="handleDaysSelectionFinish" valueStateText="Day(s) is required">
-								<core:Item key="1" text="Monday" />
-								<core:Item key="2" text="Tuesday" />
-								<core:Item key="3" text="Wednesday" />
-								<core:Item key="4" text="Thursday" />
-								<core:Item key="5" text="Friday" />
-								<core:Item key="6" text="Saturday" />
-								<core:Item key="7" text="Sunday" />
+								<core:Item key="0" text="Monday" />
+								<core:Item key="1" text="Tuesday" />
+								<core:Item key="2" text="Wednesday" />
+								<core:Item key="3" text="Thursday" />
+								<core:Item key="4" text="Friday" />
+								<core:Item key="5" text="Saturday" />
+								<core:Item key="6" text="Sunday" />
 							</MultiComboBox>
 							<!-- <Label text="Rule Type" /> <Select id="ruleType" change="handleRuleTypeSelection"> 
 								<core:Item key="1" text="Auto Approval" /> <core:Item key="2" text="Manual 

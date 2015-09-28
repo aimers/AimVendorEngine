@@ -16,7 +16,6 @@ sap.ui.controller("sap.ui.medApp.view.App", {
   this._oRouter = sap.ui.core.UIComponent.getRouterFor(this);
   this.router = sap.ui.core.UIComponent.getRouterFor(this);
   this.router.attachRoutePatternMatched(this._handleRouteMatched, this);
-  this.oLoadingDialog = sap.ui.getCore().byId("loadingDialog");
   bus.subscribe("nav", "back", this.navHandler, this);
   jQuery(".loader").remove();
   $("#medApp--myShell-header-hdr-end").css("display", "none");
@@ -33,11 +32,13 @@ sap.ui.controller("sap.ui.medApp.view.App", {
  // _handleRouteMatched
  // ******************************************
  _handleRouteMatched : function(oEvent) {
+
   var scope = oEvent.getParameter("config").name;
   var showHeaderItemsRoutes = [ "home", "bookinghome", "bookings",
     "detailshome", "speciality", "profile", "characteristics", "personalinfo",
     "address", "rules", "ruledetails", "addrule", "images", "changepwd" ];
-  var fullWidthRoutes = [ "login", "signup", "forgetpassword","home" ];
+  var fullWidthRoutes = [ "login", "signup", "forgetpassword", "home" ];
+  var noAuthRequired = [ "login", "signup", "forgetpassword" ];
   var bIsFullWidthRoute = (jQuery.inArray(scope, fullWidthRoutes) >= 0);
   var bShowHederItems = (jQuery.inArray(scope, showHeaderItemsRoutes) >= 0);
   var bIsHomeRoute = (scope === "home");
@@ -47,6 +48,10 @@ sap.ui.controller("sap.ui.medApp.view.App", {
   var oHeadEndItems = oShell.getHeadEndItems();
   var oShell1 = this.getView().byId("mShell");
   oShell1.setApp(this.app);
+  if (!sessionStorage.medAppUID && ($.inArray(scope, noAuthRequired) == -1)) {
+   sap.ui.core.UIComponent.getRouterFor(this).navTo("login", {}, true);
+   return false;
+  }
   if (bShowHederItems) {
    for ( var item in oHeadItems) {
     oHeadItems[item].setVisible(true);

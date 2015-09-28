@@ -158,7 +158,7 @@ sap.ui
 
      // handleForgetPassword
      // ******************************************
-     handleForgetPassword : function() {
-
+     handleForgetPassword : function(oEvent) {
+      this._oRouter.navTo('forgetpassword');
      }
     });

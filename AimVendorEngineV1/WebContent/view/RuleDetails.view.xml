@@ -44,13 +44,13 @@
 							<MultiComboBox selectionChange="handleDaysSelectionChange"
 								selectionFinish="handleDaysSelectionFinish"
 								selectedKeys="{path:'DAYS', formatter:'sap.ui.medApp.formatter.formatHelper.getSelectedDays'}">
-								<core:Item key="1" text="Monday" />
-								<core:Item key="2" text="Tuesday" />
-								<core:Item key="3" text="Wednesday" />
-								<core:Item key="4" text="Thursday" />
-								<core:Item key="5" text="Friday" />
-								<core:Item key="6" text="Saturday" />
-								<core:Item key="7" text="Sunday" />
+								<core:Item key="0" text="Monday" />
+								<core:Item key="1" text="Tuesday" />
+								<core:Item key="2" text="Wednesday" />
+								<core:Item key="3" text="Thursday" />
+								<core:Item key="4" text="Friday" />
+								<core:Item key="5" text="Saturday" />
+								<core:Item key="6" text="Sunday" />
 							</MultiComboBox>
 							<!-- <Label text="Rule Type" /> <Select id="ruleType" selectedKey="{RULID}"> 
 								<core:Item key="1" text="Auto Approval" /> <core:Item key="2" text="Manual 
