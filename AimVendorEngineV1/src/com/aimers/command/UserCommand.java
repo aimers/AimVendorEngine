@@ -40,11 +40,69 @@ public class UserCommand extends aimCommand {
 			return getBookingHistory(myInfo, dbcon);
 		}else if(aimAction.equals("getAllUsers")){
 			return getAllUsers(myInfo, dbcon);
+		}else if(aimAction.equals("updatePassword")){
+			return updatePassword(myInfo, dbcon);
 		}
 		
 		return new JSONObject();
 
 	}
+
+private Object updatePassword(HashMap myInfo, ConnectionManager dbcon) {
+	
+	//TODO: Send email
+	
+	
+	ResultSet rs=null;
+	try{
+		String details 	=  myInfo.get("details")+"";
+		JSONObject detailsJSON 	= new JSONObject(details);
+		
+		if(dbcon == null){
+			try{
+				dbcon.Connect("MYSQL");
+			}
+			catch(Exception ex){
+				System.out.println(""+ex);
+			}
+		}
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		detailsJSON.put("ACTIV", 1+"");
+		detailsJSON.put("CRTDT", dateFormat.format(date)+"");
+		detailsJSON.put("CRTBY", detailsJSON.get("USRID"));
+		detailsJSON.put("CHNDT", dateFormat.format(date)+"");
+		detailsJSON.put("CHNBY", detailsJSON.get("USRID"));
+
+		
+		String query = "UPDATE `uacmt` set"
+				+ "`CHNDT` = '"+detailsJSON.get("CHNDT")+ "', "
+				+ "`CHNBY` = '"+detailsJSON.get("CHNBY")+ "' ";
+		//if(detailsJSON.has("UERPW")){
+			query = query+  ",  `UERPW` = '"+detailsJSON.get("UERPW")+ "' ";
+		//}
+				
+				
+		query = query+   " where `USRNM` = '"+detailsJSON.get("USRNM")+ "'";
+		
+		System.out.println(query);
+		int rowCount=dbcon.stm.executeUpdate(query);
+		if(rowCount > 0){
+			return detailsJSON;
+		}else{
+			//TODO: Consider Raising Error
+			return new JSONObject(details);
+		}
+		
+		
+
+	}
+	catch(Exception ex){
+		System.out.println("Error from USER Command "+ex +"==dbcon=="+dbcon);
+		return null;
+	}
+}
 
 private Object updateVendor(HashMap myInfo, ConnectionManager dbcon) {
 	try{
