@@ -47,8 +47,8 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ForgetPassword", {
       .show("Password updated successfully. Please login with new password");
     _this._resetValues();
    };
-   var oPswd = oView.byId("inputPassword");
-   var oMobile = oView.byId("inputMobile");
+   var oPswd = _this.oView.byId("inputPassword");
+   var oMobile = _this.oView.byId("inputMobile");
    var param = [ {
     "key" : "details",
     "value" : {
@@ -57,7 +57,7 @@ sap.ui.core.mvc.Controller.extend("sap.ui.medApp.view.ForgetPassword", {
     }
    } ];
    sap.ui.medApp.global.busyDialog.open();
-   sap.ui.medApp.global.util.updatePassword(param, fnSuccess, fnErro);
+   sap.ui.medApp.global.util.updatePassword(param, fnSuccess, fnError);
   }
 
  },
