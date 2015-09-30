@@ -71,9 +71,9 @@ private Object updatePassword(HashMap myInfo, ConnectionManager dbcon) {
 		Date date = new Date();
 		detailsJSON.put("ACTIV", 1+"");
 		detailsJSON.put("CRTDT", dateFormat.format(date)+"");
-		detailsJSON.put("CRTBY", detailsJSON.get("USRID"));
+		detailsJSON.put("CRTBY", detailsJSON.get("USRNM"));
 		detailsJSON.put("CHNDT", dateFormat.format(date)+"");
-		detailsJSON.put("CHNBY", detailsJSON.get("USRID"));
+		detailsJSON.put("CHNBY", detailsJSON.get("USRNM"));
 
 		
 		String query = "UPDATE `uacmt` set"
