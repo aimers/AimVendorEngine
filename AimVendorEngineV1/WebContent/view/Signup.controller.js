@@ -109,19 +109,21 @@ sap.ui
           "SRTXT" : "Mobile",
           "USRID" : _this.oModel.getProperty("/LoggedUser/USRID"),
           "VALUE" : mobile.toString()
-         },
-         {
-          "CHRID" : "12",
-          "DESCR" : "Device Registration Id",
-          "LNTXT" : "Device Registration Id",
-          "MDTEXT" : "Device Reg Id",
-          "REGXT" : "regid",
-          "SRTXT" : "Dev Reg Id",
-          "USRID" : _this.oModel.getProperty("/LoggedUser/USRID"),
-          "VALUE" : vEngine.RegisteredId.toString()
          } ]);
-         
-   
+
+         var oChar = _this.oModel.getProperty("/vendorsList/0/Characteristics");
+         if (sap.ui.Device.system.phone) {
+          oChar.push({
+           "CHRID" : "12",
+           "DESCR" : "Device Registration Id",
+           "LNTXT" : "Device Registration Id",
+           "MDTEXT" : "Device Reg Id",
+           "REGXT" : "regid",
+           "SRTXT" : "Dev Reg Id",
+           "USRID" : _this.oModel.getProperty("/LoggedUser/USRID"),
+           "VALUE" : vEngine.RegisteredId.toString()
+          });
+         }
 
          var sPath = oSpeciality.getSelectedItem().getBindingContext().sPath;
 
@@ -189,7 +191,7 @@ sap.ui
       // oUsrNm.setValueState(sap.ui.core.ValueState.Error);
       // } else {
       // oUsrNm.setValueState(sap.ui.core.ValueState.None);
-      //      }
+      // }
       // } else {
       // oUsrNm.setValueState(sap.ui.core.ValueState.None);
       // }

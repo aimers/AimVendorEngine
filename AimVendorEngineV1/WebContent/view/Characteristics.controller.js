@@ -31,7 +31,17 @@ sap.ui.core.mvc.Controller
         cells : [ new sap.m.Text({
          text : "{DESCR}"
         }), new sap.m.Input({
-         value : "{VALUE}"
+         value : "{VALUE}",
+         enabled : {
+          path : 'CHRID',
+          formatter : function(sCHRID) {
+           if (sCHRID == 12) {
+            return false;
+           } else {
+            return true;
+           }
+          }
+         }
         }) ]
        }),
        filters : [ new sap.ui.model.Filter({
@@ -68,13 +78,14 @@ sap.ui.core.mvc.Controller
      // ******************************************
      handleSave : function() {
       var fnSuccess = function(oData) {
-        if (oData.results) {
-          sap.ui.medApp.global.busyDialog.close();
-          sap.m.MessageToast.show("User information saved");
-        } else {
-          sap.ui.medApp.global.busyDialog.close();
-          sap.m.MessageToast.show("An error occured while updating user information");
-        }
+       if (oData.results) {
+        sap.ui.medApp.global.busyDialog.close();
+        sap.m.MessageToast.show("User information saved");
+       } else {
+        sap.ui.medApp.global.busyDialog.close();
+        sap.m.MessageToast
+          .show("An error occured while updating user information");
+       }
       };
       sap.ui.medApp.global.busyDialog.open();
       sap.ui.medApp.global.util.updateUserDetails(fnSuccess);

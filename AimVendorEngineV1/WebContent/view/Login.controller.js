@@ -53,49 +53,59 @@ sap.ui
         _this.oModel.setProperty("/LoggedUser", oData.results);
 
         var fnSuccess1 = function() {
+
+         if (!_this.oModel.getProperty("/vendorsList/0")) {
+          !_this.oModel.setProperty("/vendorsList/0", _this.oModel
+            .getProperty("/LoggedUser"));
+         }
+
          sap.ui.medApp.global.busyDialog.close();
          $("#medApp--myShell-header-hdr-end").css("display", "block");
 
-         // Code to register device Id to User
-         // *************************************
-         var oChar = _this.oModel.getProperty("/vendorsList/0/Characteristics");
-         var bFound = false;
-         if (oChar) {
-          for (c in oChar) {
-           if (oChar[c].CHRID == 12) {
-            bFound = true;
-            if (oChar[c].VALUE != vEngine.RegisteredId) {
-             oChar[c].VALUE = vEngine.RegisteredId;
-             var fnSuccess2 = function() {
-              _this._oRouter.navTo('home');
+         if (sap.ui.Device.system.phone) {
+          // Code to register device Id to User
+          // *************************************
+          var oChar = _this.oModel
+            .getProperty("/vendorsList/0/Characteristics");
+          var bFound = false;
+          if (oChar) {
+           for (c in oChar) {
+            if (oChar[c].CHRID == 12) {
+             bFound = true;
+             if (oChar[c].VALUE != vEngine.RegisteredId) {
+              oChar[c].VALUE = vEngine.RegisteredId;
+              var fnSuccess2 = function() {
+               _this._oRouter.navTo('home');
+              }
+              sap.ui.medApp.global.util.updateUserDetails(fnSuccess2);
+              break;
              }
-             sap.ui.medApp.global.util.updateUserDetails(fnSuccess2);
-             break;
             }
            }
+          } else {
+           _this.oModel.setProperty("/vendorsList/0/Characteristics", []);
           }
-         } else {
-          _this.oModel.setProperty("/vendorsList/0/Characteristics", []);
-         }
-         if (!bFound) {
-          oChar.push({
-           "CHRID" : "12",
-           "DESCR" : "Device Registration Id",
-           "LNTXT" : "Device Registration Id",
-           "MDTEXT" : "Device Reg Id",
-           "REGXT" : "regid",
-           "SRTXT" : "Dev Reg Id",
-           "USRID" : _this.oModel.getProperty("/LoggedUser/USRID"),
-           "VALUE" : vEngine.RegisteredId.toString()
-          });
-          var fnSuccess3 = function() {
+          if (!bFound) {
+           oChar.push({
+            "CHRID" : "12",
+            "DESCR" : "Device Registration Id",
+            "LNTXT" : "Device Registration Id",
+            "MDTEXT" : "Device Reg Id",
+            "REGXT" : "regid",
+            "SRTXT" : "Dev Reg Id",
+            "USRID" : _this.oModel.getProperty("/LoggedUser/USRID"),
+            "VALUE" : vEngine.RegisteredId.toString()
+           });
+           var fnSuccess3 = function() {
+            _this._oRouter.navTo('home');
+           }
+           sap.ui.medApp.global.util.updateUserDetails(fnSuccess3);
+          } else {
            _this._oRouter.navTo('home');
           }
-          sap.ui.medApp.global.util.updateUserDetails(fnSuccess3);
          } else {
           _this._oRouter.navTo('home');
          }
-
         };
         param = {
          "USRID" : _this.oModel.getProperty("/LoggedUser/USRID")
