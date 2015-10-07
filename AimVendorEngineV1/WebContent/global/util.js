@@ -45,7 +45,7 @@ sap.ui.medApp.global.util = { // Get Home Model
  },
  // Get All Categories ( Entities )
  // ******************************************
- loadListCategory : function(facade) {
+ loadListCategory : function(fnSuccess, facade) {
   this._vendorListServiceFacade = new sap.ui.medApp.service.vendorListServiceFacade(
     this._mainModel);
   param = [ {
@@ -55,7 +55,7 @@ sap.ui.medApp.global.util = { // Get Home Model
    "key" : "UID",
    "value" : "1"
   } ]
-  this._vendorListServiceFacade.getRecords(null, null, "/allCategory",
+  this._vendorListServiceFacade.getRecords(fnSuccess, null, "/allCategory",
     "getVendorCategory", param);
 
  },

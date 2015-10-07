@@ -14,7 +14,7 @@
 					<StandardTile icon="sap-icon://appointment" type="Monitor"
 						press="handleAppointmentPress" title="Appointments" />
 					<StandardTile icon="sap-icon://documents" type="Monitor"
-						press="handleRulesPress" title="Appointment Booking Rules" />
+						press="handleRulesPress" title="Rules" />
 				</tiles>
 			</TileContainer>
 

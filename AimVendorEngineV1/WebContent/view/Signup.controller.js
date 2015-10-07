@@ -11,6 +11,7 @@ sap.ui
      },
 
      onRouteMatched : function(oEvent) {
+      var _this = this;
       if (oEvent.getParameter("name") === "signup") {
        if (sap.ui.medApp.global.util._mainModel) {
         this.oModel = sap.ui.medApp.global.util._mainModel;
@@ -19,22 +20,27 @@ sap.ui
         this.oModel = sap.ui.medApp.global.util._mainModel;
        }
        this.getView().setModel(this.oModel);
-       sap.ui.medApp.global.util.loadListCategory();
-       var oFname = this.oView.byId("fname");
-       var oLname = this.oView.byId("lname");
-       var oUsrNm = this.oView.byId("usrNme");
-       var oUsrNm1 = this.oView.byId("usrNme1");
-       var oPswd = this.oView.byId("pswd");
-       var oCpwd = this.oView.byId("cpswd");
-       var oSpeciality = this.oView.byId("entitySelect");
+       var fnSuccess = function(){
+        var oFname = _this.oView.byId("fname");
+        var oLname = _this.oView.byId("lname");
+        var oUsrNm = _this.oView.byId("usrNme");
+        var oUsrNm1 = _this.oView.byId("usrNme1");
+        var oPswd = _this.oView.byId("pswd");
+        var oCpwd = _this.oView.byId("cpswd");
+        var oSpeciality = _this.oView.byId("entitySelect");
+        oFname.setValueState(sap.ui.core.ValueState.None);
+        oLname.setValueState(sap.ui.core.ValueState.None);
+        oUsrNm.setValueState(sap.ui.core.ValueState.None);
+        oUsrNm1.setValueState(sap.ui.core.ValueState.None);
+        oPswd.setValueState(sap.ui.core.ValueState.None);
+        oCpwd.setValueState(sap.ui.core.ValueState.None);
+        oSpeciality.setSelectedItem(oSpeciality.getFirstItem());
+        sap.ui.medApp.global.busyDialog.close();
+       };
 
-       oFname.setValueState(sap.ui.core.ValueState.None);
-       oLname.setValueState(sap.ui.core.ValueState.None);
-       oUsrNm.setValueState(sap.ui.core.ValueState.None);
-       oUsrNm1.setValueState(sap.ui.core.ValueState.None);
-       oPswd.setValueState(sap.ui.core.ValueState.None);
-       oCpwd.setValueState(sap.ui.core.ValueState.None);
-       oSpeciality.setSelectedItem(oSpeciality.getFirstItem());
+       sap.ui.medApp.global.busyDialog.open();
+       sap.ui.medApp.global.util.loadListCategory(fnSuccess);
+
       }
 
      },

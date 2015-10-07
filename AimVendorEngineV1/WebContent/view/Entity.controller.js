@@ -6,7 +6,11 @@ sap.ui.core.mvc.Controller
           onInit : function() {
             sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(
                 this.onRouteMatched, this);
-            sap.ui.medApp.global.util.loadListCategory();
+            var fnSuccess = function(){
+             sap.ui.medApp.global.busyDialog.close();
+            };
+            sap.ui.medApp.global.busyDialog.open();
+            sap.ui.medApp.global.util.loadListCategory(fnSuccess);
           },
           // onRouteMatched
           // ******************************************
